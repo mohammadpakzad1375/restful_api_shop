@@ -17,4 +17,13 @@ class CommentService
 
         });
     }
+
+    public function showComment(Comment $comment): ServiceResult
+    {
+        return app(ServiceWrapper::class)(function () use ($comment){
+
+            return  $comment->load(['author','commentable','parent','answers']);
+
+        });
+    }
 }

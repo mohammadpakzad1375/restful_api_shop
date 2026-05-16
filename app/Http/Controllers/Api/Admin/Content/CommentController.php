@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\Admin\Content;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\Content\Comment\CommentApiResource;
 use App\Http\Resources\Content\Comment\CommentApiResourceCollection;
 use App\Http\Services\BusinessLogic\Content\CommentService;
 use App\Http\Services\RestfulApi\Facades\ApiResponse;
@@ -32,7 +33,11 @@ class CommentController extends Controller
      */
     public function show(Comment $comment)
     {
-        //
+        $result = $this->commentService->showComment($comment);
+
+        return ApiResponse::withData(CommentApiResource::make($result->data))
+            ->build()
+            ->response($result->success);
     }
 
     /**
