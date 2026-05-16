@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\Content\Comment;
 
+use App\Http\Resources\Content\Post\PostApiResource;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -22,12 +23,12 @@ class CommentApiResource extends JsonResource
             'status' => $this->status,
             'author' => $this->whenLoaded('author',function (){
 
-                return self::make($this->author);
+                return $this->author;
 
             },$this->author_id),
             'post' => $this->whenLoaded('commentable',function (){
 
-                return self::make($this->commentable);
+                return PostApiResource::make($this->commentable);
 
             },$this->commentable_id),
             'parent' => $this->whenLoaded('parent',function (){
@@ -37,7 +38,7 @@ class CommentApiResource extends JsonResource
             },$this->parent_id),
             'answers' => $this->whenLoaded('answers',function (){
 
-                return self::make($this->answers);
+                return CommentApiResourceCollection::make($this->answers);
 
             }),
         ];
