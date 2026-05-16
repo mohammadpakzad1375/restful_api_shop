@@ -26,4 +26,13 @@ class CommentService
 
         });
     }
+
+    public function deleteComment(Comment $comment): ServiceResult
+    {
+        return app(ServiceWrapper::class)(function () use ($comment){
+
+            $comment->delete();
+
+        });
+    }
 }

@@ -43,9 +43,13 @@ class CommentController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Comment $comment)
     {
-        //
+        $result = $this->commentService->deleteComment($comment);
+
+        return ApiResponse::withResponseMessage('comment deleted successfully.')
+            ->build()
+            ->response($result->success);
     }
 
     public function approved(Request $request, Comment $comment)
