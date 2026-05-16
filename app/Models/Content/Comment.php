@@ -24,6 +24,18 @@ class Comment extends Model
 
     protected $hidden = ['created_at','updated_at','deleted_at'];
 
+    public function toggleStatus()
+    {
+        $this->status = !$this->status;
+        $this->save();
+    }
+
+    public function toggleApproved()
+    {
+        $this->approved = !$this->approved;
+        $this->save();
+    }
+
     public function commentable(){
 
         return $this->morphTo();

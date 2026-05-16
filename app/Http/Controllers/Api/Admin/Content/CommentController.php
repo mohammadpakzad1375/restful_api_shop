@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\Admin\Content;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ApiRequests\Admin\Content\Comment\CommentApproveApiRequest;
 use App\Http\Resources\Content\Comment\CommentApiResource;
 use App\Http\Resources\Content\Comment\CommentApiResourceCollection;
 use App\Http\Services\BusinessLogic\Content\CommentService;
@@ -52,13 +53,21 @@ class CommentController extends Controller
             ->response($result->success);
     }
 
-    public function approved(Request $request, Comment $comment)
+    public function approved(Comment $comment)
     {
-        //
+        $result = $this->commentService->toggleCommentApproved($comment);
+
+        return ApiResponse::withResponseMessage("comment approved change successfully. approved = {$result->data}")
+            ->build()
+            ->response($result->success);
     }
 
-    public function status(Request $request, Comment $comment)
+    public function status(Comment $comment)
     {
-        //
+        $result = $this->commentService->toggleCommentStatus($comment);
+
+        return ApiResponse::withResponseMessage("comment status change successfully. status = {$result->data}")
+            ->build()
+            ->response($result->success);
     }
 }

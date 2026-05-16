@@ -35,4 +35,24 @@ class CommentService
 
         });
     }
+
+    public function toggleCommentApproved(Comment $comment): ServiceResult
+    {
+        return app(ServiceWrapper::class)(function () use ($comment){
+
+            $comment->toggleApproved();
+            return $comment->refresh()->approved;
+
+        });
+    }
+
+    public function toggleCommentStatus(Comment $comment): ServiceResult
+    {
+        return app(ServiceWrapper::class)(function () use ($comment){
+
+            $comment->toggleStatus();
+            return $comment->refresh()->status;
+
+        });
+    }
 }
