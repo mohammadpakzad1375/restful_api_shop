@@ -139,9 +139,7 @@ class ImageToolsService
 
         //set properties
             $this->getImageDirectory() ?? $this->setImageDirectory(date('Y') . DIRECTORY_SEPARATOR . date('m') . DIRECTORY_SEPARATOR . date('d'));
-            $this->getImageName() ?? $this->setImageName(time(). '_'. bin2hex(random_bytes(4)));
             $this->getImageFormat() ?? $this->setImageFormat($this->image->extension());
-
 
         //set final image directory
         $finalImageDirectory = empty($this->getExclusiveDirectory()) ? $this->getImageDirectory() : $this->getExclusiveDirectory() . DIRECTORY_SEPARATOR . $this->getImageDirectory();
