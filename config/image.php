@@ -19,4 +19,21 @@ return [
     ],
 
     'default_name_generator' => 'timestamp',
+
+
+
+
+
+
+
+
+
+
+
+    'available_storage_drivers' => [
+        'public',
+        'storage',
+    ],
+
+    'default_storage_driver' => 'public',
 ];

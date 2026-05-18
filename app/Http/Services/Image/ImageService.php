@@ -3,11 +3,16 @@
 namespace App\Http\Services\Image;
 
 use App\Http\Services\Image\ImageNameGeneratorStrategy\ImageNameGeneratorMethodInterface;
+use App\Http\Services\Image\ImageStorageStrategy\ImageStorageMethodInterface;
 
 class ImageService extends ImageToolsService
 {
-    public function __construct(private readonly ImageNameGeneratorMethodInterface $nameGeneratorMethod)
+    private ImageNameGeneratorMethodInterface $nameGeneratorMethod;
+    private ImageStorageMethodInterface $storageMethod;
+    public function __construct(ImageNameGeneratorMethodInterface $nameGeneratorMethod, ImageStorageMethodInterface $storageMethod)
     {
+        $this->nameGeneratorMethod = $nameGeneratorMethod;
+        $this->storageMethod = $storageMethod;
     }
 
     public function save($image): false|string
@@ -16,19 +21,13 @@ class ImageService extends ImageToolsService
         $this->setImageName($this->nameGeneratorMethod->generate($image));
         $this->provider();
 
-        $result = $image->move(public_path($this->getFinalImageDirectory()),$this->getFinalImageName());
+        $result = $this->storageMethod->store($image, $this->getFinalImageDirectory(), $this->getFinalImageName());
 
         return $result ? $this->getImageAddress() : false;
     }
 
-    public function deleteImage($imagePath)
+    public function deleteImage($imagePath): bool
     {
-        if (file_exists($imagePath)) {
-
-            return unlink($imagePath);
-
-        } else {
-            return false;
-        }
+        return $this->storageMethod->delete($imagePath);
     }
 }

@@ -123,17 +123,6 @@ class ImageToolsService
 
     }
 
-    protected function checkDirectory($imageDirectory)
-    {
-
-        if (!file_exists($imageDirectory)) {
-
-//            mkdir($imageDirectory, 666, true);
-            mkdir($imageDirectory, 0755, true);
-
-        }
-    }
-
     protected function provider()
     {
 
@@ -149,9 +138,6 @@ class ImageToolsService
         //set final image name
         $this->setFinalImageName($this->getImageName() . '.' . $this->getImageFormat());
 
-
-        //check and create final image directory
-        $this->checkDirectory($this->getFinalImageDirectory());
     }
 
 }
