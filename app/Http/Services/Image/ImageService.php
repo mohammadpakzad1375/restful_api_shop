@@ -15,9 +15,10 @@ class ImageService extends ImageToolsService
         $this->storageMethod = $storageMethod;
     }
 
-    public function save($image): false|string
+    public function save($image, string $path): false|string
     {
         $this->setImage($image);
+        $this->setExclusiveDirectory('images' . DIRECTORY_SEPARATOR . trim($path, '/\\'));
         $this->setImageName($this->nameGeneratorMethod->generate($image));
         $this->provider();
 

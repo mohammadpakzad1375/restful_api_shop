@@ -8,14 +8,14 @@ class ImageToolsService
     protected $exclusiveDirectory;
     protected $imageDirectory;
     protected $imageName;
-    private $imageFormat;
+    protected $imageFormat;
     protected $finalImageDirectory;
     protected $finalImageName;
 
     /**
      * @param mixed $image
      */
-    public function setImage($image): void
+    protected function setImage($image): void
     {
         $this->image = $image;
     }
@@ -23,7 +23,7 @@ class ImageToolsService
     /**
      * @return mixed
      */
-    public function getExclusiveDirectory()
+    protected function getExclusiveDirectory()
     {
         return $this->exclusiveDirectory;
     }
@@ -31,7 +31,7 @@ class ImageToolsService
     /**
      * @param mixed $exclusiveDirectory
      */
-    public function setExclusiveDirectory($exclusiveDirectory): void
+    protected function setExclusiveDirectory($exclusiveDirectory): void
     {
         $this->exclusiveDirectory = trim($exclusiveDirectory, '/\\');
     }
@@ -39,7 +39,7 @@ class ImageToolsService
     /**
      * @return mixed
      */
-    public function getImageDirectory()
+    protected function getImageDirectory()
     {
         return $this->imageDirectory;
     }
@@ -47,7 +47,7 @@ class ImageToolsService
     /**
      * @param mixed $imageDirectory
      */
-    public function setImageDirectory($imageDirectory): void
+    protected function setImageDirectory($imageDirectory): void
     {
         $this->imageDirectory = trim($imageDirectory, '/\\');
     }
@@ -55,7 +55,7 @@ class ImageToolsService
     /**
      * @return mixed
      */
-    public function getImageName()
+    protected function getImageName()
     {
         return $this->imageName;
     }
@@ -63,7 +63,7 @@ class ImageToolsService
     /**
      * @param mixed $imageName
      */
-    public function setImageName($imageName): void
+    protected function setImageName($imageName): void
     {
         $this->imageName = $imageName;
     }
@@ -71,7 +71,7 @@ class ImageToolsService
     /**
      * @return mixed
      */
-    public function getImageFormat()
+    protected function getImageFormat()
     {
         return $this->imageFormat;
     }
@@ -79,7 +79,7 @@ class ImageToolsService
     /**
      * @param mixed $imageFormat
      */
-    private function setImageFormat($imageFormat): void
+    protected function setImageFormat($imageFormat): void
     {
         $this->imageFormat = $imageFormat;
     }
@@ -87,7 +87,7 @@ class ImageToolsService
     /**
      * @return mixed
      */
-    public function getFinalImageDirectory()
+    protected function getFinalImageDirectory()
     {
         return $this->finalImageDirectory;
     }
@@ -95,7 +95,7 @@ class ImageToolsService
     /**
      * @param mixed $finalImageDirectory
      */
-    public function setFinalImageDirectory($finalImageDirectory): void
+    protected function setFinalImageDirectory($finalImageDirectory): void
     {
         $this->finalImageDirectory = $finalImageDirectory;
     }
@@ -103,7 +103,7 @@ class ImageToolsService
     /**
      * @return mixed
      */
-    public function getFinalImageName()
+    protected function getFinalImageName()
     {
         return $this->finalImageName;
     }
@@ -111,12 +111,12 @@ class ImageToolsService
     /**
      * @param mixed $finalImageName
      */
-    public function setFinalImageName($finalImageName): void
+    protected function setFinalImageName($finalImageName): void
     {
         $this->finalImageName = $finalImageName;
     }
 
-    public function getImageAddress()
+    protected function getImageAddress()
     {
 
         return $this->finalImageDirectory . DIRECTORY_SEPARATOR . $this->finalImageName;
