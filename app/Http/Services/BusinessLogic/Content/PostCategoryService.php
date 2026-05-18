@@ -4,6 +4,7 @@ namespace App\Http\Services\BusinessLogic\Content;
 
 use App\Http\Services\BusinessLogic\Tools\ServiceResult;
 use App\Http\Services\BusinessLogic\Tools\ServiceWrapper;
+use App\Http\Services\Image\Facades\ImageService;
 use App\Models\Content\PostCategory;
 
 class PostCategoryService
@@ -25,6 +26,8 @@ class PostCategoryService
     {
         return app(ServiceWrapper::class)(function () use ($inputs){
 
+            $inputs['image'] = ImageService::save($inputs['image'], 'post-category');
+
             return PostCategory::create($inputs);
 
         });
@@ -32,7 +35,13 @@ class PostCategoryService
 
     public function updatePostCategory($inputs, PostCategory $category): ServiceResult
     {
-        return app(ServiceWrapper::class)(function () use ($inputs, $category){
+        return app(ServiceWrapper::class)(function () use ($inputs, $category) {
+
+            if (array_key_exists('image', $inputs))
+            {
+                ImageService::deleteImage($category->image);
+                $inputs['image'] = ImageService::save($inputs['image'], 'post-category');
+            }
 
            $category->update($inputs);
            return $category->refresh();
