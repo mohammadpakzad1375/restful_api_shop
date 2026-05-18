@@ -4,16 +4,16 @@ namespace App\Http\Services\Image\ImageStorageStrategy;
 
 class PublicImageStorage implements ImageStorageMethodInterface
 {
-    public function store($image, string $imageDirectory, string $imageName): bool|string
+    public function store($image, string $imageDirectory, string $imageName): bool
     {
         if (!file_exists($imageDirectory)) {
             mkdir($imageDirectory, 0755, true);
         }
 
-        return (bool)$image->move(public_path($imageDirectory), $imageName);
+        return (bool) $image->move(public_path($imageDirectory), $imageName);
     }
 
-    public function delete(string $imagePath): bool|string
+    public function delete(string $imagePath): bool
     {
         if (file_exists($imagePath)) {
 

@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Http\Services\Image\ImageNameGeneratorStrategy\Factory\ImageNameGeneratorFactory;
 use App\Http\Services\Image\ImageNameGeneratorStrategy\ImageNameGeneratorMethodInterface;
+use App\Http\Services\Image\ImageService;
 use App\Http\Services\Image\ImageStorageStrategy\Factory\ImageStorageFactory;
 use App\Http\Services\Image\ImageStorageStrategy\ImageStorageMethodInterface;
 use Illuminate\Support\ServiceProvider;
@@ -24,6 +25,8 @@ class ImageServiceProvider extends ServiceProvider
             ImageStorageMethodInterface::class,
             fn ($app) => $app->make(ImageStorageFactory::class)->make(config('image.default_storage_driver','public'))
         );
+
+        $this->app->singleton('imageService', ImageService::class);
     }
 
     /**
