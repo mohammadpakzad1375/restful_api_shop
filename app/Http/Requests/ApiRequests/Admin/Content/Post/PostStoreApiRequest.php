@@ -27,7 +27,7 @@ class PostStoreApiRequest extends ApiFormRequest
             'body' => ['required','max:600','min:5'],
             'category_id' => ['required','numeric','exists:post_categories,id'],
             'tags' => ['required','string'],
-            'image' => ['required'],
+            'image' => ['required','image','mimes:png,jpg,jpeg,gif'],
             'status' => ['numeric','in:0,1'],
             'commentable' => ['required','numeric','in:0,1'],
             'published_at' => ['required','numeric']
