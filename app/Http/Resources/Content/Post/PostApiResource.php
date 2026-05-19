@@ -18,8 +18,8 @@ class PostApiResource extends JsonResource
         return [
             'id' => $this->id,
             'title' => $this->title,
-            'summary' => $this->body,
-            'body' => $this->summary,
+            'summary' => $this->summary,
+            'body' => $this->body,
             'image' => $this->image,
             'commentable' => $this->commentable,
             'published_at' => $this->published_at,
