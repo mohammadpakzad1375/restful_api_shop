@@ -27,7 +27,7 @@ class PostUpdateApiRequest extends ApiFormRequest
             'body' => ['max:600','min:5'],
             'category_id' => ['numeric','exists:post_categories,id'],
             'tags' => ['string'],
-//            'image' => [],
+            'image' => ['image','mimes:png,jpg,jpeg,gif'],
             'status' => ['in:0,1'],
             'commentable' => ['numeric','in:0,1'],
             'published_at' => ['numeric']

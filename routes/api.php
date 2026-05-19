@@ -147,6 +147,6 @@ Route::prefix('admin')->group(function (){
 
     });
 
-    Route::apiResource('setting', SettingController::class)->names('admin.setting');
+    Route::apiResource('setting', SettingController::class)->except(['store', 'show', 'destroy'])->names('admin.setting');
 
 });
