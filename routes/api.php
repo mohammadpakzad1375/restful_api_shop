@@ -116,7 +116,15 @@ Route::prefix('admin')->group(function (){
 
     Route::prefix('user')->group(function (){
 
-        Route::apiResource('admin-user', AdminUserController::class)->names('admin.user.admin-user');
+        Route::prefix('admin-user')->controller(AdminUserController::class)->group(function (){
+
+            Route::get('', 'index')->name('admin.user.admin-user.index');
+            Route::post('', 'store')->name('admin.user.admin-user.store');
+            Route::get('/{adminUser}', 'show')->name('admin.user.admin-user.show');
+            Route::put('/{adminUser}', 'update')->name('admin.user.admin-user.update');
+            Route::delete('/{adminUser}', 'destroy')->name('admin.user.admin-user.destroy');
+
+        });
 
         Route::apiResource('customer', CustomerController::class)->names('admin.user.customer');
 

@@ -6,6 +6,7 @@ namespace App\Models;
 use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
@@ -13,7 +14,7 @@ use Laravel\Sanctum\HasApiTokens;
 class User extends Authenticatable
 {
     /** @use HasFactory<UserFactory> */
-    use HasFactory, Notifiable, HasApiTokens;
+    use HasFactory, Notifiable, HasApiTokens, SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -23,8 +24,17 @@ class User extends Authenticatable
     protected $fillable = [
         'first_name',
         'last_name',
+        'user_type',
         'email',
+        'mobile',
+        'national_code',
+        'profile_photo_path',
         'password',
+        'activation',
+        'activation_date',
+        'remember_token',
+        'slug',
+        'status',
     ];
 
     /**
@@ -35,6 +45,10 @@ class User extends Authenticatable
     protected $hidden = [
         'password',
         'remember_token',
+        'slug',
+        'created_at',
+        'updated_at',
+        'deleted_at'
     ];
 
     /**
@@ -47,17 +61,21 @@ class User extends Authenticatable
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'activation_date' => 'datetime',
         ];
     }
-
 
     protected function fullName() : Attribute
     {
         return Attribute::make(
 
-            get: fn() => $this->first_name. ' ' .$this->last_name,
+            get: fn() => "{$this->first_name} {$this->last_name}",
 
         );
     }
 
+    public function scopeAdmin($query)
+    {
+        return $query->where('user_type', 1);
+    }
 }

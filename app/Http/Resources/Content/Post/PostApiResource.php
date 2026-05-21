@@ -22,7 +22,7 @@ class PostApiResource extends JsonResource
             'body' => $this->body,
             'image' => $this->image,
             'commentable' => $this->commentable,
-            'published_at' => $this->published_at,
+            'published_at' => $this->published_at?->format('Y-m-d H:i:s'),
             'author' => $this->author_id,
             'category' => $this->whenLoaded('postCategory',function (){
 
