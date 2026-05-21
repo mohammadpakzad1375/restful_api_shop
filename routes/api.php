@@ -20,7 +20,9 @@ use App\Http\Controllers\Api\Admin\Market\StoreController;
 use App\Http\Controllers\Api\Admin\Notify\EmailController;
 use App\Http\Controllers\Api\Admin\Notify\SMSController;
 use App\Http\Controllers\Api\Admin\Setting\SettingController;
+use App\Http\Controllers\Api\Admin\Ticket\TicketCategoryController;
 use App\Http\Controllers\Api\Admin\Ticket\TicketController;
+use App\Http\Controllers\Api\Admin\Ticket\TicketPriorityController;
 use App\Http\Controllers\Api\Admin\User\AdminUserController;
 use App\Http\Controllers\Api\Admin\User\CustomerController;
 use App\Http\Controllers\Api\Admin\User\PermissionController;
@@ -142,16 +144,25 @@ Route::prefix('admin')->group(function (){
 
     });
 
-    Route::prefix('ticket')->controller(TicketController::class)->group(function (){
+    Route::prefix('ticket')->group(function (){
 
-        Route::get('','index')->name('admin.ticket.index');
-        Route::post('','store')->name('admin.ticket.store');
-        Route::get('/{ticket}','show')->name('admin.ticket.show');
-        Route::patch('/{ticket}','update')->name('admin.ticket.update');
-        Route::delete('/{ticket}','destroy')->name('admin.ticket.destroy');
-        Route::get('new-tickets','newTickets')->name('admin.ticket.new-tickets');
-        Route::get('open-tickets','openTickets')->name('admin.ticket.open-tickets');
-        Route::get('close-tickets','closeTickets')->name('admin.ticket.close-tickets');
+        Route::controller(TicketController::class)->group(function (){
+
+            Route::get('','index')->name('admin.ticket.index');
+            Route::post('','store')->name('admin.ticket.store');
+            Route::get('/{ticket}','show')->name('admin.ticket.show');
+            Route::patch('/{ticket}','update')->name('admin.ticket.update');
+            Route::delete('/{ticket}','destroy')->name('admin.ticket.destroy');
+            Route::get('new-tickets','newTickets')->name('admin.ticket.new-tickets');
+            Route::get('open-tickets','openTickets')->name('admin.ticket.open-tickets');
+            Route::get('close-tickets','closeTickets')->name('admin.ticket.close-tickets');
+
+        });
+
+        Route::apiResource('category', TicketCategoryController::class)->names('admin.ticket.category');
+
+        Route::apiResource('priority', TicketPriorityController::class)->names('admin.ticket.priority');
+
 
     });
 
