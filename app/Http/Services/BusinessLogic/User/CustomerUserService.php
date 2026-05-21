@@ -9,44 +9,46 @@ use App\Models\Content\Post;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 
-class AdminUserService
+class CustomerUserService
 {
-    public function showAllAdmins(): ServiceResult
+    public function showAllCustomers(): ServiceResult
     {
         return app(ServiceWrapper::class)(function (){
 
-            return User::admin()->orderBy('created_at','desc')->paginate(10);
+            return User::customer()->orderBy('created_at','desc')->paginate(10);
 
         });
     }
 
-    public function createAdmin($inputs): ServiceResult
+    public function createCustomer($inputs): ServiceResult
     {
         return app(ServiceWrapper::class)(function () use ($inputs){
 
-            $inputs['profile_photo_path'] = ImageService::save($inputs['profile_photo_path'], 'admin');
+            $inputs['profile_photo_path'] = ImageService::save($inputs['profile_photo_path'], 'customer');
 
-            $inputs['user_type'] = 1;
+            $inputs['user_type'] = 0;
             $inputs['password'] = Hash::make($inputs['password']);
 
             if ($inputs['activation'] == 1)
+            {
                 $inputs['activation_date'] = time();
+            }
 
-            $admin = User::create($inputs);
+            $customer = User::create($inputs);
 
-            return $admin->refresh();
+            return $customer->refresh();
 
         });
     }
 
-    public function updateAdmin($inputs, User $adminUser): ServiceResult
+    public function updateCustomer($inputs, User $customer): ServiceResult
     {
-        return app(ServiceWrapper::class)(function () use ($inputs, $adminUser){
+        return app(ServiceWrapper::class)(function () use ($inputs, $customer){
 
             if (array_key_exists('profile_photo_path', $inputs))
             {
-                ImageService::deleteImage($adminUser->profile_photo_path);
-                $inputs['profile_photo_path'] = ImageService::save($inputs['profile_photo_path'], 'admin');
+                ImageService::deleteImage($customer->profile_photo_path);
+                $inputs['profile_photo_path'] = ImageService::save($inputs['profile_photo_path'], 'customer');
             }
 
             if (array_key_exists('password', $inputs))
@@ -57,17 +59,17 @@ class AdminUserService
             if (array_key_exists('activation', $inputs) && $inputs['activation'] == 1)
                 $inputs['activation_date'] = time();
 
-            $adminUser->update($inputs);
-            return $adminUser->refresh();
+            $customer->update($inputs);
+            return $customer->refresh();
 
         });
     }
 
-    public function deleteAdmin(User $adminUser): ServiceResult
+    public function deleteCustomer(User $customer): ServiceResult
     {
-        return app(ServiceWrapper::class)(function () use ($adminUser){
+        return app(ServiceWrapper::class)(function () use ($customer){
 
-            $adminUser->delete();
+            $customer->delete();
 
         });
     }
