@@ -146,10 +146,14 @@ Route::prefix('admin')->group(function (){
 
     Route::prefix('ticket')->group(function (){
 
+        Route::apiResource('category', TicketCategoryController::class)->names('admin.ticket.category');
+
+        Route::apiResource('priority', TicketPriorityController::class)->names('admin.ticket.priority');
+
         Route::controller(TicketController::class)->group(function (){
 
-            Route::get('','index')->name('admin.ticket.index');
-            Route::post('','store')->name('admin.ticket.store');
+            Route::get('/','index')->name('admin.ticket.index');
+            Route::post('/','store')->name('admin.ticket.store');
             Route::get('/{ticket}','show')->name('admin.ticket.show');
             Route::patch('/{ticket}','update')->name('admin.ticket.update');
             Route::delete('/{ticket}','destroy')->name('admin.ticket.destroy');
@@ -158,11 +162,6 @@ Route::prefix('admin')->group(function (){
             Route::get('close-tickets','closeTickets')->name('admin.ticket.close-tickets');
 
         });
-
-        Route::apiResource('category', TicketCategoryController::class)->names('admin.ticket.category');
-
-        Route::apiResource('priority', TicketPriorityController::class)->names('admin.ticket.priority');
-
 
     });
 
