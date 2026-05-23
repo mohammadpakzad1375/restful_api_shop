@@ -4,52 +4,52 @@ namespace App\Http\Services\RestfulApi\ApiResponse;
 
 class ApiResponseBuilder
 {
-    private ApiResponse $fastApiResponse;
+    private ApiResponse $apiResponse;
 
 
     public function __construct()
     {
-        $this->fastApiResponse = new ApiResponse();
+        $this->apiResponse = new ApiResponse();
     }
 
     public function withResponseMessage(string $responseMessage)
     {
-        $this->fastApiResponse->setResponseMessage($responseMessage);
+        $this->apiResponse->setResponseMessage($responseMessage);
         return $this;
     }
 
     public function withRejectMessage(string $rejectMessage)
     {
-        $this->fastApiResponse->setRejectMessage($rejectMessage);
+        $this->apiResponse->setRejectMessage($rejectMessage);
         return $this;
     }
 
     public function withData(mixed $data)
     {
-        $this->fastApiResponse->setData($data);
+        $this->apiResponse->setData($data);
         return $this;
     }
 
     public function withResponseStatus(int $responseStatus)
     {
-        $this->fastApiResponse->setResponseStatus($responseStatus);
+        $this->apiResponse->setResponseStatus($responseStatus);
         return $this;
     }
 
     public function withRejectStatus(int $rejectStatus)
     {
-        $this->fastApiResponse->setRejectStatus($rejectStatus);
+        $this->apiResponse->setRejectStatus($rejectStatus);
         return $this;
     }
 
     public function withAppends(array $appends)
     {
-        $this->fastApiResponse->setAppends($appends);
+        $this->apiResponse->setAppends($appends);
         return $this;
     }
 
     public function build(): ApiResponse
     {
-        return $this->fastApiResponse;
+        return $this->apiResponse;
     }
 }
