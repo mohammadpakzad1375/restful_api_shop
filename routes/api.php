@@ -159,15 +159,15 @@ Route::prefix('admin')->group(function (){
         });
 
         Route::controller(TicketController::class)->group(function (){
-
-            Route::get('/','index')->name('admin.ticket.index');
-            Route::post('/','store')->name('admin.ticket.store');
-            Route::get('/{ticket}','show')->name('admin.ticket.show');
-            Route::patch('/{ticket}','update')->name('admin.ticket.update');
-            Route::delete('/{ticket}','destroy')->name('admin.ticket.destroy');
             Route::get('new-tickets','newTickets')->name('admin.ticket.new-tickets');
             Route::get('open-tickets','openTickets')->name('admin.ticket.open-tickets');
             Route::get('close-tickets','closeTickets')->name('admin.ticket.close-tickets');
+            Route::post('answer/{ticket}','answer')->name('admin.ticket.answer');
+            Route::patch('change-status/{ticket}','changeStatus')->name('admin.ticket.change-status');
+            Route::get('/{ticket}','show')->name('admin.ticket.show');
+            Route::get('/','index')->name('admin.ticket.index');
+
+
 
         });
 
