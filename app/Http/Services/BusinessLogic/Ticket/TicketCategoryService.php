@@ -4,7 +4,6 @@ namespace App\Http\Services\BusinessLogic\Ticket;
 
 use App\Http\Services\BusinessLogic\Tools\ServiceResult;
 use App\Http\Services\BusinessLogic\Tools\ServiceWrapper;
-use App\Models\Content\Faq;
 use App\Models\Ticket\TicketCategory;
 
 class TicketCategoryService

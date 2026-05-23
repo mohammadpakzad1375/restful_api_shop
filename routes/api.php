@@ -20,6 +20,7 @@ use App\Http\Controllers\Api\Admin\Market\StoreController;
 use App\Http\Controllers\Api\Admin\Notify\EmailController;
 use App\Http\Controllers\Api\Admin\Notify\SMSController;
 use App\Http\Controllers\Api\Admin\Setting\SettingController;
+use App\Http\Controllers\Api\Admin\Ticket\TicketAdminController;
 use App\Http\Controllers\Api\Admin\Ticket\TicketCategoryController;
 use App\Http\Controllers\Api\Admin\Ticket\TicketController;
 use App\Http\Controllers\Api\Admin\Ticket\TicketPriorityController;
@@ -149,6 +150,13 @@ Route::prefix('admin')->group(function (){
         Route::apiResource('category', TicketCategoryController::class)->names('admin.ticket.category');
 
         Route::apiResource('priority', TicketPriorityController::class)->names('admin.ticket.priority');
+
+        Route::prefix('admin')->controller(TicketAdminController::class)->group(function (){
+
+            Route::get('/','index')->name('admin.ticket.admin.index');
+            Route::post('/toggle/{admin}','toggle')->name('admin.ticket.admin.toggle');
+
+        });
 
         Route::controller(TicketController::class)->group(function (){
 

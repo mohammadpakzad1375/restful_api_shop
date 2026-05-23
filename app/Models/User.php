@@ -3,6 +3,7 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Models\Ticket\TicketAdmin;
 use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -82,5 +83,10 @@ class User extends Authenticatable
     public function scopeCustomer($query)
     {
         return $query->where('user_type', 0);
+    }
+
+    public function ticketAdmin(): \Illuminate\Database\Eloquent\Relations\HasOne
+    {
+        return $this->hasOne(TicketAdmin::class, 'user_id');
     }
 }
