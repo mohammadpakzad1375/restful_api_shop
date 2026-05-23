@@ -20,7 +20,7 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade')->onUpdate('cascade');
             $table->foreignId('category_id')->constrained('ticket_categories')->onDelete('cascade')->onUpdate('cascade');
             $table->foreignId('priority_id')->constrained('ticket_priorities')->onDelete('cascade')->onUpdate('cascade');
-            $table->foreignId('ticket_id')->constrained('tickets')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignId('ticket_id')->nullable()->constrained('tickets')->onDelete('cascade')->onUpdate('cascade');
             $table->tinyInteger('status')->default(0);
             $table->timestamps();
             $table->softDeletes();
