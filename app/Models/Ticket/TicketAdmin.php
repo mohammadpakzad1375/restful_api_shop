@@ -2,7 +2,7 @@
 
 namespace App\Models\Ticket;
 
-use App\Models\User;
+use App\Models\User\User;
 use Illuminate\Database\Eloquent\Model;
 
 class TicketAdmin extends Model

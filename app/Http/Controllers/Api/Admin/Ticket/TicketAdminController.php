@@ -7,7 +7,7 @@ use App\Http\Resources\User\Admin\AdminApiResourceCollection;
 use App\Http\Services\BusinessLogic\Ticket\TicketAdminService;
 use App\Http\Services\BusinessLogic\User\AdminUserService;
 use App\Http\Services\RestfulApi\ApiResponse\ApiResponse;
-use App\Models\User;
+use App\Models\User\User;
 use Illuminate\Http\Request;
 
 class TicketAdminController extends Controller

@@ -9,7 +9,7 @@ use App\Http\Resources\User\Customer\CustomerApiResource;
 use App\Http\Resources\User\Customer\CustomerApiResourceCollection;
 use App\Http\Services\BusinessLogic\User\CustomerUserService;
 use App\Http\Services\RestfulApi\Facades\ApiResponse;
-use App\Models\User;
+use App\Models\User\User;
 
 class CustomerController extends Controller
 {

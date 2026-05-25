@@ -5,7 +5,7 @@ namespace App\Http\Services\BusinessLogic\Ticket;
 use App\Http\Services\BusinessLogic\Tools\ServiceResult;
 use App\Http\Services\BusinessLogic\Tools\ServiceWrapper;
 use App\Models\Ticket\TicketAdmin;
-use App\Models\User;
+use App\Models\User\User;
 
 class TicketAdminService
 {

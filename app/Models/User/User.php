@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\User;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use App\Models\Ticket\TicketAdmin;
@@ -88,5 +88,10 @@ class User extends Authenticatable
     public function ticketAdmin(): \Illuminate\Database\Eloquent\Relations\HasOne
     {
         return $this->hasOne(TicketAdmin::class, 'user_id');
+    }
+
+    public function roles(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    {
+        return $this->belongsToMany(Role::class);
     }
 }

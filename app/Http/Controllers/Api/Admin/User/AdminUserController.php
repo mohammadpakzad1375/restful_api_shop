@@ -9,8 +9,7 @@ use App\Http\Resources\User\Admin\AdminApiResource;
 use App\Http\Resources\User\Admin\AdminApiResourceCollection;
 use App\Http\Services\BusinessLogic\User\AdminUserService;
 use App\Http\Services\RestfulApi\Facades\ApiResponse;
-use App\Models\User;
-use Illuminate\Http\Request;
+use App\Models\User\User;
 
 class AdminUserController extends Controller
 {

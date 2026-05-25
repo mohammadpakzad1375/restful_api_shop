@@ -133,7 +133,7 @@ Route::prefix('admin')->group(function (){
 
         Route::apiResource('role', RoleController::class)->names('admin.user.role');
 
-        Route::apiResource('permission', PermissionController::class)->names('admin.user.permission');
+        Route::get('permission', [PermissionController::class, 'index'])->name('admin.user.permission.index');
 
     });
 
