@@ -1,34 +1,26 @@
 <?php
 
-namespace App\Models\Content;
+namespace App\Models\Market;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Menu extends Model
+class ProductCategory extends Model
 {
-    use HasFactory, SoftDeletes;
+    use SoftDeletes;
 
     protected $fillable = [
         'name',
-        'url',
+        'description',
+        'image',
         'parent_id',
+        'show_in_menu',
         'slug',
-        'status',
+        'tags',
+        'status'
     ];
 
-    protected $hidden = ['slug', 'status', 'created_at', 'updated_at', 'deleted_at'];
-
-    //delete all children when parent delete
-    protected static function boot()
-    {
-        parent::boot();
-
-        static::deleting(function ($menu) {
-            $menu->children()->delete();
-        });
-    }
+    protected $hidden = ['slug','status','created_at','updated_at','deleted_at'];
 
     public function children(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
