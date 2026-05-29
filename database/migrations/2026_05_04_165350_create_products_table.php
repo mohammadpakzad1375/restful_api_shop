@@ -28,7 +28,7 @@ return new class extends Migration
             $table->tinyInteger('frozen_number')->default(0);
             $table->tinyInteger('marketable_number')->default(0);
             $table->foreignId('category_id')->constrained('product_categories')->onDelete('cascade')->onUpdate('cascade');
-            $table->foreignId('brand_id')->constrained('brands')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignId('brand_id')->nullable()->constrained('brands')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamp('published_at');
             $table->tinyInteger('status')->default(0);
             $table->timestamps();
