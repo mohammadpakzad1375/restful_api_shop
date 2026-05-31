@@ -14,6 +14,7 @@ use App\Http\Controllers\Api\Admin\Market\DiscountController;
 use App\Http\Controllers\Api\Admin\Market\GalleryController;
 use App\Http\Controllers\Api\Admin\Market\OrderController;
 use App\Http\Controllers\Api\Admin\Market\PaymentController;
+use App\Http\Controllers\Api\Admin\Market\ProductColorController;
 use App\Http\Controllers\Api\Admin\Market\ProductController;
 use App\Http\Controllers\Api\Admin\Market\PropertyController;
 use App\Http\Controllers\Api\Admin\Market\StoreController;
@@ -36,9 +37,9 @@ Route::get('/user', function (Request $request) {
 })->middleware('auth:sanctum');
 
 
-Route::prefix('admin')->group(function (){
+Route::prefix('admin')->group(function () {
 
-    Route::prefix('market')->group(function (){
+    Route::prefix('market')->group(function () {
 
         Route::apiResource('category', CategoryController::class)->names('admin.market.category');
 
@@ -48,7 +49,7 @@ Route::prefix('admin')->group(function (){
 
         Route::apiResource('delivery', DeliveryController::class)->names('admin.market.delivery');
 
-        Route::prefix('discount')->group(function (){
+        Route::prefix('discount')->group(function () {
 
             Route::get('copan', [DiscountController::class, 'copan'])->name('admin.market.discount.copan');
             Route::get('common-discount', [DiscountController::class, 'commonDiscount'])->name('admin.market.discount.commonDiscount');
@@ -56,7 +57,7 @@ Route::prefix('admin')->group(function (){
 
         });
 
-        Route::prefix('order')->group(function (){
+        Route::prefix('order')->group(function () {
 
             Route::get('/', [OrderController::class, 'all'])->name('admin.market.order.all');
             Route::get('new-order', [OrderController::class, 'newOrder'])->name('admin.market.order.newOrder');
@@ -71,7 +72,7 @@ Route::prefix('admin')->group(function (){
 
         });
 
-        Route::prefix('payment')->group(function (){
+        Route::prefix('payment')->group(function () {
 
             Route::get('/', [PaymentController::class, 'all'])->name('admin.market.payment.all');
             Route::get('online', [PaymentController::class, 'online'])->name('admin.market.payment.online');
@@ -81,9 +82,24 @@ Route::prefix('admin')->group(function (){
 
         });
 
-        Route::apiResource('product', ProductController::class)->names('admin.market.product');
+        Route::prefix('product')->group(function () {
 
-        Route::apiResource('product/gallery', GalleryController::class)->only(['index','store','destroy'])->names('admin.market.product.gallery');
+            Route::apiResource('/', ProductController::class)
+                ->parameters(['' => 'product'])
+                ->names('admin.market.product');
+
+            Route::apiResource('gallery', GalleryController::class)
+                ->only(['index', 'store', 'destroy'])
+                ->names('admin.market.product.gallery');
+
+            Route::get('{product}/color', [ProductColorController::class, 'index'])
+                ->name('admin.market.product.color.index');
+
+            Route::apiResource('color', ProductColorController::class)
+                ->only(['store', 'destroy'])
+                ->names('admin.market.product.color');
+
+        });
 
         //form kala
         Route::apiResource('property', PropertyController::class)->names('admin.market.property');
@@ -92,17 +108,17 @@ Route::prefix('admin')->group(function (){
 
     });
 
-    Route::prefix('content')->group(function (){
+    Route::prefix('content')->group(function () {
 
         Route::apiResource('category', ContentCategoryController::class)->names('admin.content.category');
 
-        Route::prefix('comment')->controller(ContentCommentController::class)->group(function (){
+        Route::prefix('comment')->controller(ContentCommentController::class)->group(function () {
 
-            Route::get('','index')->name('admin.content.comment.index');
-            Route::get('/{comment}','show')->name('admin.content.comment.show');
-            Route::delete('/{comment}','destroy')->name('admin.content.comment.destroy');
-            Route::patch('/approved/{comment}','approved')->name('admin.content.comment.approved');
-            Route::patch('/status/{comment}','status')->name('admin.content.comment.status');
+            Route::get('', 'index')->name('admin.content.comment.index');
+            Route::get('/{comment}', 'show')->name('admin.content.comment.show');
+            Route::delete('/{comment}', 'destroy')->name('admin.content.comment.destroy');
+            Route::patch('/approved/{comment}', 'approved')->name('admin.content.comment.approved');
+            Route::patch('/status/{comment}', 'status')->name('admin.content.comment.status');
 
         });
 
@@ -117,9 +133,9 @@ Route::prefix('admin')->group(function (){
 
     });
 
-    Route::prefix('user')->group(function (){
+    Route::prefix('user')->group(function () {
 
-        Route::prefix('admin-user')->controller(AdminUserController::class)->group(function (){
+        Route::prefix('admin-user')->controller(AdminUserController::class)->group(function () {
 
             Route::get('', 'index')->name('admin.user.admin-user.index');
             Route::post('', 'store')->name('admin.user.admin-user.store');
@@ -137,7 +153,7 @@ Route::prefix('admin')->group(function (){
 
     });
 
-    Route::prefix('notify')->group(function (){
+    Route::prefix('notify')->group(function () {
 
         Route::apiResource('email', EmailController::class)->names('admin.notify.email');
 
@@ -145,28 +161,27 @@ Route::prefix('admin')->group(function (){
 
     });
 
-    Route::prefix('ticket')->group(function (){
+    Route::prefix('ticket')->group(function () {
 
         Route::apiResource('category', TicketCategoryController::class)->names('admin.ticket.category');
 
         Route::apiResource('priority', TicketPriorityController::class)->names('admin.ticket.priority');
 
-        Route::prefix('admin')->controller(TicketAdminController::class)->group(function (){
+        Route::prefix('admin')->controller(TicketAdminController::class)->group(function () {
 
-            Route::get('/','index')->name('admin.ticket.admin.index');
-            Route::post('/toggle/{admin}','toggle')->name('admin.ticket.admin.toggle');
+            Route::get('/', 'index')->name('admin.ticket.admin.index');
+            Route::post('/toggle/{admin}', 'toggle')->name('admin.ticket.admin.toggle');
 
         });
 
-        Route::controller(TicketController::class)->group(function (){
-            Route::get('new-tickets','newTickets')->name('admin.ticket.new-tickets');
-            Route::get('open-tickets','openTickets')->name('admin.ticket.open-tickets');
-            Route::get('close-tickets','closeTickets')->name('admin.ticket.close-tickets');
-            Route::post('answer/{ticket}','answer')->name('admin.ticket.answer');
-            Route::patch('change-status/{ticket}','changeStatus')->name('admin.ticket.change-status');
-            Route::get('/{ticket}','show')->name('admin.ticket.show');
-            Route::get('/','index')->name('admin.ticket.index');
-
+        Route::controller(TicketController::class)->group(function () {
+            Route::get('new-tickets', 'newTickets')->name('admin.ticket.new-tickets');
+            Route::get('open-tickets', 'openTickets')->name('admin.ticket.open-tickets');
+            Route::get('close-tickets', 'closeTickets')->name('admin.ticket.close-tickets');
+            Route::post('answer/{ticket}', 'answer')->name('admin.ticket.answer');
+            Route::patch('change-status/{ticket}', 'changeStatus')->name('admin.ticket.change-status');
+            Route::get('/{ticket}', 'show')->name('admin.ticket.show');
+            Route::get('/', 'index')->name('admin.ticket.index');
 
 
         });
