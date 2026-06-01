@@ -47,4 +47,9 @@ class Product extends Model
     {
         return $this->hasMany(ProductColor::class, 'product_id');
     }
+
+    public function gallery(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Gallery::class);
+    }
 }

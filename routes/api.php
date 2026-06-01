@@ -88,8 +88,11 @@ Route::prefix('admin')->group(function () {
                 ->parameters(['' => 'product'])
                 ->names('admin.market.product');
 
+            Route::get('{product}/gallery', [GalleryController::class, 'index'])
+                ->name('admin.market.product.gallery.index');
+
             Route::apiResource('gallery', GalleryController::class)
-                ->only(['index', 'store', 'destroy'])
+                ->only([ 'store', 'destroy'])
                 ->names('admin.market.product.gallery');
 
             Route::get('{product}/color', [ProductColorController::class, 'index'])
