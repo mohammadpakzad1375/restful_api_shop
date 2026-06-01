@@ -56,9 +56,13 @@ class ProductCategory extends Model
     // All recursiveChildren in a flat collection
     public function flattenChildren(): \Illuminate\Support\Collection
     {
-        // این کار از قبل به صورت درختی لود شده است، پس کوئری اضافه ندارد
         return collect($this->recursiveChildren)->flatMap(function ($child) {
             return collect([$child])->merge($child->flattenChildren());
         });
+    }
+
+    public function attributes(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(CategoryAttribute::class, 'category_id');
     }
 }

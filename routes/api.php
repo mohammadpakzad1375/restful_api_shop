@@ -16,7 +16,7 @@ use App\Http\Controllers\Api\Admin\Market\OrderController;
 use App\Http\Controllers\Api\Admin\Market\PaymentController;
 use App\Http\Controllers\Api\Admin\Market\ProductColorController;
 use App\Http\Controllers\Api\Admin\Market\ProductController;
-use App\Http\Controllers\Api\Admin\Market\PropertyController;
+use App\Http\Controllers\Api\Admin\Market\CategoryAttributeController;
 use App\Http\Controllers\Api\Admin\Market\StoreController;
 use App\Http\Controllers\Api\Admin\Notify\EmailController;
 use App\Http\Controllers\Api\Admin\Notify\SMSController;
@@ -104,8 +104,13 @@ Route::prefix('admin')->group(function () {
 
         });
 
-        //form kala
-        Route::apiResource('property', PropertyController::class)->names('admin.market.property');
+        //form kala (category_attributes)
+        Route::get('{category}/category-attribute', [CategoryAttributeController::class, 'index'])
+            ->name('admin.market.category-attribute.index');
+
+        Route::apiResource('category-attribute', CategoryAttributeController::class)
+            ->except(['index'])
+            ->names('admin.market.category-attribute');
 
         Route::apiResource('store', StoreController::class)->names('admin.market.store');
 
