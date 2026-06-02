@@ -46,7 +46,15 @@ Route::prefix('admin')->group(function () {
 
         Route::apiResource('brand', BrandController::class)->names('admin.market.brand');
 
-        Route::apiResource('comment', CommentController::class)->names('admin.market.comment');
+        Route::prefix('comment')->controller(CommentController::class)->group(function () {
+
+            Route::get('', 'index')->name('admin.market.comment.index');
+            Route::get('/{comment}', 'show')->name('admin.market.comment.show');
+            Route::delete('/{comment}', 'destroy')->name('admin.market.comment.destroy');
+            Route::patch('/approved/{comment}', 'approved')->name('admin.market.comment.approved');
+            Route::patch('/status/{comment}', 'status')->name('admin.market.comment.status');
+
+        });
 
         Route::apiResource('delivery', DeliveryController::class)->names('admin.market.delivery');
 
