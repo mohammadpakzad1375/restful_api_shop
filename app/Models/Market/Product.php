@@ -52,4 +52,9 @@ class Product extends Model
     {
         return $this->hasMany(Gallery::class);
     }
+
+    public function attributeValue(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(CategoryAttributeValue::class);
+    }
 }

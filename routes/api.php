@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\Admin\Content\FAQController;
 use App\Http\Controllers\Api\Admin\Content\MenuController;
 use App\Http\Controllers\Api\Admin\Content\PageController;
 use App\Http\Controllers\Api\Admin\Content\PostController;
+use App\Http\Controllers\Api\Admin\Market\AttributeValueController;
 use App\Http\Controllers\Api\Admin\Market\BrandController;
 use App\Http\Controllers\Api\Admin\Market\CategoryController;
 use App\Http\Controllers\Api\Admin\Market\CommentController;
@@ -104,13 +105,25 @@ Route::prefix('admin')->group(function () {
 
         });
 
-        //form kala (category_attributes)
-        Route::get('{category}/category-attribute', [CategoryAttributeController::class, 'index'])
-            ->name('admin.market.category-attribute.index');
+        Route::prefix('category-attribute')->group(function () {
 
-        Route::apiResource('category-attribute', CategoryAttributeController::class)
-            ->except(['index'])
-            ->names('admin.market.category-attribute');
+            //form kala (category_attributes)
+            Route::get('/{category}', [CategoryAttributeController::class, 'index'])
+                ->name('admin.market.category-attribute.index');
+
+            Route::apiResource('', CategoryAttributeController::class)
+                ->except(['index'])
+                ->parameters(['' => 'category_attribute'])
+                ->names('admin.market.category-attribute');
+
+            Route::get('value/{category_attribute}', [AttributeValueController::class, 'index'])
+                ->name('admin.market.category-attribute.value.index');
+
+            Route::apiResource('value', AttributeValueController::class)
+                ->except(['index'])
+                ->names('admin.market.category-attribute.value');
+
+        });
 
         Route::apiResource('store', StoreController::class)->names('admin.market.store');
 

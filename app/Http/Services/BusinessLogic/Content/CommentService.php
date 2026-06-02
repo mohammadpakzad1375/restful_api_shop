@@ -13,6 +13,8 @@ class CommentService
     {
         return app(ServiceWrapper::class)(function (){
 
+            Comment::where('commentable_type', Post::class)->where('seen', 0)->update(['seen' => 1]);
+
             return Comment::where('commentable_type', Post::class)->orderBy('created_at','desc')->paginate(10);
 
         });

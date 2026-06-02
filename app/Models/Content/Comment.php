@@ -24,6 +24,16 @@ class Comment extends Model
 
     protected $hidden = ['created_at','updated_at','deleted_at'];
 
+    public function scopeSeen($query)
+    {
+        return $query->where('seen', 1);
+    }
+
+    public function scopeUnseen($query)
+    {
+        return $query->where('seen', 0);
+    }
+
     public function toggleStatus()
     {
         $this->status = !$this->status;
@@ -36,23 +46,23 @@ class Comment extends Model
         $this->save();
     }
 
-    public function commentable(){
-
+    public function commentable(): \Illuminate\Database\Eloquent\Relations\MorphTo
+    {
         return $this->morphTo();
     }
 
-    public function author(){
-
+    public function author(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
         return $this->belongsTo(User::class, 'author_id');
     }
 
-    public function parent() {
-
+    public function parent(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
         return $this->belongsTo(self::class, 'parent_id');
     }
 
-    public function answers() {
-
+    public function answers(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
         return $this->hasMany(self::class, 'parent_id');
     }
 }

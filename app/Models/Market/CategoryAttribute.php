@@ -21,4 +21,9 @@ class CategoryAttribute extends Model
     {
         return $this->belongsTo(ProductCategory::class, 'category_id');
     }
+
+    public function values(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(CategoryAttributeValue::class, 'category_attribute_id');
+    }
 }

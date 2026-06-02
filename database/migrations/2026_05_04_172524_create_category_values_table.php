@@ -13,7 +13,8 @@ return new class extends Migration
     {
         Schema::create('category_values', function (Blueprint $table) {
             $table->id();
-            $table->text('value');
+            $table->string('value');
+            $table->decimal('price_increase',20,3)->default(0);
             $table->tinyInteger('type')->default(0)->comment('0 => simple, 1 => multi values selected by customer (affected on price)');
             $table->foreignId('category_attribute_id')->constrained('category_attributes')->onDelete('cascade')->onUpdate('cascade');
             $table->foreignId('product_id')->constrained('products')->onDelete('cascade')->onUpdate('cascade');
