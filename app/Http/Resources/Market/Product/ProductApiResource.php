@@ -28,6 +28,9 @@ class ProductApiResource extends JsonResource
             'price' => $this->price,
             'marketable' => $this->marketable,
             'status' => $this->status,
+            'sold_number' => $this->sold_number,
+            'frozen_number' => $this->frozen_number,
+            'marketable_number' => $this->marketable_number,
             'tags' => $this->tags,
             'published_at' => $this->published_at?->format('Y-m-d H:i:s'),
             'category' => $this->whenLoaded('category',function (){

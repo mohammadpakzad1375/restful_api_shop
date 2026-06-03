@@ -18,7 +18,7 @@ use App\Http\Controllers\Api\Admin\Market\PaymentController;
 use App\Http\Controllers\Api\Admin\Market\ProductColorController;
 use App\Http\Controllers\Api\Admin\Market\ProductController;
 use App\Http\Controllers\Api\Admin\Market\CategoryAttributeController;
-use App\Http\Controllers\Api\Admin\Market\StoreController;
+use App\Http\Controllers\Api\Admin\Market\StorageController;
 use App\Http\Controllers\Api\Admin\Notify\EmailController;
 use App\Http\Controllers\Api\Admin\Notify\SMSController;
 use App\Http\Controllers\Api\Admin\Setting\SettingController;
@@ -133,7 +133,13 @@ Route::prefix('admin')->group(function () {
 
         });
 
-        Route::apiResource('store', StoreController::class)->names('admin.market.store');
+        Route::prefix('storage')->controller(StorageController::class)->group(function (){
+
+            Route::patch('add-to-storage/{product}', 'addToStorage')->name('admin.market.storage.add-to-storage');
+
+            Route::patch('update/{product}', 'update')->name('admin.market.storage.update');
+
+        });
 
     });
 
