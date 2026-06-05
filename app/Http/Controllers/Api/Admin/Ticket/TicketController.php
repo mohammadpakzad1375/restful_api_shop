@@ -82,10 +82,8 @@ class TicketController extends Controller
     {
         $result = $this->ticketService->toggleTicketStatus($ticket);
 
-        return $result->data;
-
-//        return ApiResponse::withResponseMessage("Ticket status change successfully. status = {$result->data}")
-//            ->build()
-//            ->response($result->success);
+        return ApiResponse::withResponseMessage("Ticket status change successfully. status = {$result->data}")
+            ->build()
+            ->response($result->success);
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Models\Market;
 
+use App\Models\Content\Comment;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -59,5 +60,10 @@ class Product extends Model
     public function attributeValue(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(CategoryAttributeValue::class);
+    }
+
+    public function comments(): \Illuminate\Database\Eloquent\Relations\MorphMany
+    {
+        return $this->morphMany(Comment::class, 'commentable');
     }
 }
