@@ -3,6 +3,7 @@
 namespace App\Models\User;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Models\Market\Copan;
 use App\Models\Ticket\TicketAdmin;
 use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Casts\Attribute;
@@ -93,5 +94,10 @@ class User extends Authenticatable
     public function roles(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
         return $this->belongsToMany(Role::class);
+    }
+
+    public function copan(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Copan::class, 'user_id');
     }
 }

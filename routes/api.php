@@ -11,6 +11,7 @@ use App\Http\Controllers\Api\Admin\Market\AttributeValueController;
 use App\Http\Controllers\Api\Admin\Market\BrandController;
 use App\Http\Controllers\Api\Admin\Market\CategoryController;
 use App\Http\Controllers\Api\Admin\Market\CommentController;
+use App\Http\Controllers\Api\Admin\Market\CopanController;
 use App\Http\Controllers\Api\Admin\Market\DeliveryController;
 use App\Http\Controllers\Api\Admin\Market\CommonDiscountController;
 use App\Http\Controllers\Api\Admin\Market\GalleryController;
@@ -63,7 +64,7 @@ Route::prefix('admin')->group(function () {
 
             Route::apiResource('common-discount', CommonDiscountController::class)->names('admin.market.discount.commonDiscount');
             Route::apiResource('amazing-sale', AmazingSaleController::class)->names('admin.market.discount.amazingSale');
-//            Route::get('copan', [DiscountController::class, 'copan'])->name('admin.market.discount.copan');
+            Route::apiResource('copan', CopanController::class)->names('admin.market.discount.copan');
 
         });
 
