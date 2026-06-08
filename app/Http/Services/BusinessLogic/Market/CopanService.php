@@ -21,8 +21,6 @@ class CopanService
     {
         return app(ServiceWrapper::class)(function () use ($inputs){
 
-            $inputs['code'] = Copan::generateCopanCode();
-
             $copan = Copan::create($inputs);
             return $copan->refresh();
 

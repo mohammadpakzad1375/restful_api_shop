@@ -72,15 +72,14 @@ Route::prefix('admin')->group(function () {
 
             Route::get('/', [OrderController::class, 'all'])->name('admin.market.order.all');
             Route::get('new-order', [OrderController::class, 'newOrder'])->name('admin.market.order.newOrder');
-            Route::get('sending', [OrderController::class, 'sending'])->name('admin.market.order.sending');
+            Route::get('awaiting-confirmation', [OrderController::class, 'awaitingConfirmation'])->name('admin.market.order.awaitingConfirmation');
             Route::get('unpaid', [OrderController::class, 'unpaid'])->name('admin.market.order.unpaid');
             Route::get('canceled', [OrderController::class, 'canceled'])->name('admin.market.order.canceled');
             Route::get('returned', [OrderController::class, 'returned'])->name('admin.market.order.returned');
-            Route::get('show', [OrderController::class, 'show'])->name('admin.market.order.show');
-            Route::get('change-send-status', [OrderController::class, 'changeSendStatus'])->name('admin.market.order.changeSendStatus');
-            Route::get('change-send-order', [OrderController::class, 'changeSendOrder'])->name('admin.market.order.changeSendOrder');
-            Route::get('cancel-order', [OrderController::class, 'cancelOrder'])->name('admin.market.order.cancelOrder');
-
+            Route::get('/{order}', [OrderController::class, 'show'])->name('admin.market.order.show');
+            Route::patch('change-delivery-status/{order}', [OrderController::class, 'changeDeliveryStatus'])->name('admin.market.order.changeDeliveryStatus');
+            Route::patch('change-order-status/{order}', [OrderController::class, 'changeOrderStatus'])->name('admin.market.order.changeOrderStatus');
+            Route::patch('change-payment-status/{order}', [OrderController::class, 'changePaymentStatus'])->name('admin.market.order.changePaymentStatus');
         });
 
         Route::prefix('payment')->group(function () {
@@ -173,15 +172,9 @@ Route::prefix('admin')->group(function () {
 
     Route::prefix('user')->group(function () {
 
-        Route::prefix('admin-user')->controller(AdminUserController::class)->group(function () {
-
-            Route::get('', 'index')->name('admin.user.admin-user.index');
-            Route::post('', 'store')->name('admin.user.admin-user.store');
-            Route::get('/{adminUser}', 'show')->name('admin.user.admin-user.show');
-            Route::put('/{adminUser}', 'update')->name('admin.user.admin-user.update');
-            Route::delete('/{adminUser}', 'destroy')->name('admin.user.admin-user.destroy');
-
-        });
+        Route::apiResource('admin-user', AdminUserController::class)
+            ->parameters(['admin-user' => 'admin_user'])
+            ->names('admin.user.admin-user');
 
         Route::apiResource('customer', CustomerController::class)->names('admin.user.customer');
 

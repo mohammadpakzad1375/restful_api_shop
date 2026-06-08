@@ -56,6 +56,16 @@ class Copan extends Model
         return $code;
     }
 
+    //generate code when creating recorde automatically
+    protected static function booted(): void
+    {
+        static::creating(function (Copan $copan) {
+            if (empty($copan->code)) {
+                $copan->code = self::generateCopanCode();
+            }
+        });
+    }
+
     public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(User::class, 'user_id');
