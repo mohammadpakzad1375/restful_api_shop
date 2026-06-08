@@ -3,11 +3,14 @@
 namespace App\Models\Market;
 
 use App\Models\User\User;
+use App\Observers\Admin\Market\CopanObserver;
+use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Str;
 
+#[ObservedBy([CopanObserver::class])]
 class Copan extends Model
 {
     use SoftDeletes;
@@ -47,23 +50,13 @@ class Copan extends Model
         );
     }
 
-    public static function generateCopanCode(): string
+    public function generateCopanCode(): string
     {
         do {
             $code = 'OFF-' . now()->format('ymd') . '-' . strtoupper(Str::random(6));
         } while (self::where('code', $code)->exists());
 
         return $code;
-    }
-
-    //generate code when creating recorde automatically
-    protected static function booted(): void
-    {
-        static::creating(function (Copan $copan) {
-            if (empty($copan->code)) {
-                $copan->code = self::generateCopanCode();
-            }
-        });
     }
 
     public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo

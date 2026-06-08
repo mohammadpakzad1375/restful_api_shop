@@ -3,11 +3,14 @@
 namespace App\Models\Market;
 
 use App\Models\User\User;
+use App\Observers\Admin\Market\CopanObserver;
+use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Str;
 
+#[ObservedBy([CopanObserver::class])]
 class Order extends Model
 {
     use SoftDeletes;
@@ -76,23 +79,13 @@ class Order extends Model
         );
     }
 
-    public static function generateOrderCode(): string
+    public function generateOrderCode(): string
     {
         do {
             $code = 'ORD-' . strtoupper(substr((string) Str::uuid(), 0, 12));
         } while (self::where('code', $code)->exists());
 
         return $code;
-    }
-
-    //generate code when creating recorde automatically
-    protected static function booted(): void
-    {
-        static::creating(function (Order $order) {
-            if (empty($order->code)) {
-                $order->code = self::generateOrderCode();
-            }
-        });
     }
 
     public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
