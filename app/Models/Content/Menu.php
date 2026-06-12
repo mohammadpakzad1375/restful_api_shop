@@ -26,21 +26,17 @@ class Menu extends Model
         parent::boot();
 
         static::deleting(function ($menu) {
-            foreach ($menu->children()->get() as $childMenu) {
-                $childMenu->delete();
-            }
+            $menu->children()->delete();
         });
     }
 
-    public function children()
+    public function children(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
-
         return $this->hasMany(self::class, 'parent_id');
     }
 
-    public function parent()
+    public function parent(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
-
         return $this->belongsTo(self::class, 'parent_id');
     }
 }

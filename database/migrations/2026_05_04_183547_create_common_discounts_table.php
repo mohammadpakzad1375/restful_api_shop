@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('title');
             $table->integer('percentage');
             $table->unsignedBigInteger('discount_ceiling')->nullable();
-            $table->unsignedBigInteger('minimal_order_amount')->nullable();
+            $table->unsignedBigInteger('minimum_order_amount')->nullable();
             $table->timestamp('start_date')->useCurrent();
             $table->timestamp('end_date')->useCurrent();
             $table->tinyInteger('status')->default(0);

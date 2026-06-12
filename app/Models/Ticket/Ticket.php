@@ -29,8 +29,15 @@ class Ticket extends Model
     protected function status() : Attribute
     {
         return Attribute::make(
-            get: fn($value) => $value == 1 ? 'closed' : 'open',
-            set: fn ($value) => $value == 'closed' ? 1 : 0,
+            get: fn ($value) => match ((int) $value) {
+                0 => 'open',
+                1 => 'closed',
+            },
+            set: fn ($value) => match ($value) {
+                'open', 0   => 0,
+                'closed', 1 => 1,
+                default     => throw new \InvalidArgumentException("Invalid status value: {$value}"),
+            },
         );
     }
 

@@ -28,7 +28,8 @@ class PostCategoryService
 
             $inputs['image'] = ImageService::save($inputs['image'], 'post-category');
 
-            return PostCategory::create($inputs);
+            $category = PostCategory::create($inputs);
+            return $category->refresh();
 
         });
     }

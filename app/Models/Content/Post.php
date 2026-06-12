@@ -36,19 +36,17 @@ class Post extends Model
         parent::boot();
 
         static::deleting(function ($post) {
-            foreach ($post->comments()->get() as $comments) {
-                $comments->delete();
-            }
+            $post->comments()->delete();
         });
     }
 
-    public function postCategory()
+    public function postCategory(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(PostCategory::class, 'category_id');
     }
 
-    public function comments(){
-
+    public function comments(): \Illuminate\Database\Eloquent\Relations\MorphMany
+    {
         return $this->morphMany(Comment::class, 'commentable');
     }
 }
