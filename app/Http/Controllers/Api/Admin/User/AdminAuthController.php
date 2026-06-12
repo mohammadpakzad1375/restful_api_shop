@@ -1,0 +1,46 @@
+<?php
+
+namespace App\Http\Controllers\Api\Admin\User;
+
+use App\Http\Controllers\Controller;
+use App\Http\Requests\ApiRequests\Admin\User\Auth\LoginApiRequest;
+use App\Http\Resources\User\Admin\AdminApiResource;
+use App\Http\Services\BusinessLogic\User\AdminAuthService;
+use App\Http\Services\RestfulApi\Facades\ApiResponse;
+use Illuminate\Http\Request;
+
+
+class AdminAuthController extends Controller
+{
+    public function __construct(private AdminAuthService $adminAuthService)
+    {
+    }
+
+    public function login(LoginApiRequest $request, \App\Http\Services\RestfulApi\ApiResponse\ApiResponse $apiResponse)
+    {
+        $result = $this->adminAuthService->login($request->validated());
+
+        if (is_array($result->data))
+        {
+            $apiResponse->setResponseMessage('Successfully logged in');
+            $apiResponse->setData(AdminApiResource::make($result->data['admin']));
+            $apiResponse->setAppends(['token' => $result->data['token']]);
+        } else {
+
+            $apiResponse->setResponseMessage($result->data);
+            $apiResponse->setResponseStatus(401);
+        }
+
+        return $apiResponse->response($result->success);
+
+    }
+
+    public function logout(Request $request)
+    {
+        $result = $this->adminAuthService->logout($request->user());
+
+        return ApiResponse::withResponseMessage($result->data)
+            ->build()
+            ->response($result->success);
+    }
+}

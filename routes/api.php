@@ -25,18 +25,23 @@ use App\Http\Controllers\Api\Admin\Ticket\TicketCategoryController;
 use App\Http\Controllers\Api\Admin\Ticket\TicketController;
 use App\Http\Controllers\Api\Admin\Ticket\TicketPriorityController;
 use App\Http\Controllers\Api\Admin\User\AdminUserController;
+use App\Http\Controllers\Api\Admin\User\AdminAuthController;
 use App\Http\Controllers\Api\Admin\User\CustomerController;
 use App\Http\Controllers\Api\Admin\User\PermissionController;
 use App\Http\Controllers\Api\Admin\User\RoleController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/user', function (Request $request) {
-    return $request->user();
-})->middleware('auth:sanctum');
 
+Route::post('admin/auth/login', [AdminAuthController::class,'login']);
 
-Route::prefix('admin')->group(function (){
+Route::prefix('admin')->middleware(['auth:sanctum', 'admin.token.activity'])->group(function (){
+
+    Route::prefix('auth')->group(function () {
+
+        Route::post('/logout', [AdminAuthController::class,'logout']);
+
+    });
 
     Route::prefix('market')->group(function (){
 
