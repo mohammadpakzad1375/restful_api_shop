@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Middleware\Admin\User\Auth;
+namespace App\Http\Middleware\Admin\Auth;
 
 use App\Http\Services\RestfulApi\Facades\ApiResponse;
 use Carbon\Carbon;

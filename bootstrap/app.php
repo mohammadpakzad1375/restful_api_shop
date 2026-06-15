@@ -13,7 +13,7 @@ return Application::configure(basePath: dirname(__DIR__))
     )
     ->withMiddleware(function (Middleware $middleware): void {
         $middleware->alias([
-            'admin.token.activity' => \App\Http\Middleware\Admin\User\Auth\CheckAdminTokenActivity::class,
+            'admin.token.activity' => \App\Http\Middleware\Admin\Auth\CheckAdminTokenActivity::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {

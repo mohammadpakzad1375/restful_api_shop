@@ -1,9 +1,8 @@
 <?php
 
-namespace App\Http\Requests\ApiRequests\Admin\User\Auth;
+namespace App\Http\Requests\ApiRequests\Admin\Auth;
 
 use App\Http\Services\RestfulApi\Validation\ApiFormRequest;
-use Illuminate\Validation\Rules\Password;
 
 class LoginApiRequest extends ApiFormRequest
 {
