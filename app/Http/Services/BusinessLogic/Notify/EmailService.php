@@ -29,16 +29,6 @@ class EmailService
         });
     }
 
-    public function showEmail(Email $email): ServiceResult
-    {
-        return app(ServiceWrapper::class)(function () use ($email){
-
-//            return  $email->load('');
-            return  $email;
-
-        });
-    }
-
     public function updateEmail($inputs, Email $email): ServiceResult
     {
         return app(ServiceWrapper::class)(function () use ($inputs, $email){
