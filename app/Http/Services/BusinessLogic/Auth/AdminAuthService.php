@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Services\BusinessLogic\User;
+namespace App\Http\Services\BusinessLogic\Auth;
 
 use App\Http\Services\BusinessLogic\Tools\ServiceResult;
 use App\Http\Services\BusinessLogic\Tools\ServiceWrapper;

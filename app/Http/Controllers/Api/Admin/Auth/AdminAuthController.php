@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\Api\Admin\User;
+namespace App\Http\Controllers\Api\Admin\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\ApiRequests\Admin\User\Auth\LoginApiRequest;
+use App\Http\Requests\ApiRequests\Admin\Auth\LoginApiRequest;
 use App\Http\Resources\User\Admin\AdminApiResource;
-use App\Http\Services\BusinessLogic\User\AdminAuthService;
+use App\Http\Services\BusinessLogic\Auth\AdminAuthService;
 use App\Http\Services\RestfulApi\Facades\ApiResponse;
 use Illuminate\Http\Request;
 

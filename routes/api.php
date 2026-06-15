@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\Admin\Auth\AdminAuthController;
 use App\Http\Controllers\Api\Admin\Content\CategoryController as ContentCategoryController;
 use App\Http\Controllers\Api\Admin\Content\CommentController as ContentCommentController;
 use App\Http\Controllers\Api\Admin\Content\FAQController;
@@ -9,17 +10,17 @@ use App\Http\Controllers\Api\Admin\Content\PostController;
 use App\Http\Controllers\Api\Admin\Market\AmazingSaleController;
 use App\Http\Controllers\Api\Admin\Market\AttributeValueController;
 use App\Http\Controllers\Api\Admin\Market\BrandController;
+use App\Http\Controllers\Api\Admin\Market\CategoryAttributeController;
 use App\Http\Controllers\Api\Admin\Market\CategoryController;
 use App\Http\Controllers\Api\Admin\Market\CommentController;
+use App\Http\Controllers\Api\Admin\Market\CommonDiscountController;
 use App\Http\Controllers\Api\Admin\Market\CopanController;
 use App\Http\Controllers\Api\Admin\Market\DeliveryController;
-use App\Http\Controllers\Api\Admin\Market\CommonDiscountController;
 use App\Http\Controllers\Api\Admin\Market\GalleryController;
 use App\Http\Controllers\Api\Admin\Market\OrderController;
 use App\Http\Controllers\Api\Admin\Market\PaymentController;
 use App\Http\Controllers\Api\Admin\Market\ProductColorController;
 use App\Http\Controllers\Api\Admin\Market\ProductController;
-use App\Http\Controllers\Api\Admin\Market\CategoryAttributeController;
 use App\Http\Controllers\Api\Admin\Market\StorageController;
 use App\Http\Controllers\Api\Admin\Notify\EmailController;
 use App\Http\Controllers\Api\Admin\Notify\SMSController;
@@ -29,11 +30,9 @@ use App\Http\Controllers\Api\Admin\Ticket\TicketCategoryController;
 use App\Http\Controllers\Api\Admin\Ticket\TicketController;
 use App\Http\Controllers\Api\Admin\Ticket\TicketPriorityController;
 use App\Http\Controllers\Api\Admin\User\AdminUserController;
-use App\Http\Controllers\Api\Admin\User\AdminAuthController;
 use App\Http\Controllers\Api\Admin\User\CustomerController;
 use App\Http\Controllers\Api\Admin\User\PermissionController;
 use App\Http\Controllers\Api\Admin\User\RoleController;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 
