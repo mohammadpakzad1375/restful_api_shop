@@ -39,6 +39,7 @@ class EmailController extends Controller
 
         return ApiResponse::withResponseMessage('Email created successfully.')
             ->withData(EmailApiResource::make($result->data))
+            ->withRejectMessage($result->data)
             ->build()
             ->response($result->success);
     }
@@ -51,30 +52,5 @@ class EmailController extends Controller
         return ApiResponse::withData(EmailApiResource::make($email))
             ->build()
             ->response((bool) $email);
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(EmailUpdateApiRequest $request, Email $email)
-    {
-        $result = $this->emailService->updateEmail($request->validated(), $email);
-
-        return ApiResponse::withResponseMessage('Email updated successfully.')
-            ->withData(EmailApiResource::make($result->data))
-            ->build()
-            ->response($result->success);
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Email $email)
-    {
-        $result = $this->emailService->deleteEmail($email);
-
-        return ApiResponse::withResponseMessage('Email deleted successfully.')
-            ->build()
-            ->response($result->success);
     }
 }

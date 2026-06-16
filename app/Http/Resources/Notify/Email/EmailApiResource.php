@@ -18,7 +18,7 @@ class EmailApiResource extends JsonResource
             'id' => $this->id,
             'subject' => $this->subject,
             'body' => $this->body,
-            'published_at' => jalaliDate($this->published_at, 'H:i:s Y-m-d'),
+            'published_at' => $this->published_at
         ];
     }
 }

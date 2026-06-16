@@ -2,6 +2,7 @@
 
 namespace App\Http\Services\BusinessLogic\Notify;
 
+use App\Events\Admin\Notify\Email\EmailCreated;
 use App\Http\Services\BusinessLogic\Tools\ServiceResult;
 use App\Http\Services\BusinessLogic\Tools\ServiceWrapper;
 use App\Models\Notify\Email;
@@ -24,26 +25,11 @@ class EmailService
 
             $email = Email::create($inputs);
 
-            return $email->refresh();
+            $email = $email->refresh();
 
-        });
-    }
+            EmailCreated::dispatch($email);
 
-    public function updateEmail($inputs, Email $email): ServiceResult
-    {
-        return app(ServiceWrapper::class)(function () use ($inputs, $email){
-
-            $email->update($inputs);
-            return $email->refresh();
-
-        });
-    }
-
-    public function deleteEmail(Email $email): ServiceResult
-    {
-        return app(ServiceWrapper::class)(function () use ($email){
-
-            $email->delete();
+            return $email;
 
         });
     }
