@@ -2,6 +2,7 @@
 
 namespace App\Http\Services\BusinessLogic\Auth;
 
+use App\Events\Admin\Auth\Login;
 use App\Http\Services\BusinessLogic\Tools\ServiceResult;
 use App\Http\Services\BusinessLogic\Tools\ServiceWrapper;
 use App\Models\User\User;
@@ -21,6 +22,8 @@ class AdminAuthService
             }
 
             $token = $admin->createToken('admin-login')->plainTextToken;
+
+            Login::dispatch($admin);
 
             return [
                 'token' => $token,
