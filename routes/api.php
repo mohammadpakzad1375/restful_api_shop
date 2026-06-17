@@ -23,6 +23,7 @@ use App\Http\Controllers\Api\Admin\Market\ProductColorController;
 use App\Http\Controllers\Api\Admin\Market\ProductController;
 use App\Http\Controllers\Api\Admin\Market\StorageController;
 use App\Http\Controllers\Api\Admin\Notify\EmailController;
+use App\Http\Controllers\Api\Admin\Notify\NotificationController;
 use App\Http\Controllers\Api\Admin\Notify\SMSController;
 use App\Http\Controllers\Api\Admin\Setting\SettingController;
 use App\Http\Controllers\Api\Admin\Ticket\TicketAdminController;
@@ -193,6 +194,15 @@ Route::prefix('admin')->middleware(['auth:sanctum', 'admin.token.activity'])->gr
         Route::apiResource('email', EmailController::class)->only(['index','store','show'])->names('admin.notify.email');
 
         Route::apiResource('sms', SMSController::class)->names('admin.notify.sms');
+
+        Route::prefix('notification')->controller(NotificationController::class)->group(function (){
+
+            Route::get('', 'all')->name('admin.notify.notification.all');
+            Route::get('read', 'read')->name('admin.notify.notification.read');
+            Route::get('unread', 'unread')->name('admin.notify.notification.unread');
+            Route::delete('delete', 'destroy')->name('admin.notify.notification.destroy');
+
+        });
 
     });
 
