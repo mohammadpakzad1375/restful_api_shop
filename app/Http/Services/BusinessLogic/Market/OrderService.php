@@ -2,6 +2,7 @@
 
 namespace App\Http\Services\BusinessLogic\Market;
 
+use App\Events\Admin\Market\Order\OrderPaymentStatusChanged;
 use App\Http\Services\BusinessLogic\Tools\ServiceResult;
 use App\Http\Services\BusinessLogic\Tools\ServiceWrapper;
 use App\Models\Market\Order;
@@ -115,8 +116,11 @@ class OrderService
             $order->payment->update([
                 'status' => $inputs['status'],
             ]);
+            $order->refresh();
 
-            return $order->refresh()->payment->status;
+            OrderPaymentStatusChanged::dispatch($order);
+
+            return $order->payment->status;
 
         });
     }

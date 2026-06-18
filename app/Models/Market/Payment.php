@@ -20,7 +20,7 @@ class Payment extends Model
         'paymentable_type',
     ];
 
-    protected $hidden = ['created_at','updated_at','deleted_at'];
+    protected $hidden = ['created_at','deleted_at'];
 
     protected function type() : Attribute
     {

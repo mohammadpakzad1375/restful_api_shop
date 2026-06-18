@@ -10,6 +10,7 @@ use App\Http\Resources\Market\Order\OrderApiResource;
 use App\Http\Resources\Market\Order\OrderApiResourceCollection;
 use App\Http\Services\BusinessLogic\Market\OrderService;
 use App\Http\Services\RestfulApi\Facades\ApiResponse;
+use App\Mail\Admin\Market\Order\OrderPaymentStatusMail;
 use App\Models\Market\Order;
 
 class OrderController extends Controller
@@ -23,11 +24,13 @@ class OrderController extends Controller
      */
     public function all()
     {
-        $result = $this->orderService->showAllOrders();
+        return new OrderPaymentStatusMail(Order::find(1));
 
-        return ApiResponse::withData(OrderApiResourceCollection::make($result->data))
-            ->build()
-            ->response($result->success);
+//        $result = $this->orderService->showAllOrders();
+//
+//        return ApiResponse::withData(OrderApiResourceCollection::make($result->data))
+//            ->build()
+//            ->response($result->success);
     }
 
     public function newOrder()
