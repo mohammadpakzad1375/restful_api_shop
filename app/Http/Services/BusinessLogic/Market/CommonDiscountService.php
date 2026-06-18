@@ -2,6 +2,7 @@
 
 namespace App\Http\Services\BusinessLogic\Market;
 
+use App\Events\Admin\Market\CommonDiscount\CommonDiscountCreated;
 use App\Http\Services\BusinessLogic\Tools\ServiceResult;
 use App\Http\Services\BusinessLogic\Tools\ServiceWrapper;
 use App\Models\Market\CommonDiscount;
@@ -22,7 +23,11 @@ class CommonDiscountService
         return app(ServiceWrapper::class)(function () use ($inputs){
 
             $commonDiscount = CommonDiscount::create($inputs);
-            return $commonDiscount->refresh();
+            $commonDiscount->refresh();
+
+            CommonDiscountCreated::dispatch($commonDiscount);
+
+            return $commonDiscount;
 
         });
     }

@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Mail;
+namespace App\Mail\Admin\Market\CommonDiscount;
 
-use App\Models\Notify\Email;
+use App\Models\Market\CommonDiscount;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
@@ -10,17 +10,15 @@ use Illuminate\Mail\Mailables\Attachment;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Support\Facades\Log;
 
-class GeneralMail extends Mailable implements ShouldQueue
+class NewCommonDiscountMail extends Mailable implements ShouldQueue
 {
     use Queueable, SerializesModels;
-
 
     /**
      * Create a new message instance.
      */
-    public function __construct(Public Email $email)
+    public function __construct(public CommonDiscount $commonDiscount)
     {
         //
     }
@@ -31,7 +29,7 @@ class GeneralMail extends Mailable implements ShouldQueue
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: $this->email->subject,
+            subject: $this->commonDiscount->title,
         );
     }
 
@@ -41,7 +39,7 @@ class GeneralMail extends Mailable implements ShouldQueue
     public function content(): Content
     {
         return new Content(
-            view: 'mails.general-mail',
+            view: 'mails.admin.market.common-discount.common-discount-mail',
         );
     }
 

@@ -3,10 +3,8 @@
 namespace App\Listeners\Admin\Notify\Email;
 
 use App\Events\Admin\Notify\Email\EmailCreated;
-use App\Mail\GeneralMail;
+use App\Mail\Admin\Notify\Email\GeneralMail;
 use App\Models\User\User;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Support\Facades\Mail;
 
 class SendEmailToCustomers
