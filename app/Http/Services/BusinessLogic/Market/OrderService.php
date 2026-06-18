@@ -21,7 +21,12 @@ class OrderService
     {
         return app(ServiceWrapper::class)(function (){
 
-            return Order::where('order_status', 0)->orderBy('created_at','desc')->paginate(10);
+            $orders = Order::where('order_status', 0)->orderBy('created_at','desc')->paginate(10);
+
+            Order::whereIn('id', $orders->pluck('id'))
+                ->update(['order_status' => 1]);
+
+            return $orders;
 
         });
     }
