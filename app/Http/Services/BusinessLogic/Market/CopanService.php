@@ -2,6 +2,7 @@
 
 namespace App\Http\Services\BusinessLogic\Market;
 
+use App\Events\Admin\Market\Copan\CopanCreated;
 use App\Http\Services\BusinessLogic\Tools\ServiceResult;
 use App\Http\Services\BusinessLogic\Tools\ServiceWrapper;
 use App\Models\Market\Copan;
@@ -22,7 +23,11 @@ class CopanService
         return app(ServiceWrapper::class)(function () use ($inputs){
 
             $copan = Copan::create($inputs);
-            return $copan->refresh();
+            $copan->refresh();
+
+            CopanCreated::dispatch($copan);
+
+            return $copan;
 
         });
     }
