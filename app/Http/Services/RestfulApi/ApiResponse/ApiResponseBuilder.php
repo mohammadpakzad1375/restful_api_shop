@@ -12,6 +12,12 @@ class ApiResponseBuilder
         $this->apiResponse = new ApiResponse();
     }
 
+    public function withSuccess(bool $success)
+    {
+        $this->apiResponse->setSuccess($success);
+        return $this;
+    }
+
     public function withResponseMessage(string $responseMessage)
     {
         $this->apiResponse->setResponseMessage($responseMessage);

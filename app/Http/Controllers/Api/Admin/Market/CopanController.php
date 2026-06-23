@@ -39,7 +39,6 @@ class CopanController extends Controller
 
         return ApiResponse::withResponseMessage('Copan created successfully.')
             ->withData(CopanApiResource::make($result->data))
-            ->withRejectMessage($result->data)
             ->build()
             ->response($result->success);
     }

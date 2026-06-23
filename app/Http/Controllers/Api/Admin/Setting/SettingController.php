@@ -36,7 +36,6 @@ class SettingController extends Controller
 
         return ApiResponse::withResponseMessage('setting updated successfully.')
             ->withData($result->data)
-            ->withRejectMessage($result->data)
             ->build()
             ->response($result->success);
     }

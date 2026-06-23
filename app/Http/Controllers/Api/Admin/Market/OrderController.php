@@ -110,7 +110,6 @@ class OrderController extends Controller
         $result = $this->orderService->changePaymentStatus($request->validated(), $order);
 
         return ApiResponse::withResponseMessage("Order payment status changed successfully. {$result->data}")
-            ->withRejectMessage($result->data)
             ->build()
             ->response($result->success);
     }

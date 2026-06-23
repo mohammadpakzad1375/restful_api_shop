@@ -6,12 +6,21 @@ use Illuminate\Http\Resources\Json\ResourceCollection;
 
 class ApiResponse
 {
+    private bool $success = true;
     private ?string $responseMessage = null;
     private ?string $rejectMessage = 'Something went wrong. try again later';
     private mixed $data = null;
     private int $responseStatus = 200;
     private int $rejectStatus = 500;
     private array $appends = [];
+
+    /**
+     * @param bool $success
+     */
+    public function setSuccess(bool $success): void
+    {
+        $this->success = $success;
+    }
 
     /**
      * @param string|null $responseMessage
@@ -67,6 +76,8 @@ class ApiResponse
 
         if ($success) {
 
+            $body['success'] = $this->success;
+
             !is_null($this->responseMessage) && $body['message'] = $this->responseMessage;
             $body = $body + $this->appends;
 
@@ -83,6 +94,8 @@ class ApiResponse
             }
 
         } else {
+
+            $body['success'] = false;
 
             if ($this->rejectMessage) {
                 $body['message'] = $this->rejectMessage;
