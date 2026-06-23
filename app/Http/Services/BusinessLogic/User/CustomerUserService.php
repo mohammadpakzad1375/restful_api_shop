@@ -28,11 +28,6 @@ class CustomerUserService
             $inputs['user_type'] = 0;
             $inputs['password'] = Hash::make($inputs['password']);
 
-            if ($inputs['activation'] == 1)
-            {
-                $inputs['activation_date'] = time();
-            }
-
             $customer = User::create($inputs);
 
             return $customer->refresh();
@@ -51,12 +46,7 @@ class CustomerUserService
             }
 
             if (array_key_exists('password', $inputs))
-            {
                 $inputs['password'] = Hash::make($inputs['password']);
-            }
-
-            if (array_key_exists('activation', $inputs) && $inputs['activation'] == 1)
-                $inputs['activation_date'] = time();
 
             $customer->update($inputs);
             return $customer->refresh();

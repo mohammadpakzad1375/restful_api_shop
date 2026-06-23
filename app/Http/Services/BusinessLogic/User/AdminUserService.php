@@ -28,9 +28,6 @@ class AdminUserService
             $inputs['user_type'] = 1;
             $inputs['password'] = Hash::make($inputs['password']);
 
-            if ($inputs['activation'] == 1)
-                $inputs['activation_date'] = time();
-
             $admin = User::create($inputs);
 
             return $admin->refresh();
@@ -49,12 +46,7 @@ class AdminUserService
             }
 
             if (array_key_exists('password', $inputs))
-            {
                 $inputs['password'] = Hash::make($inputs['password']);
-            }
-
-            if (array_key_exists('activation', $inputs) && $inputs['activation'] == 1)
-                $inputs['activation_date'] = time();
 
             $adminUser->update($inputs);
             return $adminUser->refresh();
