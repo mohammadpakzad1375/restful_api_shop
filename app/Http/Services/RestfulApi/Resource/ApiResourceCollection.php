@@ -10,15 +10,20 @@ class ApiResourceCollection extends ResourceCollection
     {
         return [
             'meta' => [
-                'total' => $this->total(),
-                'from' => $this->firstItem(),
-                'to' => $this->lastItem(),
-                'per_page' => $this->perPage(),
                 'current_page' => $this->currentPage(),
-                'prev_page' => $this->currentPage() === 1 ? 1 : $this->currentPage() - 1,
-                'next_page' => $this->currentPage() === $this->lastPage() ? $this->currentPage() : $this->currentPage() + 1,
+                'from' => $this->firstItem(),
                 'last_page' => $this->lastPage(),
-            ]
+                'per_page' => $this->perPage(),
+                'to' => $this->lastItem(),
+                'total' => $this->total(),
+            ],
+
+            'links' => [
+                'first' => $this->url(1),
+                'last' => $this->url($this->lastPage()),
+                'prev' => $this->previousPageUrl(),
+                'next' => $this->nextPageUrl(),
+            ],
         ];
     }
 }
