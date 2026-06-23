@@ -30,7 +30,8 @@ class CheckAdminTokenActivity
                 if ($token->last_used_at && $token->last_used_at->lt($sevenDaysAgo)) {
                     $token->delete();
 
-                    return ApiResponse::withResponseMessage('Token expired. Please login again.')
+                    return ApiResponse::withSuccess(false)
+                        ->withResponseMessage('Token expired. Please login again.')
                         ->withResponseStatus(401)
                         ->build()
                         ->response(true);
