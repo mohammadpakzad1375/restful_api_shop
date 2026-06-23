@@ -83,8 +83,8 @@ class ApiResponse
 
             if ($this->data instanceof ResourceCollection)
             {
-                //additional method belongs to ResourceCollection class
-                $this->data->additional($body);
+                //withBody method belongs to ApiResourceCollection class
+                $this->data->withBody($body);
                 return $this->data;
 
             } else {
