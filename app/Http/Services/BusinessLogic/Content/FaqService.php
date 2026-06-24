@@ -30,7 +30,7 @@ class FaqService
         return app(ServiceWrapper::class)(function () use ($inputs, $faq){
 
             $faq->update($inputs);
-            return $faq->refresh();
+            return $faq;
 
         });
     }

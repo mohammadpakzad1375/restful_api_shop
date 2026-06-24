@@ -345,7 +345,6 @@ class PostController extends Controller
                         ),
                         new OA\Property(
                             property: "status",
-                            description: "Post status (optional)",
                             type: "integer",
                             example: 1,
                             enum: [0, 1]

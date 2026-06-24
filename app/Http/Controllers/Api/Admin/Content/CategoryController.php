@@ -290,7 +290,6 @@ class CategoryController extends Controller
                         ),
                         new OA\Property(
                             property: "status",
-                            description: "Post category status (optional)",
                             type: "integer",
                             example: 1,
                             enum: [0, 1],

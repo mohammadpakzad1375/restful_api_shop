@@ -28,7 +28,7 @@ class PostService
 
             $post = Post::create($inputs);
 
-            return $post->refresh()->load('postCategory');
+            return $post->load('postCategory');
 
         });
     }
@@ -53,7 +53,7 @@ class PostService
             }
 
             $post->update($inputs);
-            return $post->refresh();
+            return $post->load('postCategory');
 
         });
     }
