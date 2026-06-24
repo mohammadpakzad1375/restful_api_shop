@@ -230,6 +230,11 @@ return [
                     'in' => 'header', // The location of the API key. Valid values are "query" or "header".
                 ],
                 */
+
+                'sanctumAuth' => [
+                    'type' => 'http',
+                    'scheme' => 'bearer',
+                ],
             ],
             'security' => [
                 /*
