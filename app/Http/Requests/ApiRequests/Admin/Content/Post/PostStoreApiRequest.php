@@ -26,11 +26,11 @@ class PostStoreApiRequest extends ApiFormRequest
             'summary' => ['required','max:300','min:5'],
             'body' => ['required','max:600','min:5'],
             'category_id' => ['required','numeric','exists:post_categories,id'],
-            'tags' => ['required','string'],
             'image' => ['required','image','mimes:png,jpg,jpeg,gif'],
-            'status' => ['numeric','in:0,1'],
             'commentable' => ['required','numeric','in:0,1'],
-            'published_at' => ['required','numeric']
+            'published_at' => ['required','numeric'],
+            'tags' => ['required','string'],
+            'status' => ['numeric','in:0,1'],
         ];
     }
 }

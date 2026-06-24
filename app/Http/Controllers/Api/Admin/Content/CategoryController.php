@@ -23,7 +23,7 @@ class CategoryController extends Controller
         description: 'Retrieve a paginated list of post categories.',
         summary: 'List Post Categories',
         security: [['sanctumAuth' => []]],
-        tags: ['Post Category'],
+        tags: ['Admin/Content/Post Category'],
         responses: [
             new OA\Response(
                 response: 200,
@@ -131,7 +131,7 @@ class CategoryController extends Controller
                 )
             )
         ),
-        tags: ["Post Category"],
+        tags: ["Admin/Content/Post Category"],
         responses: [
             new OA\Response(
                 response: 201,
@@ -194,7 +194,7 @@ class CategoryController extends Controller
         description: "Show a post category by its ID.",
         summary: "Show post category details",
         security: [["sanctumAuth" => []]],
-        tags: ["Post Category"],
+        tags: ["Admin/Content/Post Category"],
         parameters: [
             new OA\Parameter(
                 name: "id",
@@ -213,6 +213,11 @@ class CategoryController extends Controller
                 description: "Post category details retrieved successfully",
                 content: new OA\JsonContent(
                     properties: [
+                        new OA\Property(
+                            property: "success",
+                            type: "boolean",
+                            example: true
+                        ),
                         new OA\Property(
                             property: "data",
                             ref: "#/components/schemas/PostCategory"
@@ -294,7 +299,7 @@ class CategoryController extends Controller
                 )
             )
         ),
-        tags: ["Post Category"],
+        tags: ["Admin/Content/Post Category"],
         parameters: [
             new OA\Parameter(
                 name: "id",
@@ -375,7 +380,7 @@ class CategoryController extends Controller
         description: "Delete a post category by its ID.",
         summary: "Delete a post category",
         security: [["sanctumAuth" => []]],
-        tags: ["Post Category"],
+        tags: ["Admin/Content/Post Category"],
         parameters: [
             new OA\Parameter(
                 name: "id",
