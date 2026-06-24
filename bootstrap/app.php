@@ -1,6 +1,6 @@
 <?php
 
-use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
@@ -14,16 +14,34 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware): void {
+        $middleware->redirectGuestsTo(function ($request) {
+            if ($request->is('api/*'))
+                return null;
+
+            return route('login');
+        });
         $middleware->alias([
             'admin.token.activity' => \App\Http\Middleware\Admin\Auth\CheckAdminTokenActivity::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
+        $exceptions->shouldRenderJsonWhen(function ($request) {
+            return $request->is('api/*');
+        });
+        $exceptions->render(function (AuthenticationException $e, $request) {
+            if ($request->is('api/*')) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Unauthenticated.'
+                ], 401);
+            }
+            return null;
+        });
         $exceptions->render(function (NotFoundHttpException $e, $request) {
             if ($request->is('api/*'))
                  return response()->json([
                      'success' => false,
-                    'message' => 'Resource not found.'
+                     'message' => 'Resource not found.'
                 ], 404);
 
             return null;
