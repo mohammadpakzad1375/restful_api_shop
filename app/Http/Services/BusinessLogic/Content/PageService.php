@@ -30,7 +30,7 @@ class PageService
         return app(ServiceWrapper::class)(function () use ($inputs, $page){
 
             $page->update($inputs);
-            return $page->refresh();
+            return $page;
 
         });
     }
