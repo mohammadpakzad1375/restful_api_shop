@@ -5,650 +5,6 @@
         "version": "1.0.0"
     },
     "paths": {
-        "/api/admin/content/category": {
-            "get": {
-                "tags": [
-                    "Admin/Content/Post Category"
-                ],
-                "summary": "List Post Categories",
-                "description": "Retrieve a paginated list of post categories.",
-                "operationId": "04ee7702bdbb37ed2c375f6e4619db1e",
-                "parameters": [
-                    {
-                        "name": "page",
-                        "in": "query",
-                        "description": "Page number",
-                        "required": false,
-                        "schema": {
-                            "type": "integer",
-                            "default": 1
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Post categories retrieved successfully",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "properties": {
-                                        "success": {
-                                            "type": "boolean",
-                                            "example": true
-                                        },
-                                        "data": {
-                                            "type": "array",
-                                            "items": {
-                                                "$ref": "#/components/schemas/PostCategory"
-                                            }
-                                        },
-                                        "meta": {
-                                            "$ref": "#/components/schemas/PaginationMeta"
-                                        },
-                                        "links": {
-                                            "$ref": "#/components/schemas/PaginationLinks"
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    },
-                    "401": {
-                        "description": "Unauthenticated",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/UnauthenticatedError"
-                                }
-                            }
-                        }
-                    },
-                    "403": {
-                        "description": "Forbidden",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/ForbiddenError"
-                                }
-                            }
-                        }
-                    }
-                },
-                "security": [
-                    {
-                        "sanctumAuth": []
-                    }
-                ]
-            },
-            "post": {
-                "tags": [
-                    "Admin/Content/Post Category"
-                ],
-                "summary": "Create Post Category",
-                "operationId": "d03a6a25fafc4dcb09c23d5a3dee345d",
-                "requestBody": {
-                    "required": true,
-                    "content": {
-                        "multipart/form-data": {
-                            "schema": {
-                                "required": [
-                                    "name",
-                                    "description",
-                                    "image",
-                                    "tags"
-                                ],
-                                "properties": {
-                                    "name": {
-                                        "type": "string",
-                                        "example": "ورزشی"
-                                    },
-                                    "description": {
-                                        "type": "string",
-                                        "example": "بررسی جدید ترین خبرهای ورزشی"
-                                    },
-                                    "image": {
-                                        "description": "Category image",
-                                        "type": "string",
-                                        "format": "binary"
-                                    },
-                                    "tags": {
-                                        "type": "string",
-                                        "example": "ورزشی"
-                                    },
-                                    "status": {
-                                        "description": "Post category status (optional)",
-                                        "type": "integer",
-                                        "example": 1,
-                                        "enum": [
-                                            0,
-                                            1
-                                        ]
-                                    }
-                                },
-                                "type": "object"
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "201": {
-                        "description": "Post category created successfully",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "properties": {
-                                        "success": {
-                                            "type": "boolean",
-                                            "example": true
-                                        },
-                                        "message": {
-                                            "type": "string",
-                                            "example": "PostCategory created successfully."
-                                        },
-                                        "data": {
-                                            "$ref": "#/components/schemas/PostCategory"
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    },
-                    "401": {
-                        "description": "Unauthenticated",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/UnauthenticatedError"
-                                }
-                            }
-                        }
-                    },
-                    "422": {
-                        "description": "Validation Error",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/ValidationError"
-                                }
-                            }
-                        }
-                    },
-                    "403": {
-                        "description": "Forbidden",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/ForbiddenError"
-                                }
-                            }
-                        }
-                    }
-                },
-                "security": [
-                    {
-                        "sanctumAuth": []
-                    }
-                ]
-            }
-        },
-        "/api/admin/content/category/{id}": {
-            "get": {
-                "tags": [
-                    "Admin/Content/Post Category"
-                ],
-                "summary": "Show post category details",
-                "description": "Show a post category by its ID.",
-                "operationId": "05d0626f9dfc93107218c86a62ca186d",
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "description": "Post category ID",
-                        "required": true,
-                        "schema": {
-                            "type": "integer",
-                            "example": 1
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Post category details retrieved successfully",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "properties": {
-                                        "success": {
-                                            "type": "boolean",
-                                            "example": true
-                                        },
-                                        "data": {
-                                            "$ref": "#/components/schemas/PostCategory"
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    },
-                    "401": {
-                        "description": "Unauthenticated",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/UnauthenticatedError"
-                                }
-                            }
-                        }
-                    },
-                    "403": {
-                        "description": "Forbidden",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/ForbiddenError"
-                                }
-                            }
-                        }
-                    },
-                    "404": {
-                        "description": "Post category not found",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/ModelNotFoundError"
-                                }
-                            }
-                        }
-                    }
-                },
-                "security": [
-                    {
-                        "sanctumAuth": []
-                    }
-                ]
-            },
-            "delete": {
-                "tags": [
-                    "Admin/Content/Post Category"
-                ],
-                "summary": "Delete a post category",
-                "description": "Delete a post category by its ID.",
-                "operationId": "5ffdf92fe3878ccd4b4552b58da5f264",
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "description": "Post category ID",
-                        "required": true,
-                        "schema": {
-                            "type": "integer",
-                            "example": 1
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Post category deleted successfully",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "properties": {
-                                        "success": {
-                                            "type": "boolean",
-                                            "example": true
-                                        },
-                                        "message": {
-                                            "type": "string",
-                                            "example": "PostCategory deleted successfully."
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    },
-                    "401": {
-                        "description": "Unauthenticated",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/UnauthenticatedError"
-                                }
-                            }
-                        }
-                    },
-                    "422": {
-                        "description": "Validation Error",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/ValidationError"
-                                }
-                            }
-                        }
-                    },
-                    "404": {
-                        "description": "Post category not found",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/ModelNotFoundError"
-                                }
-                            }
-                        }
-                    },
-                    "403": {
-                        "description": "Forbidden",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/ForbiddenError"
-                                }
-                            }
-                        }
-                    }
-                },
-                "security": [
-                    {
-                        "sanctumAuth": []
-                    }
-                ]
-            },
-            "patch": {
-                "tags": [
-                    "Admin/Content/Post Category"
-                ],
-                "summary": "Update a post category",
-                "description": "Update a post category by its ID.",
-                "operationId": "527b439f6cf2288fbae486eca9d92c14",
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "description": "Post category ID",
-                        "required": true,
-                        "schema": {
-                            "type": "integer",
-                            "example": 1
-                        }
-                    }
-                ],
-                "requestBody": {
-                    "required": false,
-                    "content": {
-                        "multipart/form-data": {
-                            "schema": {
-                                "properties": {
-                                    "name": {
-                                        "type": "string",
-                                        "example": "ورزشی"
-                                    },
-                                    "description": {
-                                        "type": "string",
-                                        "example": "بررسی جدید ترین خبرهای ورزشی"
-                                    },
-                                    "image": {
-                                        "description": "Category image",
-                                        "type": "string",
-                                        "format": "binary"
-                                    },
-                                    "tags": {
-                                        "type": "string",
-                                        "example": "ورزشی"
-                                    },
-                                    "status": {
-                                        "type": "integer",
-                                        "example": 1,
-                                        "enum": [
-                                            0,
-                                            1
-                                        ]
-                                    }
-                                },
-                                "type": "object"
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "200": {
-                        "description": "Post category updated successfully",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "properties": {
-                                        "success": {
-                                            "type": "boolean",
-                                            "example": true
-                                        },
-                                        "message": {
-                                            "type": "string",
-                                            "example": "PostCategory updated successfully."
-                                        },
-                                        "data": {
-                                            "$ref": "#/components/schemas/PostCategory"
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    },
-                    "401": {
-                        "description": "Unauthenticated",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/UnauthenticatedError"
-                                }
-                            }
-                        }
-                    },
-                    "422": {
-                        "description": "Validation Error",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/ValidationError"
-                                }
-                            }
-                        }
-                    },
-                    "404": {
-                        "description": "Post category not found",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/ModelNotFoundError"
-                                }
-                            }
-                        }
-                    },
-                    "403": {
-                        "description": "Forbidden",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/ForbiddenError"
-                                }
-                            }
-                        }
-                    }
-                },
-                "security": [
-                    {
-                        "sanctumAuth": []
-                    }
-                ]
-            }
-        },
-        "/api/admin/content/faq": {
-            "get": {
-                "tags": [
-                    "Admin/Content/FAQ"
-                ],
-                "summary": "List FAQs",
-                "description": "Retrieve list of FAQs.",
-                "operationId": "c734b2118785a0ce6449eebc5930589a",
-                "responses": {
-                    "200": {
-                        "description": "FAQs retrieved successfully",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "properties": {
-                                        "success": {
-                                            "type": "boolean",
-                                            "example": true
-                                        },
-                                        "data": {
-                                            "type": "array",
-                                            "items": {
-                                                "$ref": "#/components/schemas/FAQ"
-                                            }
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    },
-                    "401": {
-                        "description": "Unauthenticated",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/UnauthenticatedError"
-                                }
-                            }
-                        }
-                    },
-                    "403": {
-                        "description": "Forbidden",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/ForbiddenError"
-                                }
-                            }
-                        }
-                    }
-                },
-                "security": [
-                    {
-                        "sanctumAuth": []
-                    }
-                ]
-            },
-            "post": {
-                "tags": [
-                    "Admin/Content/FAQ"
-                ],
-                "summary": "Create FAQ",
-                "operationId": "6948e28a9a75c9062ea491d6f3b0fbcd",
-                "requestBody": {
-                    "required": true,
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "required": [
-                                    "question",
-                                    "answer",
-                                    "tags"
-                                ],
-                                "properties": {
-                                    "question": {
-                                        "type": "string",
-                                        "example": "چگونه رمز عبور حساب کاربری خود را تغییر دهم؟"
-                                    },
-                                    "answer": {
-                                        "type": "string",
-                                        "example": "پس از ورود به حساب کاربری، از بخش تنظیمات پروفایل وارد قسمت امنیت شوید."
-                                    },
-                                    "tags": {
-                                        "type": "string",
-                                        "example": "حساب کاربری-رمز عبور-امنیت"
-                                    },
-                                    "status": {
-                                        "description": "FAQ status (optional)",
-                                        "type": "integer",
-                                        "example": 1,
-                                        "enum": [
-                                            0,
-                                            1
-                                        ]
-                                    }
-                                },
-                                "type": "object"
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "201": {
-                        "description": "FAQ created successfully",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "properties": {
-                                        "success": {
-                                            "type": "boolean",
-                                            "example": true
-                                        },
-                                        "message": {
-                                            "type": "string",
-                                            "example": "FAQ created successfully."
-                                        },
-                                        "data": {
-                                            "$ref": "#/components/schemas/FAQ"
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    },
-                    "401": {
-                        "description": "Unauthenticated",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/UnauthenticatedError"
-                                }
-                            }
-                        }
-                    },
-                    "422": {
-                        "description": "Validation Error",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/ValidationError"
-                                }
-                            }
-                        }
-                    },
-                    "403": {
-                        "description": "Forbidden",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/ForbiddenError"
-                                }
-                            }
-                        }
-                    }
-                },
-                "security": [
-                    {
-                        "sanctumAuth": []
-                    }
-                ]
-            }
-        },
         "/api/admin/content/faq/{id}": {
             "get": {
                 "tags": [
@@ -656,7 +12,7 @@
                 ],
                 "summary": "Show FAQ details",
                 "description": "Show a FAQ by its ID.",
-                "operationId": "4239fe3e84e124cbcf34249e6e52786b",
+                "operationId": "17b4cb7d367e57634f5f626878abd55a",
                 "parameters": [
                     {
                         "name": "id",
@@ -732,7 +88,7 @@
                 ],
                 "summary": "Delete a FAQ",
                 "description": "Delete a FAQ by its ID.",
-                "operationId": "6e0972cdf68bac7503e89d0527afc236",
+                "operationId": "20a94cf165eb7a57aec07fc506c9c208",
                 "parameters": [
                     {
                         "name": "id",
@@ -819,7 +175,7 @@
                 ],
                 "summary": "Update a FAQ",
                 "description": "Update a FAQ by its ID.",
-                "operationId": "1568252731a436d18464b5267d10a586",
+                "operationId": "42b33957ada20943cf6ba0be0faa5829",
                 "parameters": [
                     {
                         "name": "id",
@@ -837,29 +193,7 @@
                     "content": {
                         "application/json": {
                             "schema": {
-                                "properties": {
-                                    "question": {
-                                        "type": "string",
-                                        "example": "چگونه رمز عبور حساب کاربری خود را تغییر دهم؟"
-                                    },
-                                    "answer": {
-                                        "type": "string",
-                                        "example": "پس از ورود به حساب کاربری، از بخش تنظیمات پروفایل وارد قسمت امنیت شوید."
-                                    },
-                                    "tags": {
-                                        "type": "string",
-                                        "example": "حساب کاربری-رمز عبور-امنیت"
-                                    },
-                                    "status": {
-                                        "type": "integer",
-                                        "example": 1,
-                                        "enum": [
-                                            0,
-                                            1
-                                        ]
-                                    }
-                                },
-                                "type": "object"
+                                "$ref": "#/components/schemas/FaqUpdateRequest"
                             }
                         }
                     }
@@ -936,6 +270,426 @@
                 ]
             }
         },
+        "/api/admin/content/faq": {
+            "get": {
+                "tags": [
+                    "Admin/Content/FAQ"
+                ],
+                "summary": "List FAQs",
+                "description": "Retrieve list of FAQs.",
+                "operationId": "c29004e05f2d6d83328b4aedbd2fa039",
+                "responses": {
+                    "200": {
+                        "description": "FAQs retrieved successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/FAQ"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UnauthenticatedError"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ForbiddenError"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "sanctumAuth": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Admin/Content/FAQ"
+                ],
+                "summary": "Create FAQ",
+                "operationId": "d9e71f1cf48f15228b4fe42382708d7c",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/FaqStoreRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "FAQ created successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "FAQ created successfully."
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/FAQ"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UnauthenticatedError"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ValidationError"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ForbiddenError"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "sanctumAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/admin/content/menu/{id}": {
+            "get": {
+                "tags": [
+                    "Admin/Content/Menu"
+                ],
+                "summary": "Show menu details",
+                "description": "Show a menu by its ID.",
+                "operationId": "aa5c66e989f734b8bd5eb5ccda8540af",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Menu ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Menu details retrieved successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/MenuTree"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UnauthenticatedError"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ForbiddenError"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Menu not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ModelNotFoundError"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "sanctumAuth": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Admin/Content/Menu"
+                ],
+                "summary": "Delete a menu",
+                "description": "Delete a menu by its ID.",
+                "operationId": "a203213c016dabf817db00fdb91b4eec",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Menu ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Menu deleted successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Menu deleted successfully."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UnauthenticatedError"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ValidationError"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Menu not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ModelNotFoundError"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ForbiddenError"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "sanctumAuth": []
+                    }
+                ]
+            },
+            "patch": {
+                "tags": [
+                    "Admin/Content/Menu"
+                ],
+                "summary": "Update a menu",
+                "description": "Update a menu by its ID.",
+                "operationId": "213360179cb39a362eeaf1c5d285292a",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Menu ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": false,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/MenuUpdateRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Menu updated successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Menu updated successfully."
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "name": {
+                                                    "type": "string",
+                                                    "example": "درباره ما"
+                                                },
+                                                "url": {
+                                                    "type": "string",
+                                                    "example": "https://example.com/about"
+                                                },
+                                                "parent": {
+                                                    "type": "integer",
+                                                    "example": 1,
+                                                    "nullable": true
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UnauthenticatedError"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ValidationError"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Menu not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ModelNotFoundError"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ForbiddenError"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "sanctumAuth": []
+                    }
+                ]
+            }
+        },
         "/api/admin/content/menu": {
             "get": {
                 "tags": [
@@ -943,7 +697,7 @@
                 ],
                 "summary": "List menus",
                 "description": "Retrieve a paginated list of menus.",
-                "operationId": "3fcdf84af6d1cc7780d544ac2d7a06f8",
+                "operationId": "a04dd511b71d1335c2dd6b444be231a9",
                 "parameters": [
                     {
                         "name": "page",
@@ -1036,42 +790,13 @@
                     "Admin/Content/Menu"
                 ],
                 "summary": "Create menu",
-                "operationId": "610f25756749311cb642415a4eabe6fd",
+                "operationId": "e16cde0364bd1f6e872874553a844efe",
                 "requestBody": {
                     "required": true,
                     "content": {
                         "application/json": {
                             "schema": {
-                                "required": [
-                                    "name",
-                                    "parent_id",
-                                    "url"
-                                ],
-                                "properties": {
-                                    "name": {
-                                        "type": "string",
-                                        "example": "درباره ما"
-                                    },
-                                    "parent_id": {
-                                        "type": "integer",
-                                        "example": 1,
-                                        "nullable": true
-                                    },
-                                    "url": {
-                                        "type": "string",
-                                        "example": "https://example.com/about"
-                                    },
-                                    "status": {
-                                        "description": "Menu status (optional)",
-                                        "type": "integer",
-                                        "example": 1,
-                                        "enum": [
-                                            0,
-                                            1
-                                        ]
-                                    }
-                                },
-                                "type": "object"
+                                "$ref": "#/components/schemas/MenuStoreRequest"
                             }
                         }
                     }
@@ -1157,248 +882,6 @@
                 ]
             }
         },
-        "/api/admin/content/menu/{id}": {
-            "get": {
-                "tags": [
-                    "Admin/Content/Menu"
-                ],
-                "summary": "Show menu details",
-                "description": "Show a menu by its ID.",
-                "operationId": "83dc5b3be77b7280a774a0d05e7ff7d9",
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "description": "Menu ID",
-                        "required": true,
-                        "schema": {
-                            "type": "integer",
-                            "example": 1
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Menu details retrieved successfully",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "properties": {
-                                        "success": {
-                                            "type": "boolean",
-                                            "example": true
-                                        },
-                                        "data": {
-                                            "$ref": "#/components/schemas/MenuTree"
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    },
-                    "401": {
-                        "description": "Unauthenticated",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/UnauthenticatedError"
-                                }
-                            }
-                        }
-                    },
-                    "403": {
-                        "description": "Forbidden",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/ForbiddenError"
-                                }
-                            }
-                        }
-                    },
-                    "404": {
-                        "description": "Menu not found",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/ModelNotFoundError"
-                                }
-                            }
-                        }
-                    }
-                },
-                "security": [
-                    {
-                        "sanctumAuth": []
-                    }
-                ]
-            }
-        },
-        "/api/admin/content/page": {
-            "get": {
-                "tags": [
-                    "Admin/Content/Page"
-                ],
-                "summary": "List pages",
-                "description": "Retrieve list of pages.",
-                "operationId": "f79044b9d5e511720d0bedeb5d14d901",
-                "responses": {
-                    "200": {
-                        "description": "Pages retrieved successfully",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "properties": {
-                                        "success": {
-                                            "type": "boolean",
-                                            "example": true
-                                        },
-                                        "data": {
-                                            "type": "array",
-                                            "items": {
-                                                "$ref": "#/components/schemas/Page"
-                                            }
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    },
-                    "401": {
-                        "description": "Unauthenticated",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/UnauthenticatedError"
-                                }
-                            }
-                        }
-                    },
-                    "403": {
-                        "description": "Forbidden",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/ForbiddenError"
-                                }
-                            }
-                        }
-                    }
-                },
-                "security": [
-                    {
-                        "sanctumAuth": []
-                    }
-                ]
-            },
-            "post": {
-                "tags": [
-                    "Admin/Content/Page"
-                ],
-                "summary": "Create page",
-                "operationId": "6052907af301cd4321cdae04feb105d1",
-                "requestBody": {
-                    "required": true,
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "required": [
-                                    "title",
-                                    "body",
-                                    "tags"
-                                ],
-                                "properties": {
-                                    "title": {
-                                        "type": "string",
-                                        "example": "راهنمای جامع هوش مصنوعی در توسعه نرم‌افزار"
-                                    },
-                                    "body": {
-                                        "type": "string",
-                                        "example": "در این صفحه به بررسی کاربردهای هوش مصنوعی در توسعه نرم‌افزار، مزایا، چالش‌ها و ابزارهای پرکاربرد پرداخته شده است. همچنین نمونه‌هایی از استفاده عملی آن در پروژه‌های واقعی ارائه می‌شود."
-                                    },
-                                    "tags": {
-                                        "type": "string",
-                                        "example": "هوش مصنوعی-برنامه نویسی-لاراول-توسعه نرم افزار"
-                                    },
-                                    "status": {
-                                        "description": "Page status (optional)",
-                                        "type": "integer",
-                                        "example": 1,
-                                        "enum": [
-                                            0,
-                                            1
-                                        ]
-                                    }
-                                },
-                                "type": "object"
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "201": {
-                        "description": "Page created successfully",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "properties": {
-                                        "success": {
-                                            "type": "boolean",
-                                            "example": true
-                                        },
-                                        "message": {
-                                            "type": "string",
-                                            "example": "Page created successfully."
-                                        },
-                                        "data": {
-                                            "$ref": "#/components/schemas/Page"
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    },
-                    "401": {
-                        "description": "Unauthenticated",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/UnauthenticatedError"
-                                }
-                            }
-                        }
-                    },
-                    "422": {
-                        "description": "Validation Error",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/ValidationError"
-                                }
-                            }
-                        }
-                    },
-                    "403": {
-                        "description": "Forbidden",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/ForbiddenError"
-                                }
-                            }
-                        }
-                    }
-                },
-                "security": [
-                    {
-                        "sanctumAuth": []
-                    }
-                ]
-            }
-        },
         "/api/admin/content/page/{id}": {
             "get": {
                 "tags": [
@@ -1406,7 +889,7 @@
                 ],
                 "summary": "Show page details",
                 "description": "Show a page by its ID.",
-                "operationId": "a64f9e63ba9abea9af12c92903cfb6da",
+                "operationId": "3bdf1613111498de2de36b2c08fafb16",
                 "parameters": [
                     {
                         "name": "id",
@@ -1482,7 +965,7 @@
                 ],
                 "summary": "Delete a page",
                 "description": "Delete a page by its ID.",
-                "operationId": "1631e6208d29e5a9d73ef28ec853d2e4",
+                "operationId": "3032430574ea36808ec7cb2c3e03d2e7",
                 "parameters": [
                     {
                         "name": "id",
@@ -1569,7 +1052,7 @@
                 ],
                 "summary": "Update a page",
                 "description": "Update a page by its ID.",
-                "operationId": "769c6ae5ab4bf0eb23c178828e5890a9",
+                "operationId": "a006a458b7ad368c8b08e182bee0b4e4",
                 "parameters": [
                     {
                         "name": "id",
@@ -1587,29 +1070,7 @@
                     "content": {
                         "application/json": {
                             "schema": {
-                                "properties": {
-                                    "title": {
-                                        "type": "string",
-                                        "example": "راهنمای جامع هوش مصنوعی در توسعه نرم‌افزار"
-                                    },
-                                    "body": {
-                                        "type": "string",
-                                        "example": "در این صفحه به بررسی کاربردهای هوش مصنوعی در توسعه نرم‌افزار، مزایا، چالش‌ها و ابزارهای پرکاربرد پرداخته شده است. همچنین نمونه‌هایی از استفاده عملی آن در پروژه‌های واقعی ارائه می‌شود."
-                                    },
-                                    "tags": {
-                                        "type": "string",
-                                        "example": "هوش مصنوعی-برنامه نویسی-لاراول-توسعه نرم افزار"
-                                    },
-                                    "status": {
-                                        "type": "integer",
-                                        "example": 1,
-                                        "enum": [
-                                            0,
-                                            1
-                                        ]
-                                    }
-                                },
-                                "type": "object"
+                                "$ref": "#/components/schemas/PageUpdateRequest"
                             }
                         }
                     }
@@ -1686,14 +1147,415 @@
                 ]
             }
         },
-        "/api/admin/content/post": {
+        "/api/admin/content/page": {
             "get": {
                 "tags": [
-                    "Admin/Content/Post"
+                    "Admin/Content/Page"
                 ],
-                "summary": "List Posts",
-                "description": "Retrieve a paginated list of posts.",
-                "operationId": "7b6d7e64dd3017bd3bdcc884719523db",
+                "summary": "List pages",
+                "description": "Retrieve list of pages.",
+                "operationId": "775c5f9262bd72fb32d7a5ec3402cc57",
+                "responses": {
+                    "200": {
+                        "description": "Pages retrieved successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/Page"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UnauthenticatedError"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ForbiddenError"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "sanctumAuth": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Admin/Content/Page"
+                ],
+                "summary": "Create page",
+                "operationId": "0531416d2f5c3385da82fea4f7074e19",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/PageUpdateRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Page created successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Page created successfully."
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/Page"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UnauthenticatedError"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ValidationError"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ForbiddenError"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "sanctumAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/admin/content/category/{id}": {
+            "get": {
+                "tags": [
+                    "Admin/Content/Post Category"
+                ],
+                "summary": "Show post category details",
+                "description": "Show a post category by its ID.",
+                "operationId": "9dd8702882531a95efaee9640a9941fa",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Post category ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Post category details retrieved successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/PostCategory"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UnauthenticatedError"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ForbiddenError"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Post category not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ModelNotFoundError"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "sanctumAuth": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Admin/Content/Post Category"
+                ],
+                "summary": "Delete a post category",
+                "description": "Delete a post category by its ID.",
+                "operationId": "cbe699e80d9da2bffd3a2b20ac5c97b8",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Post category ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Post category deleted successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "PostCategory deleted successfully."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UnauthenticatedError"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ValidationError"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Post category not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ModelNotFoundError"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ForbiddenError"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "sanctumAuth": []
+                    }
+                ]
+            },
+            "patch": {
+                "tags": [
+                    "Admin/Content/Post Category"
+                ],
+                "summary": "Update a post category",
+                "description": "Update a post category by its ID.",
+                "operationId": "6bf1667cc5582c1f218f5e2b6da6c27c",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Post category ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": false,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "$ref": "#/components/schemas/PostCategoryUpdateRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Post category updated successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "PostCategory updated successfully."
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/PostCategory"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UnauthenticatedError"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ValidationError"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Post category not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ModelNotFoundError"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ForbiddenError"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "sanctumAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/admin/content/category": {
+            "get": {
+                "tags": [
+                    "Admin/Content/Post Category"
+                ],
+                "summary": "List Post Categories",
+                "description": "Retrieve a paginated list of post categories.",
+                "operationId": "bd5428b880b6f88fcae7eb21792fe810",
                 "parameters": [
                     {
                         "name": "page",
@@ -1708,7 +1570,7 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "Posts retrieved successfully",
+                        "description": "Post categories retrieved successfully",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -1720,7 +1582,7 @@
                                         "data": {
                                             "type": "array",
                                             "items": {
-                                                "$ref": "#/components/schemas/Post"
+                                                "$ref": "#/components/schemas/PostCategory"
                                             }
                                         },
                                         "meta": {
@@ -1764,82 +1626,23 @@
             },
             "post": {
                 "tags": [
-                    "Admin/Content/Post"
+                    "Admin/Content/Post Category"
                 ],
-                "summary": "Create Post",
-                "operationId": "9016101338d8907f72504ba41a0f000d",
+                "summary": "Create Post Category",
+                "operationId": "e1ef4537b41b13e34b1c30264579a35f",
                 "requestBody": {
                     "required": true,
                     "content": {
                         "multipart/form-data": {
                             "schema": {
-                                "required": [
-                                    "title",
-                                    "summary",
-                                    "body",
-                                    "category_id",
-                                    "image",
-                                    "commentable",
-                                    "published_at",
-                                    "tags"
-                                ],
-                                "properties": {
-                                    "title": {
-                                        "type": "string",
-                                        "example": "هوش مصنوعی چگونه آینده توسعه نرم‌افزار را متحول می‌کند؟"
-                                    },
-                                    "summary": {
-                                        "type": "string",
-                                        "example": "هوش مصنوعی در حال تغییر روش توسعه، تست و نگهداری نرم‌افزارها است."
-                                    },
-                                    "body": {
-                                        "type": "string",
-                                        "example": "در سال‌های اخیر، هوش مصنوعی به یکی از مهم‌ترین فناوری‌های تأثیرگذار بر صنعت نرم‌افزار تبدیل شده است."
-                                    },
-                                    "category_id": {
-                                        "type": "integer",
-                                        "example": 1
-                                    },
-                                    "image": {
-                                        "description": "Post image",
-                                        "type": "string",
-                                        "format": "binary"
-                                    },
-                                    "commentable": {
-                                        "type": "integer",
-                                        "example": 1,
-                                        "enum": [
-                                            0,
-                                            1
-                                        ]
-                                    },
-                                    "published_at": {
-                                        "description": "Unix timestamp",
-                                        "type": "integer",
-                                        "example": 1782331200
-                                    },
-                                    "tags": {
-                                        "type": "string",
-                                        "example": "هوش مصنوعی-فناوری-برنامه نویسی-AI-تکنولوژی"
-                                    },
-                                    "status": {
-                                        "description": "Post status (optional)",
-                                        "type": "integer",
-                                        "example": 1,
-                                        "enum": [
-                                            0,
-                                            1
-                                        ]
-                                    }
-                                },
-                                "type": "object"
+                                "$ref": "#/components/schemas/PostCategoryStoreRequest"
                             }
                         }
                     }
                 },
                 "responses": {
                     "201": {
-                        "description": "Post created successfully",
+                        "description": "Post category created successfully",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -1850,10 +1653,10 @@
                                         },
                                         "message": {
                                             "type": "string",
-                                            "example": "Post created successfully."
+                                            "example": "PostCategory created successfully."
                                         },
                                         "data": {
-                                            "$ref": "#/components/schemas/Post"
+                                            "$ref": "#/components/schemas/PostCategory"
                                         }
                                     },
                                     "type": "object"
@@ -1906,7 +1709,7 @@
                 ],
                 "summary": "Show post details",
                 "description": "Show a post by its ID.",
-                "operationId": "11d017567da7096b45f79c9d8e8aada5",
+                "operationId": "af5f9fa3aafa6a05394b2947f7475f6e",
                 "parameters": [
                     {
                         "name": "id",
@@ -1982,7 +1785,7 @@
                 ],
                 "summary": "Delete a post",
                 "description": "Delete a post by its ID.",
-                "operationId": "75a7e26cb476eec5017c5afd267b9ab8",
+                "operationId": "b245de09df9f25ae529c6c11823b66ce",
                 "parameters": [
                     {
                         "name": "id",
@@ -2069,7 +1872,7 @@
                 ],
                 "summary": "Update a post",
                 "description": "Update a post by its ID.",
-                "operationId": "3171414a50a4dd60bb75828db8fb776a",
+                "operationId": "9a1e9d0bb3a8b6b2ac1234fd56e67f53",
                 "parameters": [
                     {
                         "name": "id",
@@ -2087,55 +1890,7 @@
                     "content": {
                         "multipart/form-data": {
                             "schema": {
-                                "properties": {
-                                    "title": {
-                                        "type": "string",
-                                        "example": "هوش مصنوعی چگونه آینده توسعه نرم‌افزار را متحول می‌کند؟"
-                                    },
-                                    "summary": {
-                                        "type": "string",
-                                        "example": "هوش مصنوعی در حال تغییر روش توسعه، تست و نگهداری نرم‌افزارها است."
-                                    },
-                                    "body": {
-                                        "type": "string",
-                                        "example": "در سال‌های اخیر، هوش مصنوعی به یکی از مهم‌ترین فناوری‌های تأثیرگذار بر صنعت نرم‌افزار تبدیل شده است."
-                                    },
-                                    "category_id": {
-                                        "type": "integer",
-                                        "example": 1
-                                    },
-                                    "image": {
-                                        "description": "Post image",
-                                        "type": "string",
-                                        "format": "binary"
-                                    },
-                                    "commentable": {
-                                        "type": "integer",
-                                        "example": 1,
-                                        "enum": [
-                                            0,
-                                            1
-                                        ]
-                                    },
-                                    "published_at": {
-                                        "description": "Unix timestamp",
-                                        "type": "integer",
-                                        "example": 1782331200
-                                    },
-                                    "tags": {
-                                        "type": "string",
-                                        "example": "هوش مصنوعی-فناوری-برنامه نویسی-AI-تکنولوژی"
-                                    },
-                                    "status": {
-                                        "type": "integer",
-                                        "example": 1,
-                                        "enum": [
-                                            0,
-                                            1
-                                        ]
-                                    }
-                                },
-                                "type": "object"
+                                "$ref": "#/components/schemas/PostUpdateRequest"
                             }
                         }
                     }
@@ -2211,10 +1966,514 @@
                     }
                 ]
             }
+        },
+        "/api/admin/content/post": {
+            "get": {
+                "tags": [
+                    "Admin/Content/Post"
+                ],
+                "summary": "List Posts",
+                "description": "Retrieve a paginated list of posts.",
+                "operationId": "14763f02c3714934aac447b95ce52158",
+                "parameters": [
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "Page number",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "default": 1
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Posts retrieved successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/Post"
+                                            }
+                                        },
+                                        "meta": {
+                                            "$ref": "#/components/schemas/PaginationMeta"
+                                        },
+                                        "links": {
+                                            "$ref": "#/components/schemas/PaginationLinks"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UnauthenticatedError"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ForbiddenError"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "sanctumAuth": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Admin/Content/Post"
+                ],
+                "summary": "Create Post",
+                "operationId": "6947fd23b23404ee6452075e46b2cb5a",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "$ref": "#/components/schemas/PostStoreRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Post created successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Post created successfully."
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/Post"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UnauthenticatedError"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ValidationError"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ForbiddenError"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "sanctumAuth": []
+                    }
+                ]
+            }
         }
     },
     "components": {
         "schemas": {
+            "FaqStoreRequest": {
+                "required": [
+                    "question",
+                    "answer",
+                    "tags"
+                ],
+                "properties": {
+                    "question": {
+                        "type": "string",
+                        "example": "چگونه رمز عبور حساب کاربری خود را تغییر دهم؟"
+                    },
+                    "answer": {
+                        "type": "string",
+                        "example": "پس از ورود به حساب کاربری، از بخش تنظیمات پروفایل وارد قسمت امنیت شوید."
+                    },
+                    "tags": {
+                        "type": "string",
+                        "example": "حساب کاربری-رمز عبور-امنیت"
+                    },
+                    "status": {
+                        "description": "FAQ status (optional)",
+                        "type": "integer",
+                        "example": 1,
+                        "enum": [
+                            0,
+                            1
+                        ]
+                    }
+                },
+                "type": "object"
+            },
+            "FaqUpdateRequest": {
+                "properties": {
+                    "question": {
+                        "type": "string",
+                        "example": "چگونه رمز عبور حساب کاربری خود را تغییر دهم؟"
+                    },
+                    "answer": {
+                        "type": "string",
+                        "example": "پس از ورود به حساب کاربری، از بخش تنظیمات پروفایل وارد قسمت امنیت شوید."
+                    },
+                    "tags": {
+                        "type": "string",
+                        "example": "حساب کاربری-رمز عبور-امنیت"
+                    },
+                    "status": {
+                        "type": "integer",
+                        "example": 1,
+                        "enum": [
+                            0,
+                            1
+                        ]
+                    }
+                },
+                "type": "object"
+            },
+            "MenuStoreRequest": {
+                "required": [
+                    "name",
+                    "parent_id",
+                    "url"
+                ],
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "example": "درباره ما"
+                    },
+                    "parent_id": {
+                        "type": "integer",
+                        "example": 1,
+                        "nullable": true
+                    },
+                    "url": {
+                        "type": "string",
+                        "example": "https://example.com/about"
+                    },
+                    "status": {
+                        "description": "Menu status (optional)",
+                        "type": "integer",
+                        "example": 1,
+                        "enum": [
+                            0,
+                            1
+                        ]
+                    }
+                },
+                "type": "object"
+            },
+            "MenuUpdateRequest": {
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "example": "درباره ما"
+                    },
+                    "parent_id": {
+                        "type": "integer",
+                        "example": 1,
+                        "nullable": true
+                    },
+                    "url": {
+                        "type": "string",
+                        "example": "https://example.com/about"
+                    },
+                    "status": {
+                        "type": "integer",
+                        "example": 1,
+                        "enum": [
+                            0,
+                            1
+                        ]
+                    }
+                },
+                "type": "object"
+            },
+            "PageStoreRequest": {
+                "required": [
+                    "title",
+                    "body",
+                    "tags"
+                ],
+                "properties": {
+                    "title": {
+                        "type": "string",
+                        "example": "راهنمای جامع هوش مصنوعی در توسعه نرم‌افزار"
+                    },
+                    "body": {
+                        "type": "string",
+                        "example": "در این صفحه به بررسی کاربردهای هوش مصنوعی در توسعه نرم‌افزار، مزایا، چالش‌ها و ابزارهای پرکاربرد پرداخته شده است. همچنین نمونه‌هایی از استفاده عملی آن در پروژه‌های واقعی ارائه می‌شود."
+                    },
+                    "tags": {
+                        "type": "string",
+                        "example": "هوش مصنوعی-برنامه نویسی-لاراول-توسعه نرم افزار"
+                    },
+                    "status": {
+                        "description": "Page status (optional)",
+                        "type": "integer",
+                        "example": 1,
+                        "enum": [
+                            0,
+                            1
+                        ]
+                    }
+                },
+                "type": "object"
+            },
+            "PageUpdateRequest": {
+                "properties": {
+                    "title": {
+                        "type": "string",
+                        "example": "راهنمای جامع هوش مصنوعی در توسعه نرم‌افزار"
+                    },
+                    "body": {
+                        "type": "string",
+                        "example": "در این صفحه به بررسی کاربردهای هوش مصنوعی در توسعه نرم‌افزار، مزایا، چالش‌ها و ابزارهای پرکاربرد پرداخته شده است. همچنین نمونه‌هایی از استفاده عملی آن در پروژه‌های واقعی ارائه می‌شود."
+                    },
+                    "tags": {
+                        "type": "string",
+                        "example": "هوش مصنوعی-برنامه نویسی-لاراول-توسعه نرم افزار"
+                    },
+                    "status": {
+                        "type": "integer",
+                        "example": 1,
+                        "enum": [
+                            0,
+                            1
+                        ]
+                    }
+                },
+                "type": "object"
+            },
+            "PostCategoryStoreRequest": {
+                "required": [
+                    "name",
+                    "description",
+                    "image",
+                    "tags"
+                ],
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "example": "ورزشی"
+                    },
+                    "description": {
+                        "type": "string",
+                        "example": "بررسی جدید ترین خبرهای ورزشی"
+                    },
+                    "image": {
+                        "description": "Category image",
+                        "type": "string",
+                        "format": "binary"
+                    },
+                    "tags": {
+                        "type": "string",
+                        "example": "ورزشی"
+                    },
+                    "status": {
+                        "description": "Post category status (optional)",
+                        "type": "integer",
+                        "example": 1,
+                        "enum": [
+                            0,
+                            1
+                        ]
+                    }
+                },
+                "type": "object"
+            },
+            "PostCategoryUpdateRequest": {
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "example": "ورزشی"
+                    },
+                    "description": {
+                        "type": "string",
+                        "example": "بررسی جدید ترین خبرهای ورزشی"
+                    },
+                    "image": {
+                        "description": "Category image",
+                        "type": "string",
+                        "format": "binary"
+                    },
+                    "tags": {
+                        "type": "string",
+                        "example": "ورزشی"
+                    },
+                    "status": {
+                        "type": "integer",
+                        "example": 1,
+                        "enum": [
+                            0,
+                            1
+                        ]
+                    }
+                },
+                "type": "object"
+            },
+            "PostStoreRequest": {
+                "required": [
+                    "title",
+                    "summary",
+                    "body",
+                    "category_id",
+                    "image",
+                    "commentable",
+                    "published_at",
+                    "tags"
+                ],
+                "properties": {
+                    "title": {
+                        "type": "string",
+                        "example": "هوش مصنوعی چگونه آینده توسعه نرم‌افزار را متحول می‌کند؟"
+                    },
+                    "summary": {
+                        "type": "string",
+                        "example": "هوش مصنوعی در حال تغییر روش توسعه، تست و نگهداری نرم‌افزارها است."
+                    },
+                    "body": {
+                        "type": "string",
+                        "example": "در سال‌های اخیر، هوش مصنوعی به یکی از مهم‌ترین فناوری‌های تأثیرگذار بر صنعت نرم‌افزار تبدیل شده است."
+                    },
+                    "category_id": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "image": {
+                        "description": "Post image",
+                        "type": "string",
+                        "format": "binary"
+                    },
+                    "commentable": {
+                        "type": "integer",
+                        "example": 1,
+                        "enum": [
+                            0,
+                            1
+                        ]
+                    },
+                    "published_at": {
+                        "description": "Unix timestamp",
+                        "type": "integer",
+                        "example": 1782331200
+                    },
+                    "tags": {
+                        "type": "string",
+                        "example": "هوش مصنوعی-فناوری-برنامه نویسی-AI-تکنولوژی"
+                    },
+                    "status": {
+                        "description": "Post status (optional)",
+                        "type": "integer",
+                        "example": 1,
+                        "enum": [
+                            0,
+                            1
+                        ]
+                    }
+                },
+                "type": "object"
+            },
+            "PostUpdateRequest": {
+                "properties": {
+                    "title": {
+                        "type": "string",
+                        "example": "هوش مصنوعی چگونه آینده توسعه نرم‌افزار را متحول می‌کند؟"
+                    },
+                    "summary": {
+                        "type": "string",
+                        "example": "هوش مصنوعی در حال تغییر روش توسعه، تست و نگهداری نرم‌افزارها است."
+                    },
+                    "body": {
+                        "type": "string",
+                        "example": "در سال‌های اخیر، هوش مصنوعی به یکی از مهم‌ترین فناوری‌های تأثیرگذار بر صنعت نرم‌افزار تبدیل شده است."
+                    },
+                    "category_id": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "image": {
+                        "description": "Post image",
+                        "type": "string",
+                        "format": "binary"
+                    },
+                    "commentable": {
+                        "type": "integer",
+                        "example": 1,
+                        "enum": [
+                            0,
+                            1
+                        ]
+                    },
+                    "published_at": {
+                        "description": "Unix timestamp",
+                        "type": "integer",
+                        "example": 1782331200
+                    },
+                    "tags": {
+                        "type": "string",
+                        "example": "هوش مصنوعی-فناوری-برنامه نویسی-AI-تکنولوژی"
+                    },
+                    "status": {
+                        "type": "integer",
+                        "example": 1,
+                        "enum": [
+                            0,
+                            1
+                        ]
+                    }
+                },
+                "type": "object"
+            },
             "FAQ": {
                 "properties": {
                     "id": {
@@ -2474,10 +2733,6 @@
     },
     "tags": [
         {
-            "name": "Admin/Content/Post Category",
-            "description": "Admin/Content/Post Category"
-        },
-        {
             "name": "Admin/Content/FAQ",
             "description": "Admin/Content/FAQ"
         },
@@ -2488,6 +2743,10 @@
         {
             "name": "Admin/Content/Page",
             "description": "Admin/Content/Page"
+        },
+        {
+            "name": "Admin/Content/Post Category",
+            "description": "Admin/Content/Post Category"
         },
         {
             "name": "Admin/Content/Post",
