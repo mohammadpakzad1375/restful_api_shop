@@ -24,10 +24,6 @@ class AdminApiResource extends JsonResource
             'mobile' => $this->mobile,
             'national_code' => $this->national_code,
             'profile_photo_path' => $this->profile_photo_path,
-            'activation' => $this->activation,
-            'activation_date' => $this->activation_date?->format('Y-m-d H:i:s'),
-            'email_verified_at' => $this->email_verified_at?->format('Y-m-d H:i:s'),
-            'status' => $this->status,
         ];
     }
 }

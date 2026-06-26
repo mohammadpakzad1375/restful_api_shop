@@ -48,6 +48,10 @@ class User extends Authenticatable
         'password',
         'remember_token',
         'slug',
+        'activation',
+        'activation_date',
+        'email_verified_at',
+        'status',
         'created_at',
         'updated_at',
         'deleted_at'

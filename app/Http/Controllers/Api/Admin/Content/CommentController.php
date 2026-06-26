@@ -3,13 +3,11 @@
 namespace App\Http\Controllers\Api\Admin\Content;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\ApiRequests\Admin\Content\Comment\CommentApproveApiRequest;
 use App\Http\Resources\Content\Comment\CommentApiResource;
 use App\Http\Resources\Content\Comment\CommentApiResourceCollection;
 use App\Http\Services\BusinessLogic\Content\CommentService;
 use App\Http\Services\RestfulApi\Facades\ApiResponse;
 use App\Models\Content\Comment;
-use Illuminate\Http\Request;
 
 class CommentController extends Controller
 {
@@ -48,7 +46,7 @@ class CommentController extends Controller
     {
         $result = $this->commentService->deleteComment($comment);
 
-        return ApiResponse::withResponseMessage('comment deleted successfully.')
+        return ApiResponse::withResponseMessage('Comment deleted successfully.')
             ->build()
             ->response($result->success);
     }
@@ -57,7 +55,7 @@ class CommentController extends Controller
     {
         $result = $this->commentService->toggleCommentApproved($comment);
 
-        return ApiResponse::withResponseMessage("comment approved change successfully. approved = {$result->data}")
+        return ApiResponse::withResponseMessage("Comment approved change successfully. approved = {$result->data}")
             ->build()
             ->response($result->success);
     }
@@ -66,7 +64,7 @@ class CommentController extends Controller
     {
         $result = $this->commentService->toggleCommentStatus($comment);
 
-        return ApiResponse::withResponseMessage("comment status change successfully. status = {$result->data}")
+        return ApiResponse::withResponseMessage("Comment status change successfully. status = {$result->data}")
             ->build()
             ->response($result->success);
     }
