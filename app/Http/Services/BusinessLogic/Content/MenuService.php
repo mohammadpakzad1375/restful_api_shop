@@ -21,9 +21,7 @@ class MenuService
     {
         return app(ServiceWrapper::class)(function () use ($inputs){
 
-            $menu = Menu::create($inputs);
-
-            return $menu->refresh();
+            return Menu::create($inputs);
 
         });
     }
@@ -42,7 +40,7 @@ class MenuService
         return app(ServiceWrapper::class)(function () use ($inputs, $menu){
 
             $menu->update($inputs);
-            return $menu->refresh();
+            return $menu;
 
         });
     }

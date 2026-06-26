@@ -936,6 +936,756 @@
                 ]
             }
         },
+        "/api/admin/content/menu": {
+            "get": {
+                "tags": [
+                    "Admin/Content/Menu"
+                ],
+                "summary": "List menus",
+                "description": "Retrieve a paginated list of menus.",
+                "operationId": "3fcdf84af6d1cc7780d544ac2d7a06f8",
+                "parameters": [
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "Page number",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "default": 1
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Menus retrieved successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "integer",
+                                                        "example": 1
+                                                    },
+                                                    "name": {
+                                                        "type": "string",
+                                                        "example": "درباره ما"
+                                                    },
+                                                    "url": {
+                                                        "type": "string",
+                                                        "example": "https://example.com/about"
+                                                    },
+                                                    "parent": {
+                                                        "type": "integer",
+                                                        "example": 1,
+                                                        "nullable": true
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        },
+                                        "meta": {
+                                            "$ref": "#/components/schemas/PaginationMeta"
+                                        },
+                                        "links": {
+                                            "$ref": "#/components/schemas/PaginationLinks"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UnauthenticatedError"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ForbiddenError"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "sanctumAuth": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Admin/Content/Menu"
+                ],
+                "summary": "Create menu",
+                "operationId": "610f25756749311cb642415a4eabe6fd",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "name",
+                                    "parent_id",
+                                    "url"
+                                ],
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "example": "درباره ما"
+                                    },
+                                    "parent_id": {
+                                        "type": "integer",
+                                        "example": 1,
+                                        "nullable": true
+                                    },
+                                    "url": {
+                                        "type": "string",
+                                        "example": "https://example.com/about"
+                                    },
+                                    "status": {
+                                        "description": "Menu status (optional)",
+                                        "type": "integer",
+                                        "example": 1,
+                                        "enum": [
+                                            0,
+                                            1
+                                        ]
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Menu created successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Menu created successfully."
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "name": {
+                                                    "type": "string",
+                                                    "example": "درباره ما"
+                                                },
+                                                "url": {
+                                                    "type": "string",
+                                                    "example": "https://example.com/about"
+                                                },
+                                                "parent": {
+                                                    "type": "integer",
+                                                    "example": 1,
+                                                    "nullable": true
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UnauthenticatedError"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ValidationError"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ForbiddenError"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "sanctumAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/admin/content/menu/{id}": {
+            "get": {
+                "tags": [
+                    "Admin/Content/Menu"
+                ],
+                "summary": "Show menu details",
+                "description": "Show a menu by its ID.",
+                "operationId": "83dc5b3be77b7280a774a0d05e7ff7d9",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Menu ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Menu details retrieved successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/MenuTree"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UnauthenticatedError"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ForbiddenError"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Menu not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ModelNotFoundError"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "sanctumAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/admin/content/page": {
+            "get": {
+                "tags": [
+                    "Admin/Content/Page"
+                ],
+                "summary": "List pages",
+                "description": "Retrieve list of pages.",
+                "operationId": "f79044b9d5e511720d0bedeb5d14d901",
+                "responses": {
+                    "200": {
+                        "description": "Pages retrieved successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/Page"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UnauthenticatedError"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ForbiddenError"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "sanctumAuth": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Admin/Content/Page"
+                ],
+                "summary": "Create page",
+                "operationId": "6052907af301cd4321cdae04feb105d1",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "title",
+                                    "body",
+                                    "tags"
+                                ],
+                                "properties": {
+                                    "title": {
+                                        "type": "string",
+                                        "example": "راهنمای جامع هوش مصنوعی در توسعه نرم‌افزار"
+                                    },
+                                    "body": {
+                                        "type": "string",
+                                        "example": "در این صفحه به بررسی کاربردهای هوش مصنوعی در توسعه نرم‌افزار، مزایا، چالش‌ها و ابزارهای پرکاربرد پرداخته شده است. همچنین نمونه‌هایی از استفاده عملی آن در پروژه‌های واقعی ارائه می‌شود."
+                                    },
+                                    "tags": {
+                                        "type": "string",
+                                        "example": "هوش مصنوعی-برنامه نویسی-لاراول-توسعه نرم افزار"
+                                    },
+                                    "status": {
+                                        "description": "Page status (optional)",
+                                        "type": "integer",
+                                        "example": 1,
+                                        "enum": [
+                                            0,
+                                            1
+                                        ]
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Page created successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Page created successfully."
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/Page"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UnauthenticatedError"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ValidationError"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ForbiddenError"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "sanctumAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/admin/content/page/{id}": {
+            "get": {
+                "tags": [
+                    "Admin/Content/Page"
+                ],
+                "summary": "Show page details",
+                "description": "Show a page by its ID.",
+                "operationId": "a64f9e63ba9abea9af12c92903cfb6da",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Page ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Page details retrieved successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/Page"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UnauthenticatedError"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ForbiddenError"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Page not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ModelNotFoundError"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "sanctumAuth": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Admin/Content/Page"
+                ],
+                "summary": "Delete a page",
+                "description": "Delete a page by its ID.",
+                "operationId": "1631e6208d29e5a9d73ef28ec853d2e4",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Page ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Page deleted successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Page deleted successfully."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UnauthenticatedError"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ValidationError"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Page not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ModelNotFoundError"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ForbiddenError"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "sanctumAuth": []
+                    }
+                ]
+            },
+            "patch": {
+                "tags": [
+                    "Admin/Content/Page"
+                ],
+                "summary": "Update a page",
+                "description": "Update a page by its ID.",
+                "operationId": "769c6ae5ab4bf0eb23c178828e5890a9",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Page ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": false,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "title": {
+                                        "type": "string",
+                                        "example": "راهنمای جامع هوش مصنوعی در توسعه نرم‌افزار"
+                                    },
+                                    "body": {
+                                        "type": "string",
+                                        "example": "در این صفحه به بررسی کاربردهای هوش مصنوعی در توسعه نرم‌افزار، مزایا، چالش‌ها و ابزارهای پرکاربرد پرداخته شده است. همچنین نمونه‌هایی از استفاده عملی آن در پروژه‌های واقعی ارائه می‌شود."
+                                    },
+                                    "tags": {
+                                        "type": "string",
+                                        "example": "هوش مصنوعی-برنامه نویسی-لاراول-توسعه نرم افزار"
+                                    },
+                                    "status": {
+                                        "type": "integer",
+                                        "example": 1,
+                                        "enum": [
+                                            0,
+                                            1
+                                        ]
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Page updated successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Page updated successfully."
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/Page"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UnauthenticatedError"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ValidationError"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Page not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ModelNotFoundError"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ForbiddenError"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "sanctumAuth": []
+                    }
+                ]
+            }
+        },
         "/api/admin/content/post": {
             "get": {
                 "tags": [
@@ -1486,6 +2236,56 @@
                 },
                 "type": "object"
             },
+            "MenuTree": {
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "name": {
+                        "type": "string",
+                        "example": "درباره ما"
+                    },
+                    "url": {
+                        "type": "string",
+                        "format": "uri",
+                        "example": "https://example.com/about"
+                    },
+                    "parent": {
+                        "example": null,
+                        "nullable": true
+                    },
+                    "children": {
+                        "type": "array",
+                        "items": {
+                            "type": "object"
+                        },
+                        "example": []
+                    }
+                },
+                "type": "object"
+            },
+            "Page": {
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "title": {
+                        "type": "string",
+                        "example": "راهنمای جامع هوش مصنوعی در توسعه نرم‌افزار"
+                    },
+                    "body": {
+                        "type": "string",
+                        "example": "در این صفحه به بررسی کاربردهای هوش مصنوعی در توسعه نرم‌افزار، مزایا، چالش‌ها و ابزارهای پرکاربرد پرداخته شده است. همچنین نمونه‌هایی از استفاده عملی آن در پروژه‌های واقعی ارائه می‌شود."
+                    },
+                    "tags": {
+                        "type": "string",
+                        "example": "هوش مصنوعی-برنامه نویسی-لاراول-توسعه نرم افزار"
+                    }
+                },
+                "type": "object"
+            },
             "PostCategory": {
                 "properties": {
                     "id": {
@@ -1680,6 +2480,14 @@
         {
             "name": "Admin/Content/FAQ",
             "description": "Admin/Content/FAQ"
+        },
+        {
+            "name": "Admin/Content/Menu",
+            "description": "Admin/Content/Menu"
+        },
+        {
+            "name": "Admin/Content/Page",
+            "description": "Admin/Content/Page"
         },
         {
             "name": "Admin/Content/Post",

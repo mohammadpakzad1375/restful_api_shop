@@ -2,10 +2,13 @@
 
 namespace App\Models\Content;
 
+use App\Observers\Admin\Content\MenuObserver;
+use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
+#[ObservedBy([MenuObserver::class])]
 class Menu extends Model
 {
     use HasFactory, SoftDeletes;
@@ -19,16 +22,6 @@ class Menu extends Model
     ];
 
     protected $hidden = ['slug', 'status', 'created_at', 'updated_at', 'deleted_at'];
-
-    //delete all children when parent delete
-    protected static function boot()
-    {
-        parent::boot();
-
-        static::deleting(function ($menu) {
-            $menu->children()->delete();
-        });
-    }
 
     public function children(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
