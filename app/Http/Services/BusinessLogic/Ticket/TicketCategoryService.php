@@ -30,7 +30,7 @@ class TicketCategoryService
         return app(ServiceWrapper::class)(function () use ($inputs, $category){
 
             $category->update($inputs);
-            return $category->refresh();
+            return $category;
 
         });
     }

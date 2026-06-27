@@ -30,7 +30,7 @@ class TicketPriorityService
         return app(ServiceWrapper::class)(function () use ($inputs, $priority){
 
             $priority->update($inputs);
-            return $priority->refresh();
+            return $priority;
 
         });
     }

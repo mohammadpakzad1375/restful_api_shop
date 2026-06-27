@@ -36,6 +36,7 @@ class TicketPriorityController extends Controller
         $result = $this->ticketPriorityService->createTicketPriority($request->validated());
 
         return ApiResponse::withResponseMessage('TicketPriority created successfully.')
+            ->withResponseStatus(201)
             ->withData($result->data)
             ->build()
             ->response($result->success);

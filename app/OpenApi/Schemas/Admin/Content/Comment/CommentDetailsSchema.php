@@ -48,6 +48,11 @@ use OpenApi\Attributes as OA;
                     example: "mohammad.pakzad1375@gmail.com"
                 ),
                 new OA\Property(
+                    property: "mobile",
+                    type: "string",
+                    example: "09130139244"
+                ),
+                new OA\Property(
                     property: "national_code",
                     type: "string",
                     example: "1861357869"

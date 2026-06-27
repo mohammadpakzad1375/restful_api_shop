@@ -35,6 +35,7 @@ class TicketCategoryController extends Controller
         $result = $this->ticketCategoryService->createTicketCategory($request->validated());
 
         return ApiResponse::withResponseMessage('TicketCategory created successfully.')
+            ->withResponseStatus(201)
             ->withData($result->data)
             ->build()
             ->response($result->success);
