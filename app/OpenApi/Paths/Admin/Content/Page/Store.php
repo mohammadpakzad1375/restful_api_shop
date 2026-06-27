@@ -11,7 +11,7 @@ use OpenApi\Attributes as OA;
     requestBody: new OA\RequestBody(
         required: true,
         content: new OA\JsonContent(
-            ref: "#/components/schemas/PageUpdateRequest"
+            ref: "#/components/schemas/PageStoreRequest"
         )
     ),
     tags: ["Admin/Content/Page"],

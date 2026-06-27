@@ -1,19 +1,19 @@
 <?php
 
-namespace App\OpenApi\Paths\Admin\Content\Page;
+namespace App\OpenApi\Paths\Admin\Notify\Email;
 
 use OpenApi\Attributes as OA;
 
-#[OA\Delete(
-    path: "/api/admin/content/page/{id}",
-    description: "Delete a page by its ID.",
-    summary: "Delete a page",
+#[OA\Get(
+    path: "/api/admin/notify/email/{id}",
+    description: "Show a email by its ID.",
+    summary: "Show email details",
     security: [["sanctumAuth" => []]],
-    tags: ["Admin/Content/Page"],
+    tags: ["Admin/Notify/Email"],
     parameters: [
         new OA\Parameter(
             name: "id",
-            description: "Page ID",
+            description: "Email ID",
             in: "path",
             required: true,
             schema: new OA\Schema(
@@ -25,7 +25,7 @@ use OpenApi\Attributes as OA;
     responses: [
         new OA\Response(
             response: 200,
-            description: "Page deleted successfully",
+            description: "Email details retrieved successfully",
             content: new OA\JsonContent(
                 properties: [
                     new OA\Property(
@@ -34,11 +34,11 @@ use OpenApi\Attributes as OA;
                         example: true
                     ),
                     new OA\Property(
-                        property: "message",
-                        type: "string",
-                        example: "Page deleted successfully."
+                        property: "data",
+                        ref: "#/components/schemas/Email"
                     )
-                ]
+                ],
+                type: "object"
             )
         ),
         new OA\Response(
@@ -49,22 +49,22 @@ use OpenApi\Attributes as OA;
             )
         ),
         new OA\Response(
-            response: 404,
-            description: "Page not found",
-            content: new OA\JsonContent(
-                ref: "#/components/schemas/ModelNotFoundError"
-            )
-        ),
-        new OA\Response(
             response: 403,
             description: "Forbidden",
             content: new OA\JsonContent(
                 ref: "#/components/schemas/ForbiddenError"
             )
         ),
+        new OA\Response(
+            response: 404,
+            description: "Email not found",
+            content: new OA\JsonContent(
+                ref: "#/components/schemas/ModelNotFoundError"
+            )
+        )
     ]
 )]
-class Destroy
+class Show
 {
 
 }

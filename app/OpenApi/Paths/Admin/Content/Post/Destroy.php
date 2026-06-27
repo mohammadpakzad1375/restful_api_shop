@@ -49,13 +49,6 @@ use OpenApi\Attributes as OA;
             )
         ),
         new OA\Response(
-            response: 422,
-            description: "Validation Error",
-            content: new OA\JsonContent(
-                ref: "#/components/schemas/ValidationError"
-            )
-        ),
-        new OA\Response(
             response: 404,
             description: "Post not found",
             content: new OA\JsonContent(

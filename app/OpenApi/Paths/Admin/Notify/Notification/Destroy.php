@@ -1,31 +1,18 @@
 <?php
 
-namespace App\OpenApi\Paths\Admin\Content\Page;
+namespace App\OpenApi\Paths\Admin\Notify\Notification;
 
 use OpenApi\Attributes as OA;
 
 #[OA\Delete(
-    path: "/api/admin/content/page/{id}",
-    description: "Delete a page by its ID.",
-    summary: "Delete a page",
+    path: "/api/admin/notify/notification/delete",
+    description: "Delete all notifications.",
     security: [["sanctumAuth" => []]],
-    tags: ["Admin/Content/Page"],
-    parameters: [
-        new OA\Parameter(
-            name: "id",
-            description: "Page ID",
-            in: "path",
-            required: true,
-            schema: new OA\Schema(
-                type: "integer",
-                example: 1
-            )
-        )
-    ],
+    tags: ["Admin/Notify/Notification"],
     responses: [
         new OA\Response(
             response: 200,
-            description: "Page deleted successfully",
+            description: "All notifications deleted successfully.",
             content: new OA\JsonContent(
                 properties: [
                     new OA\Property(
@@ -36,7 +23,7 @@ use OpenApi\Attributes as OA;
                     new OA\Property(
                         property: "message",
                         type: "string",
-                        example: "Page deleted successfully."
+                        example: "All notifications deleted successfully."
                     )
                 ]
             )
@@ -46,13 +33,6 @@ use OpenApi\Attributes as OA;
             description: "Unauthenticated",
             content: new OA\JsonContent(
                 ref: "#/components/schemas/UnauthenticatedError"
-            )
-        ),
-        new OA\Response(
-            response: 404,
-            description: "Page not found",
-            content: new OA\JsonContent(
-                ref: "#/components/schemas/ModelNotFoundError"
             )
         ),
         new OA\Response(

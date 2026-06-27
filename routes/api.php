@@ -193,7 +193,7 @@ Route::prefix('admin')->middleware(['auth:sanctum', 'admin.token.activity'])->gr
 
         Route::apiResource('email', EmailController::class)->only(['index','store','show'])->names('admin.notify.email');
 
-        Route::apiResource('sms', SMSController::class)->names('admin.notify.sms');
+//        Route::apiResource('sms', SMSController::class)->names('admin.notify.sms');
 
         Route::prefix('notification')->controller(NotificationController::class)->group(function (){
 

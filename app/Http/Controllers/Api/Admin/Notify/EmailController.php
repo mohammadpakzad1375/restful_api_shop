@@ -39,6 +39,7 @@ class EmailController extends Controller
 
         return ApiResponse::withResponseMessage('Email created successfully.')
             ->withData(EmailApiResource::make($result->data))
+            ->withResponseStatus(201)
             ->build()
             ->response($result->success);
     }

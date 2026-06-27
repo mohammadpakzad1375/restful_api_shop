@@ -1,31 +1,24 @@
 <?php
 
-namespace App\OpenApi\Paths\Admin\Content\Page;
+namespace App\OpenApi\Paths\Admin\Notify\Email;
 
 use OpenApi\Attributes as OA;
 
-#[OA\Delete(
-    path: "/api/admin/content/page/{id}",
-    description: "Delete a page by its ID.",
-    summary: "Delete a page",
+#[OA\Post(
+    path: "/api/admin/notify/email",
+    summary: "Create email",
     security: [["sanctumAuth" => []]],
-    tags: ["Admin/Content/Page"],
-    parameters: [
-        new OA\Parameter(
-            name: "id",
-            description: "Page ID",
-            in: "path",
-            required: true,
-            schema: new OA\Schema(
-                type: "integer",
-                example: 1
-            )
+    requestBody: new OA\RequestBody(
+        required: true,
+        content: new OA\JsonContent(
+            ref: "#/components/schemas/EmailStoreRequest"
         )
-    ],
+    ),
+    tags: ["Admin/Notify/Email"],
     responses: [
         new OA\Response(
-            response: 200,
-            description: "Page deleted successfully",
+            response: 201,
+            description: "Email created successfully",
             content: new OA\JsonContent(
                 properties: [
                     new OA\Property(
@@ -36,7 +29,11 @@ use OpenApi\Attributes as OA;
                     new OA\Property(
                         property: "message",
                         type: "string",
-                        example: "Page deleted successfully."
+                        example: "Email created successfully."
+                    ),
+                    new OA\Property(
+                        property: "data",
+                        ref: "#/components/schemas/Email"
                     )
                 ]
             )
@@ -49,10 +46,10 @@ use OpenApi\Attributes as OA;
             )
         ),
         new OA\Response(
-            response: 404,
-            description: "Page not found",
+            response: 422,
+            description: "Validation Error",
             content: new OA\JsonContent(
-                ref: "#/components/schemas/ModelNotFoundError"
+                ref: "#/components/schemas/ValidationError"
             )
         ),
         new OA\Response(
@@ -64,7 +61,7 @@ use OpenApi\Attributes as OA;
         ),
     ]
 )]
-class Destroy
+class Store
 {
 
 }

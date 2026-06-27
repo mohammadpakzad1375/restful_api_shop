@@ -25,8 +25,6 @@ class EmailService
 
             $email = Email::create($inputs);
 
-            $email = $email->refresh();
-
             EmailCreated::dispatch($email);
 
             return $email;

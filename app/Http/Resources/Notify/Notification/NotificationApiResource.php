@@ -20,8 +20,8 @@ class NotificationApiResource extends JsonResource
             'notifiable_type' => $this->notifiable_type,
             'notifiable_id' => $this->notifiable_id,
             'data' => $this->data,
-            'read_at' => $this->read_at,
-            'created_at' => $this->created_at,
+            'read_at' => $this->read_at?->format('Y-m-d H:i:s'),
+            'created_at' => $this->created_at?->format('Y-m-d H:i:s'),
         ];
     }
 }
