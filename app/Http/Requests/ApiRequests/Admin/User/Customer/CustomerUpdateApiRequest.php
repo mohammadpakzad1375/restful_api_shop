@@ -28,6 +28,7 @@ class CustomerUpdateApiRequest extends ApiFormRequest
             'last_name' => ['min:2','max:120'],
             'mobile' => ['digits:11',new MobileRule()],
             'email' => ['string','email'],
+            'national_code' => ['numeric','digits:10'],
             'password' => ['confirmed',Password::min(8)->letters()->mixedCase()->numbers()->symbols()->uncompromised()],
             'profile_photo_path' => ['nullable','image','mimes:png,jpg,jpeg'],
             'activation' => ['numeric','in:0,1'],

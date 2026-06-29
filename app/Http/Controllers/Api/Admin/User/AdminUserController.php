@@ -10,11 +10,24 @@ use App\Http\Resources\User\Admin\AdminApiResourceCollection;
 use App\Http\Services\BusinessLogic\User\AdminUserService;
 use App\Http\Services\RestfulApi\Facades\ApiResponse;
 use App\Models\User\User;
+use Illuminate\Routing\Controllers\HasMiddleware;
+use Illuminate\Routing\Controllers\Middleware;
 
-class AdminUserController extends Controller
+class AdminUserController extends Controller implements HasMiddleware
 {
     public function __construct(private AdminUserService $adminUserService)
     {
+    }
+
+    public static function middleware()
+    {
+        return [
+            new Middleware('check.admin', only: [
+                'show',
+                'update',
+                'destroy',
+            ]),
+        ];
     }
 
     /**
@@ -37,6 +50,7 @@ class AdminUserController extends Controller
         $result = $this->adminUserService->createAdmin($request->validated());
 
         return ApiResponse::withResponseMessage('Admin created successfully.')
+            ->withResponseStatus(201)
             ->withData(AdminApiResource::make($result->data))
             ->build()
             ->response($result->success);
@@ -60,6 +74,7 @@ class AdminUserController extends Controller
         $result = $this->adminUserService->updateAdmin($request->validated(), $adminUser);
 
         return ApiResponse::withResponseMessage('Admin updated successfully.')
+            ->withRejectMessage($result->data)
             ->withData(AdminApiResource::make($result->data))
             ->build()
             ->response($result->success);

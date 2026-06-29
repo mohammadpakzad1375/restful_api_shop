@@ -95,6 +95,11 @@ class User extends Authenticatable
         return $query->where('user_type', 0);
     }
 
+    public function isCustomer(): bool
+    {
+        return $this->user_type == 0;
+    }
+
     public function ticketAdmin(): \Illuminate\Database\Eloquent\Relations\HasOne
     {
         return $this->hasOne(TicketAdmin::class, 'user_id');

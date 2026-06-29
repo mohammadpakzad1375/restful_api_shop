@@ -28,9 +28,9 @@ class AdminStoreApiRequest extends ApiFormRequest
             'last_name' => ['required','min:2','max:120'],
             'mobile' => ['required','digits:11','unique:users',new MobileRule()],
             'email' => ['required','string','email','unique:users'],
+            'national_code' => ['required','numeric','digits:10'],
             'password' => ['required','confirmed',Password::min(8)->letters()->mixedCase()->numbers()->symbols()->uncompromised()],
             'profile_photo_path' => ['nullable','image','mimes:png,jpg,jpeg'],
-            'activation' => ['required','numeric','in:0,1'],
             'status' => ['required','numeric','in:0,1'],
         ];
     }

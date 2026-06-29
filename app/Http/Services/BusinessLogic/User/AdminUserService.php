@@ -28,9 +28,7 @@ class AdminUserService
             $inputs['user_type'] = 1;
             $inputs['password'] = Hash::make($inputs['password']);
 
-            $admin = User::create($inputs);
-
-            return $admin->refresh();
+            return User::create($inputs);
 
         });
     }
@@ -49,7 +47,7 @@ class AdminUserService
                 $inputs['password'] = Hash::make($inputs['password']);
 
             $adminUser->update($inputs);
-            return $adminUser->refresh();
+            return $adminUser;
 
         });
     }

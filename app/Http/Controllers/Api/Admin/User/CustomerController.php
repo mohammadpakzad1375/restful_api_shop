@@ -10,11 +10,24 @@ use App\Http\Resources\User\Customer\CustomerApiResourceCollection;
 use App\Http\Services\BusinessLogic\User\CustomerUserService;
 use App\Http\Services\RestfulApi\Facades\ApiResponse;
 use App\Models\User\User;
+use Illuminate\Routing\Controllers\HasMiddleware;
+use Illuminate\Routing\Controllers\Middleware;
 
-class CustomerController extends Controller
+class CustomerController extends Controller implements HasMiddleware
 {
     public function __construct(private CustomerUserService $customerUserService)
     {
+    }
+
+    public static function middleware()
+    {
+        return [
+            new Middleware('check.customer', only: [
+                'show',
+                'update',
+                'destroy',
+            ]),
+        ];
     }
 
     /**

@@ -22,6 +22,8 @@ return Application::configure(basePath: dirname(__DIR__))
         });
         $middleware->alias([
             'admin.token.activity' => \App\Http\Middleware\Admin\Auth\CheckAdminTokenActivity::class,
+            'check.admin' => \App\Http\Middleware\Admin\User\CheckAdmin::class,
+            'check.customer' => \App\Http\Middleware\Admin\User\CheckCustomer::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
