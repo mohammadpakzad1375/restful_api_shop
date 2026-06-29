@@ -34,7 +34,7 @@ class SettingController extends Controller
     {
         $result = $this->settingService->updateSetting($request->validated(), $setting);
 
-        return ApiResponse::withResponseMessage('setting updated successfully.')
+        return ApiResponse::withResponseMessage('Setting updated successfully.')
             ->withData($result->data)
             ->build()
             ->response($result->success);
