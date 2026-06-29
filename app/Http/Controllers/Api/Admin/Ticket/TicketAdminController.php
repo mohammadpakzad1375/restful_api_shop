@@ -5,20 +5,14 @@ namespace App\Http\Controllers\Api\Admin\Ticket;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\User\Admin\AdminApiResourceCollection;
 use App\Http\Services\BusinessLogic\Ticket\TicketAdminService;
-use App\Http\Services\BusinessLogic\User\AdminUserService;
 use App\Http\Services\RestfulApi\ApiResponse\ApiResponse;
 use App\Models\User\User;
 use Illuminate\Http\Request;
 
 class TicketAdminController extends Controller
 {
-    private AdminUserService $adminUserService;
-    private TicketAdminService $ticketAdminService;
-
-    public function __construct(TicketAdminService $ticketAdminService, AdminUserService $adminUserService)
+    public function __construct(private TicketAdminService $ticketAdminService)
     {
-        $this->adminUserService = $adminUserService;
-        $this->ticketAdminService = $ticketAdminService;
     }
 
     /**
@@ -26,7 +20,7 @@ class TicketAdminController extends Controller
      */
     public function index()
     {
-        $result = $this->adminUserService->showAllAdmins();
+        $result = $this->ticketAdminService->showAllTicketAdmins();
 
         return \App\Http\Services\RestfulApi\Facades\ApiResponse::withData(AdminApiResourceCollection::make($result->data))
             ->build()

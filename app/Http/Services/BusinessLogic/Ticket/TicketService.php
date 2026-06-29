@@ -5,6 +5,7 @@ namespace App\Http\Services\BusinessLogic\Ticket;
 use App\Http\Services\BusinessLogic\Tools\ServiceResult;
 use App\Http\Services\BusinessLogic\Tools\ServiceWrapper;
 use App\Models\Ticket\Ticket;
+use Illuminate\Support\Facades\Auth;
 
 class TicketService
 {
@@ -12,7 +13,7 @@ class TicketService
     {
         return app(ServiceWrapper::class)(function (){
 
-            return Ticket::orderBy('created_at','desc')->paginate();
+            return Ticket::orderBy('created_at','desc')->paginate(10);
 
         });
     }
@@ -21,7 +22,7 @@ class TicketService
     {
         return app(ServiceWrapper::class)(function (){
 
-            $tickets = Ticket::unseen()->orderBy('created_at','desc')->paginate();
+            $tickets = Ticket::unseen()->orderBy('created_at','desc')->paginate(10);
 
             Ticket::whereIn('id', $tickets->pluck('id'))->update(['seen' => 1]);
 
@@ -34,7 +35,7 @@ class TicketService
     {
         return app(ServiceWrapper::class)(function (){
 
-            return Ticket::open()->orderBy('created_at','desc')->paginate();
+            return Ticket::open()->orderBy('created_at','desc')->paginate(10);
 
         });
     }
@@ -43,7 +44,7 @@ class TicketService
     {
         return app(ServiceWrapper::class)(function (){
 
-            return Ticket::close()->orderBy('created_at','desc')->paginate();
+            return Ticket::close()->orderBy('created_at','desc')->paginate(10);
 
         });
     }
@@ -71,15 +72,12 @@ class TicketService
             $inputs['subject'] = $ticket->subject;
             $inputs['seen'] = 1;
             $inputs['reference_id'] = $ticket->reference_id;
-            //when Auth develop
-            $inputs['user_id'] = 1;
+            $inputs['user_id'] = $ticket->user_id;
             $inputs['category_id'] = $ticket->category_id;
             $inputs['priority_id'] = $ticket->priority_id;
             $inputs['ticket_id'] = $ticket->id;
 
-            $newTicket = Ticket::create($inputs);
-
-            return $newTicket->refresh();
+            return Ticket::create($inputs);
         });
     }
 

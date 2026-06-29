@@ -23,9 +23,11 @@ class TicketApiResource extends JsonResource
             'seen' => $this->seen,
             'status' => $this->status,
             'ticket_admin_id' => $this->reference_id,
-            'ticket_admin' => $this->whenLoaded('ticketAdmin.user',function (){
+            'ticket_admin' => $this->whenLoaded('ticketAdmin',function (){
 
-                return AdminApiResource::make($this->ticketAdmin->user);
+                return $this->ticketAdmin->relationLoaded('user')
+                    ? AdminApiResource::make($this->ticketAdmin->user)
+                    : null;
 
             }),
             'user' => $this->whenLoaded('user',function (){

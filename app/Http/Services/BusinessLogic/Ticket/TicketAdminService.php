@@ -9,13 +9,39 @@ use App\Models\User\User;
 
 class TicketAdminService
 {
+    public function showAllTicketAdmins(): ServiceResult
+    {
+        return app(ServiceWrapper::class)(function () {
+
+            return User::whereHas('ticketAdmin')->paginate(15);
+
+        });
+    }
+
     public function toggleTicketAdmin(User $admin): ServiceResult
     {
         return app(ServiceWrapper::class)(function () use ($admin){
 
-            $ticketAdmin = TicketAdmin::where('user_id', $admin->id)->first();
+            $ticketAdmin = TicketAdmin::withTrashed()
+                ->where('user_id', $admin->id)
+                ->first();
 
-            return $ticketAdmin ? $ticketAdmin->delete() : TicketAdmin::create(['user_id' => $admin->id]);
+            if (!$ticketAdmin) {
+
+                return TicketAdmin::create([
+                    'user_id' => $admin->id,
+                ]);
+
+            } elseif ($ticketAdmin->trashed()) {
+
+                if($ticketAdmin->restore())
+                    return $ticketAdmin;
+
+            } else {
+
+                return $ticketAdmin->delete();
+
+            }
         });
     }
 }

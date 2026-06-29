@@ -1,11 +1,11 @@
 <?php
 
-namespace App\OpenApi\Schemas\Admin\User\Admin;
+namespace App\OpenApi\Schemas\Admin\User\Customer;
 
 use OpenApi\Attributes as OA;
 
 #[OA\Schema(
-    schema: "Admin",
+    schema: "Customer",
     properties: [
         new OA\Property(
             property: "id",
@@ -29,7 +29,7 @@ use OpenApi\Attributes as OA;
         new OA\Property(
             property: "user_type",
             type: "integer",
-            example: "1",
+            example: "0",
         ),
         new OA\Property(
             property: "email",
@@ -55,7 +55,7 @@ use OpenApi\Attributes as OA;
     ],
     type: "object"
 )]
-class AdminSchema
+class CustomerSchema
 {
 
 }
