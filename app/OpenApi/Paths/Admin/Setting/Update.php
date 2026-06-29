@@ -11,8 +11,11 @@ use OpenApi\Attributes as OA;
     security: [["sanctumAuth" => []]],
     requestBody: new OA\RequestBody(
         required: false,
-        content: new OA\JsonContent(
-            ref: "#/components/schemas/SettingUpdateRequest"
+        content: new OA\MediaType(
+            mediaType: "multipart/form-data",
+            schema: new OA\Schema(
+                ref: "#/components/schemas/SettingUpdateRequest"
+            )
         )
     ),
     tags: ["Admin/Setting"],

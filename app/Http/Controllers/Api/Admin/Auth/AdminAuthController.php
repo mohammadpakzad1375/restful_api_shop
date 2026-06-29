@@ -22,7 +22,7 @@ class AdminAuthController extends Controller
 
         if (is_array($result->data))
         {
-            $apiResponse->setResponseMessage('Successfully logged in');
+            $apiResponse->setResponseMessage('Successfully logged in.');
             $apiResponse->setData(AdminApiResource::make($result->data['admin']));
             $apiResponse->setAppends(['token' => $result->data['token']]);
         } else {
