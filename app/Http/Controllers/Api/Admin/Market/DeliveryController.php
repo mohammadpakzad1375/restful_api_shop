@@ -38,6 +38,7 @@ class DeliveryController extends Controller
         $result = $this->deliveryService->createDelivery($request->validated());
 
         return ApiResponse::withResponseMessage('Delivery created successfully.')
+            ->withResponseStatus(201)
             ->withData(DeliveryApiResource::make($result->data))
             ->build()
             ->response($result->success);

@@ -23,9 +23,7 @@ class DeliveryService
     {
         return app(ServiceWrapper::class)(function () use ($inputs){
 
-            $delivery = Delivery::create($inputs);
-
-            return $delivery->refresh();
+            return Delivery::create($inputs);
 
         });
     }
@@ -35,7 +33,7 @@ class DeliveryService
         return app(ServiceWrapper::class)(function () use ($inputs, $delivery){
 
             $delivery->update($inputs);
-            return $delivery->refresh();
+            return $delivery;
 
         });
     }
