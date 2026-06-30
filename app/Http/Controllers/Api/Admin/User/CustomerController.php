@@ -50,6 +50,7 @@ class CustomerController extends Controller implements HasMiddleware
         $result = $this->customerUserService->createCustomer($request->validated());
 
         return ApiResponse::withResponseMessage('Customer created successfully.')
+            ->withResponseStatus(201)
             ->withData(CustomerApiResource::make($result->data))
             ->build()
             ->response($result->success);

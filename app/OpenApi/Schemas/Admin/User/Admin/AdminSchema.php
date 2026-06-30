@@ -29,7 +29,8 @@ use OpenApi\Attributes as OA;
         new OA\Property(
             property: "user_type",
             type: "integer",
-            example: "1",
+            example: 1,
+            enum: [1],
         ),
         new OA\Property(
             property: "email",

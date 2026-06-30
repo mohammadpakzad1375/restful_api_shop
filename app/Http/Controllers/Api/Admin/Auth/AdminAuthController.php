@@ -27,6 +27,7 @@ class AdminAuthController extends Controller
             $apiResponse->setAppends(['token' => $result->data['token']]);
         } else {
 
+            $apiResponse->setSuccess(false);
             $apiResponse->setResponseMessage($result->data);
             $apiResponse->setResponseStatus(401);
         }
