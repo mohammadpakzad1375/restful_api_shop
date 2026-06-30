@@ -38,6 +38,7 @@ class RoleController extends Controller
         $result = $this->roleService->createRole($request->validated());
 
         return ApiResponse::withResponseMessage('Role created successfully.')
+            ->withResponseStatus(201)
             ->withData(RoleApiResource::make($result->data))
             ->build()
             ->response($result->success);

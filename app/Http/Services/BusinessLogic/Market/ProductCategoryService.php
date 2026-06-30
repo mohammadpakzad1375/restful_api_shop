@@ -24,8 +24,7 @@ class ProductCategoryService
 
             $inputs['image'] = ImageService::save($inputs['image'], 'product-category');
 
-            $category = ProductCategory::create($inputs);
-            return $category->refresh();
+            return ProductCategory::create($inputs);
 
         });
     }
@@ -50,7 +49,7 @@ class ProductCategoryService
             }
 
            $category->update($inputs);
-           return $category->refresh();
+           return $category;
 
         });
     }

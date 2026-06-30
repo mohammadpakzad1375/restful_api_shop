@@ -28,7 +28,7 @@ class RoleService
 
             isset($inputs['permissions']) && $role->permissions()->sync($inputs['permissions']);
 
-            return $role->refresh();
+            return $role;
 
         });
     }
@@ -49,7 +49,7 @@ class RoleService
             isset($inputs['permissions']) && $role->permissions()->sync($inputs['permissions']);
 
             $role->update($inputs);
-            return $role->refresh()->load('permissions');
+            return $role->load('permissions');
 
         });
     }

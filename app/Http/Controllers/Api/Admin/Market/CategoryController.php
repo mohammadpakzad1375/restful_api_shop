@@ -38,6 +38,7 @@ class CategoryController extends Controller
         $result = $this->productCategoryService->createProductCategory($request->validated());
 
         return ApiResponse::withResponseMessage('ProductCategory created successfully.')
+            ->withResponseStatus(201)
             ->withData(ProductCategoryApiResource::make($result->data))
             ->build()
             ->response($result->success);
