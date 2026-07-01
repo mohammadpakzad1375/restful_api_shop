@@ -37,6 +37,7 @@ class ProductController extends Controller
         $result = $this->productService->createProduct($request->validated());
 
         return ApiResponse::withResponseMessage('Product created successfully.')
+            ->withResponseStatus(201)
             ->withData(ProductApiResource::make($result->data))
             ->build()
             ->response($result->success);

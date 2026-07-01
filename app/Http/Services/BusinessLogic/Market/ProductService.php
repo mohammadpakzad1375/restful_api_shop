@@ -24,8 +24,7 @@ class ProductService
 
             $inputs['image'] = ImageService::save($inputs['image'], 'product');
 
-            $product = Product::create($inputs);
-            return $product->refresh();
+            return Product::create($inputs);
 
         });
     }
@@ -50,7 +49,7 @@ class ProductService
             }
 
             $product->update($inputs);
-           return $product->refresh();
+           return $product;
 
         });
     }
