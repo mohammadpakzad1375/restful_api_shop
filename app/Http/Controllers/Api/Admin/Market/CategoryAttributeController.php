@@ -35,7 +35,8 @@ class CategoryAttributeController extends Controller
     {
         $result = $this->categoryAttributeService->createAttribute($request->validated());
 
-        return ApiResponse::withResponseMessage('Attribute created successfully.')
+        return ApiResponse::withResponseMessage('CategoryAttribute created successfully.')
+            ->withResponseStatus(201)
             ->withData($result->data)
             ->build()
             ->response($result->success);
@@ -58,7 +59,7 @@ class CategoryAttributeController extends Controller
     {
         $result = $this->categoryAttributeService->updateAttribute($request->validated(), $categoryAttribute);
 
-        return ApiResponse::withResponseMessage('Attribute updated successfully.')
+        return ApiResponse::withResponseMessage('CategoryAttribute updated successfully.')
             ->withData($result->data)
             ->build()
             ->response($result->success);
@@ -71,7 +72,7 @@ class CategoryAttributeController extends Controller
     {
         $result = $this->categoryAttributeService->deleteAttribute($categoryAttribute);
 
-        return ApiResponse::withResponseMessage('Attribute deleted successfully.')
+        return ApiResponse::withResponseMessage('CategoryAttribute deleted successfully.')
             ->build()
             ->response($result->success);
     }

@@ -24,8 +24,7 @@ class CategoryAttributeService
     {
         return app(ServiceWrapper::class)(function () use ($inputs){
 
-            $categoryAttribute = CategoryAttribute::create($inputs);
-            return $categoryAttribute->refresh();
+            return CategoryAttribute::create($inputs);
 
         });
     }
@@ -35,7 +34,7 @@ class CategoryAttributeService
         return app(ServiceWrapper::class)(function () use ($inputs, $categoryAttribute) {
 
             $categoryAttribute->update($inputs);
-           return $categoryAttribute->refresh();
+           return $categoryAttribute;
 
         });
     }

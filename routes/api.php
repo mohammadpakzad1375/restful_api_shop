@@ -123,7 +123,7 @@ Route::prefix('admin')->middleware(['auth:sanctum', 'admin.token.activity'])->gr
         Route::prefix('category-attribute')->group(function () {
 
             //form kala (category_attributes)
-            Route::get('/{category}', [CategoryAttributeController::class, 'index'])
+            Route::get('category/{category}', [CategoryAttributeController::class, 'index'])
                 ->name('admin.market.category-attribute.index');
 
             Route::apiResource('', CategoryAttributeController::class)
