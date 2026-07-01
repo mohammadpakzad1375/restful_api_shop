@@ -1,19 +1,19 @@
 <?php
 
-namespace App\OpenApi\Paths\Admin\Market\Delivery;
+namespace App\OpenApi\Paths\Admin\Market\Brand;
 
 use OpenApi\Attributes as OA;
 
 #[OA\Get(
-    path: '/api/admin/market/delivery',
-    description: 'Retrieve list of deliveries.',
-    summary: 'List Deliveries',
+    path: '/api/admin/market/brand',
+    description: 'Retrieve a paginated list of brands.',
+    summary: 'List Brands',
     security: [['sanctumAuth' => []]],
-    tags: ['Admin/Market/Delivery'],
+    tags: ['Admin/Market/Brand'],
     responses: [
         new OA\Response(
             response: 200,
-            description: 'Deliveries retrieved successfully',
+            description: 'Brands retrieved successfully',
             content: new OA\JsonContent(
                 properties: [
                     new OA\Property(
@@ -25,9 +25,17 @@ use OpenApi\Attributes as OA;
                         property: 'data',
                         type: 'array',
                         items: new OA\Items(
-                            ref: "#/components/schemas/Delivery"
+                            ref: "#/components/schemas/Brand"
                         )
-                    )
+                    ),
+                    new OA\Property(
+                        property: "meta",
+                        ref: "#/components/schemas/PaginationMeta"
+                    ),
+                    new OA\Property(
+                        property: "links",
+                        ref: "#/components/schemas/PaginationLinks"
+                    ),
                 ]
             )
         ),

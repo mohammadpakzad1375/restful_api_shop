@@ -1,36 +1,27 @@
 <?php
 
-namespace App\OpenApi\Paths\Admin\Market\Delivery;
+namespace App\OpenApi\Paths\Admin\Market\Brand;
 
 use OpenApi\Attributes as OA;
-#[OA\Patch(
-    path: "/api/admin/market/delivery/{id}",
-    description: "Update a delivery by its ID.",
-    summary: "Update a delivery",
-    security: [["sanctumAuth" => []]],
+
+#[OA\Post(
+    path: "/api/admin/market/brand",
+    summary: "Create Brand",
+    security: [['sanctumAuth' => []]],
     requestBody: new OA\RequestBody(
-        required: false,
-        content: new OA\JsonContent(
-            ref: "#/components/schemas/DeliveryUpdateRequest"
-        )
-    ),
-    tags: ["Admin/Market/Delivery"],
-    parameters: [
-        new OA\Parameter(
-            name: "id",
-            description: "Delivery ID",
-            in: "path",
-            required: true,
+        required: true,
+        content: new OA\MediaType(
+            mediaType: "multipart/form-data",
             schema: new OA\Schema(
-                type: "integer",
-                example: 1
+                ref: "#/components/schemas/BrandStoreRequest"
             )
         )
-    ],
+    ),
+    tags: ["Admin/Market/Brand"],
     responses: [
         new OA\Response(
-            response: 200,
-            description: "Delivery updated successfully",
+            response: 201,
+            description: "Brand created successfully",
             content: new OA\JsonContent(
                 properties: [
                     new OA\Property(
@@ -41,11 +32,11 @@ use OpenApi\Attributes as OA;
                     new OA\Property(
                         property: "message",
                         type: "string",
-                        example: "Delivery updated successfully."
+                        example: "Brand created successfully."
                     ),
                     new OA\Property(
                         property: "data",
-                        ref: "#/components/schemas/Delivery"
+                        ref: "#/components/schemas/Brand"
                     )
                 ]
             )
@@ -65,13 +56,6 @@ use OpenApi\Attributes as OA;
             )
         ),
         new OA\Response(
-            response: 404,
-            description: "Delivery not found",
-            content: new OA\JsonContent(
-                ref: "#/components/schemas/ModelNotFoundError"
-            )
-        ),
-        new OA\Response(
             response: 403,
             description: "Forbidden",
             content: new OA\JsonContent(
@@ -80,7 +64,7 @@ use OpenApi\Attributes as OA;
         ),
     ]
 )]
-class Update
+class Store
 {
 
 }

@@ -38,6 +38,7 @@ class BrandController extends Controller
         $result = $this->brandService->createBrand($request->validated());
 
         return ApiResponse::withResponseMessage('Brand created successfully.')
+            ->withResponseStatus(201)
             ->withData(BrandApiResource::make($result->data))
             ->build()
             ->response($result->success);

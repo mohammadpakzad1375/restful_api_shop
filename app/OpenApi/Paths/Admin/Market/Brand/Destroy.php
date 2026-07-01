@@ -1,24 +1,19 @@
 <?php
 
-namespace App\OpenApi\Paths\Admin\Market\Delivery;
+namespace App\OpenApi\Paths\Admin\Market\Brand;
 
 use OpenApi\Attributes as OA;
-#[OA\Patch(
-    path: "/api/admin/market/delivery/{id}",
-    description: "Update a delivery by its ID.",
-    summary: "Update a delivery",
+
+#[OA\Delete(
+    path: "/api/admin/market/brand/{id}",
+    description: "Delete a brand by its ID.",
+    summary: "Delete a brand",
     security: [["sanctumAuth" => []]],
-    requestBody: new OA\RequestBody(
-        required: false,
-        content: new OA\JsonContent(
-            ref: "#/components/schemas/DeliveryUpdateRequest"
-        )
-    ),
-    tags: ["Admin/Market/Delivery"],
+    tags: ["Admin/Market/Brand"],
     parameters: [
         new OA\Parameter(
             name: "id",
-            description: "Delivery ID",
+            description: "Brand ID",
             in: "path",
             required: true,
             schema: new OA\Schema(
@@ -30,7 +25,7 @@ use OpenApi\Attributes as OA;
     responses: [
         new OA\Response(
             response: 200,
-            description: "Delivery updated successfully",
+            description: "Brand deleted successfully",
             content: new OA\JsonContent(
                 properties: [
                     new OA\Property(
@@ -41,11 +36,7 @@ use OpenApi\Attributes as OA;
                     new OA\Property(
                         property: "message",
                         type: "string",
-                        example: "Delivery updated successfully."
-                    ),
-                    new OA\Property(
-                        property: "data",
-                        ref: "#/components/schemas/Delivery"
+                        example: "Brand deleted successfully."
                     )
                 ]
             )
@@ -58,15 +49,8 @@ use OpenApi\Attributes as OA;
             )
         ),
         new OA\Response(
-            response: 422,
-            description: "Validation Error",
-            content: new OA\JsonContent(
-                ref: "#/components/schemas/ValidationError"
-            )
-        ),
-        new OA\Response(
             response: 404,
-            description: "Delivery not found",
+            description: "Brand not found",
             content: new OA\JsonContent(
                 ref: "#/components/schemas/ModelNotFoundError"
             )
@@ -80,7 +64,7 @@ use OpenApi\Attributes as OA;
         ),
     ]
 )]
-class Update
+class Destroy
 {
 
 }

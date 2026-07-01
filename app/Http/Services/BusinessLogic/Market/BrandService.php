@@ -25,9 +25,7 @@ class BrandService
 
             $inputs['logo'] = ImageService::save($inputs['logo'], 'brand');
 
-            $brand = Brand::create($inputs);
-
-            return $brand->refresh();
+            return Brand::create($inputs);
 
         });
     }
@@ -43,7 +41,7 @@ class BrandService
             }
 
             $brand->update($inputs);
-            return $brand->refresh();
+            return $brand;
 
         });
     }
