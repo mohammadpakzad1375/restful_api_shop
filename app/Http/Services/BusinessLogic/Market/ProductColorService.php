@@ -22,8 +22,7 @@ class ProductColorService
     {
         return app(ServiceWrapper::class)(function () use ($inputs){
 
-            $productColor = ProductColor::create($inputs);
-            return $productColor->refresh();
+            return ProductColor::create($inputs);
 
         });
     }

@@ -35,6 +35,7 @@ class ProductColorController extends Controller
         $result = $this->productColorService->createProductColors($request->validated());
 
         return ApiResponse::withResponseMessage('ProductColor created successfully.')
+            ->withResponseStatus(201)
             ->withData($result->data)
             ->build()
             ->response($result->success);
