@@ -25,7 +25,7 @@ class ProductCategoryUpdateApiRequest extends ApiFormRequest
             'name' => ['string','min:2','max:120'],
             'description' => ['string','min:2','max:500'],
             'image' => ['image','mimes:png,jpg,jpeg,gif'],
-            'show_in_menu' => ['numeric','in:0,1'],
+            'show_in_menu' => ['integer','in:0,1'],
             'parent_id' => ['nullable','exists:product_categories,id'],
             'tags' => ['string'],
             'status' => ['numeric','in:0,1'],

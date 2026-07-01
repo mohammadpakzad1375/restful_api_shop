@@ -25,7 +25,7 @@ class CopanStoreApiRequest extends ApiFormRequest
             'amount' => [(request()->amount_type == 0 ? 'max:100' : 'min:1'),'required','numeric'],
             'amount_type' => ['required','numeric','in:0,1'],
             'discount_ceiling' => ['nullable','numeric'],
-            'user_id' => ['nullable','numeric','exists:users,id'],
+            'user_id' => ['nullable','integer','exists:users,id'],
             'start_date' => ['required','numeric'],
             'end_date' => ['required','numeric'],
             'status' => ['numeric','in:0,1']

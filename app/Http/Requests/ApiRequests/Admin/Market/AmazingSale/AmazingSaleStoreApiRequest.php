@@ -25,7 +25,7 @@ class AmazingSaleStoreApiRequest extends ApiFormRequest
             'percentage' => ['required','numeric','min:1','max:100'],
             'start_date' => ['required','numeric'],
             'end_date' => ['required','numeric'],
-            'product_id' => ['required','numeric','exists:products,id'],
+            'product_id' => ['required','integer','exists:products,id'],
         ];
     }
 }

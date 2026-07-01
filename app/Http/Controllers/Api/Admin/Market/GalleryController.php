@@ -36,6 +36,7 @@ class GalleryController extends Controller
         $result = $this->galleryService->createProductGallery($request->validated());
 
         return ApiResponse::withResponseMessage('ProductGallery created successfully.')
+            ->withResponseStatus(201)
             ->withData($result->data)
             ->build()
             ->response($result->success);

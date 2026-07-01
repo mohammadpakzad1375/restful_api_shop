@@ -24,8 +24,8 @@ class ProductUpdateApiRequest extends ApiFormRequest
         return [
             'name' => ['string','min:2','max:120'],
             'price' => ['numeric'],
-            'category_id' => ['numeric','exists:product_categories,id'],
-            'brand_id' => ['nullable','numeric','exists:brands,id'],
+            'category_id' => ['integer','exists:product_categories,id'],
+            'brand_id' => ['nullable','integer','exists:brands,id'],
             'published_at' => ['numeric'],
             'image' => ['image','mimes:png,jpg,jpeg,gif'],
             'status' => ['numeric','in:0,1'],

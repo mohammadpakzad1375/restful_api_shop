@@ -24,7 +24,7 @@ class CategoryAttributeStoreApiRequest extends ApiFormRequest
         return [
             'name' => ['required','string','min:2','max:120'],
             'unit' => ['required','string','min:2','max:120'],
-            'category_id' => ['required','numeric','exists:product_categories,id'],
+            'category_id' => ['required','integer','exists:product_categories,id'],
         ];
     }
 }

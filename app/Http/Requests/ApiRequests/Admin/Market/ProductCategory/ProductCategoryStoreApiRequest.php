@@ -25,7 +25,7 @@ class ProductCategoryStoreApiRequest extends ApiFormRequest
             'name' => ['required','string','min:2','max:120'],
             'description' => ['required','string','min:2','max:500'],
             'image' => ['required','image','mimes:png,jpg,jpeg,gif'],
-            'show_in_menu' => ['numeric','in:0,1'],
+            'show_in_menu' => ['integer','in:0,1'],
             'parent_id' => ['nullable','exists:product_categories,id'],
             'tags' => ['required','string'],
             'status' => ['numeric','in:0,1'],

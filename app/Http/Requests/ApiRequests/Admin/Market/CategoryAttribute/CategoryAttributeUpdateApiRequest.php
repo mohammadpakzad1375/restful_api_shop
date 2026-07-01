@@ -24,7 +24,7 @@ class CategoryAttributeUpdateApiRequest extends ApiFormRequest
         return [
             'name' => ['string','min:2','max:120'],
             'unit' => ['string','min:2','max:120'],
-            'category_id' => ['numeric','exists:product_categories,id'],
+            'category_id' => ['integer','exists:product_categories,id'],
         ];
     }
 }

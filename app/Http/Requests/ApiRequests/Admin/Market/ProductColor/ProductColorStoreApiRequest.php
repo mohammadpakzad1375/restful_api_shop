@@ -25,7 +25,7 @@ class ProductColorStoreApiRequest extends ApiFormRequest
             'color_name' => ['required','min:2','max:120'],
             'color_code' => ['required','string','max:7'],
             'price_increase' => ['required','numeric'],
-            'product_id' => ['required','numeric','exists:products,id'],
+            'product_id' => ['required','integer','exists:products,id'],
             'status' => ['numeric','in:0,1']
         ];
     }

@@ -23,7 +23,7 @@ class ProductGalleryStoreApiRequest extends ApiFormRequest
     {
         return [
             'image' => ['required','image','mimes:png,jpg,jpeg,gif'],
-            'product_id' => ['required','numeric','exists:products,id'],
+            'product_id' => ['required','integer','exists:products,id'],
         ];
     }
 }

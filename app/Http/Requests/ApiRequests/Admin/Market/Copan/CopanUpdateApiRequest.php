@@ -25,7 +25,7 @@ class CopanUpdateApiRequest extends ApiFormRequest
             'amount' => [(request()->amount_type == 0 ? 'max:100' : 'min:1'),'numeric'],
             'amount_type' => ['numeric','in:0,1'],
             'discount_ceiling' => ['nullable','numeric'],
-            'user_id' => ['nullable','numeric','exists:users,id'],
+            'user_id' => ['nullable','integer','exists:users,id'],
             'start_date' => ['numeric'],
             'end_date' => ['numeric'],
             'status' => ['numeric','in:0,1']

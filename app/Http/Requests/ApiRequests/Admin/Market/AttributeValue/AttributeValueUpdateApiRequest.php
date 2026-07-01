@@ -25,8 +25,8 @@ class AttributeValueUpdateApiRequest extends ApiFormRequest
             'value' => ['required','string','max:120'],
             'price_increase' => ['required','numeric'],
             'type' => ['numeric','in:0,1'],
-            'category_attribute_id' => ['required','numeric','exists:category_attributes,id'],
-            'product_id' => ['required','numeric','exists:products,id'],
+            'category_attribute_id' => ['required','integer','exists:category_attributes,id'],
+            'product_id' => ['required','integer','exists:products,id'],
         ];
     }
 }
