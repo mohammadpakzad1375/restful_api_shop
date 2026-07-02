@@ -9,11 +9,11 @@ use App\Models\Market\CategoryAttributeValue;
 
 class AttributeValueService
 {
-    public function showAllAttributeValues(CategoryAttribute $categoryAttribute): ServiceResult
+    public function showAllAttributeValues(CategoryAttribute $category_attribute): ServiceResult
     {
-        return app(ServiceWrapper::class)(function () use ($categoryAttribute) {
+        return app(ServiceWrapper::class)(function () use ($category_attribute) {
 
-            return $categoryAttribute->values;
+            return $category_attribute->values;
 
         });
     }

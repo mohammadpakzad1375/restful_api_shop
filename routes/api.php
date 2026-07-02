@@ -131,7 +131,7 @@ Route::prefix('admin')->middleware(['auth:sanctum', 'admin.token.activity'])->gr
                 ->parameters(['' => 'category_attribute'])
                 ->names('admin.market.category-attribute');
 
-            Route::get('value/{category_attribute}', [AttributeValueController::class, 'index'])
+            Route::get('{category_attribute}/value', [AttributeValueController::class, 'index'])
                 ->name('admin.market.category-attribute.value.index');
 
             Route::apiResource('value', AttributeValueController::class)

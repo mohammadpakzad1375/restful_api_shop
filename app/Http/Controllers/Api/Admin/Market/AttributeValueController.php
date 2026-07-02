@@ -19,9 +19,9 @@ class AttributeValueController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(CategoryAttribute $categoryAttribute)
+    public function index(CategoryAttribute $category_attribute)
     {
-        $result = $this->attributeValueService->showAllAttributeValues($categoryAttribute);
+        $result = $this->attributeValueService->showAllAttributeValues($category_attribute);
 
         return ApiResponse::withData($result->data)
             ->build()

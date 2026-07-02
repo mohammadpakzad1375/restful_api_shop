@@ -26,7 +26,7 @@ use OpenApi\Attributes as OA;
         ),
         new OA\Property(
             property: "price_increase",
-            type: "integer",
+            type: "numeric",
             example: 500000
         ),
         new OA\Property(
