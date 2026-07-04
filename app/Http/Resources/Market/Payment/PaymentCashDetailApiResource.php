@@ -16,7 +16,7 @@ class PaymentCashDetailApiResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'cash_receiver' => $this->gateway,
+            'cash_receiver' => $this->cash_receiver,
             'pay_date' => $this->pay_date?->format('Y-m-d H:i:s'),
         ];
     }
