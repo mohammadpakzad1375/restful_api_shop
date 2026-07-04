@@ -23,11 +23,11 @@ class CommonDiscountUpdateApiRequest extends ApiFormRequest
     {
         return [
             'title' => ['min:2','max:120'],
-            'percentage' => ['numeric','min:1','max:100'],
-            'discount_ceiling' => ['nullable','numeric'],
-            'minimum_order_amount' => ['nullable','numeric'],
-            'start_date' => ['numeric'],
-            'end_date' => ['numeric'],
+            'percentage' => ['integer','min:1','max:100'],
+            'discount_ceiling' => ['integer','numeric'],
+            'minimum_order_amount' => ['integer','numeric'],
+            'start_date' => ['integer'],
+            'end_date' => ['integer'],
         ];
     }
 }

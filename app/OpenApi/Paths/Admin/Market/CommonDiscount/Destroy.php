@@ -1,25 +1,19 @@
 <?php
 
-namespace App\OpenApi\Paths\Admin\Market\Storage;
+namespace App\OpenApi\Paths\Admin\Market\CommonDiscount;
 
 use OpenApi\Attributes as OA;
 
-#[OA\Post(
-    path: "/api/admin/market/storage/add-to-storage",
-    description: "Add product to storage by its ID.",
-    summary: "Add Product To Storage",
-    security: [['sanctumAuth' => []]],
-    requestBody: new OA\RequestBody(
-        required: true,
-        content: new OA\JsonContent(
-            ref: "#/components/schemas/AddToStorageRequest"
-        )
-    ),
-    tags: ["Admin/Market/Storage"],
+#[OA\Delete(
+    path: "/api/admin/market/common-discount/{id}",
+    description: "Delete a common discount by its ID.",
+    summary: "Delete a common discount",
+    security: [["sanctumAuth" => []]],
+    tags: ["Admin/Market/CommonDiscount"],
     parameters: [
         new OA\Parameter(
             name: "id",
-            description: "Product ID",
+            description: "Common Discount ID",
             in: "path",
             required: true,
             schema: new OA\Schema(
@@ -31,7 +25,7 @@ use OpenApi\Attributes as OA;
     responses: [
         new OA\Response(
             response: 200,
-            description: "Add product to storage successfully",
+            description: "Common discount deleted successfully",
             content: new OA\JsonContent(
                 properties: [
                     new OA\Property(
@@ -40,8 +34,9 @@ use OpenApi\Attributes as OA;
                         example: true
                     ),
                     new OA\Property(
-                        property: "data",
-                        ref: "#/components/schemas/Product"
+                        property: "message",
+                        type: "string",
+                        example: "CommonDiscount deleted successfully."
                     )
                 ]
             )
@@ -54,15 +49,8 @@ use OpenApi\Attributes as OA;
             )
         ),
         new OA\Response(
-            response: 422,
-            description: "Validation Error",
-            content: new OA\JsonContent(
-                ref: "#/components/schemas/ValidationError"
-            )
-        ),
-        new OA\Response(
             response: 404,
-            description: "Product not found",
+            description: "Common discount not found",
             content: new OA\JsonContent(
                 ref: "#/components/schemas/ModelNotFoundError"
             )
@@ -76,7 +64,7 @@ use OpenApi\Attributes as OA;
         ),
     ]
 )]
-class AddToStorage
+class Destroy
 {
 
 }

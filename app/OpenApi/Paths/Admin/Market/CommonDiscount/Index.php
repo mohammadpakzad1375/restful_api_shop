@@ -1,19 +1,19 @@
 <?php
 
-namespace App\OpenApi\Paths\Admin\Market\Product;
+namespace App\OpenApi\Paths\Admin\Market\CommonDiscount;
 
 use OpenApi\Attributes as OA;
 
 #[OA\Get(
-    path: '/api/admin/market/product',
-    description: 'Retrieve a paginated list of products.',
-    summary: 'List Products',
+    path: '/api/admin/market/common-discount',
+    description: 'Retrieve a paginated list of common discounts.',
+    summary: 'List Common Discounts',
     security: [['sanctumAuth' => []]],
-    tags: ['Admin/Market/Product'],
+    tags: ['Admin/Market/CommonDiscount'],
     responses: [
         new OA\Response(
             response: 200,
-            description: 'Products retrieved successfully',
+            description: 'Common discounts retrieved successfully',
             content: new OA\JsonContent(
                 properties: [
                     new OA\Property(
@@ -25,7 +25,7 @@ use OpenApi\Attributes as OA;
                         property: 'data',
                         type: 'array',
                         items: new OA\Items(
-                            ref: "#/components/schemas/ProductDetails"
+                            ref: "#/components/schemas/CommonDiscount"
                         )
                     ),
                     new OA\Property(
@@ -37,7 +37,7 @@ use OpenApi\Attributes as OA;
                         ref: "#/components/schemas/PaginationLinks"
                     ),
                 ]
-            )
+            ),
         ),
         new OA\Response(
             response: 401,

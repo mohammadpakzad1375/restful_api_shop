@@ -1,25 +1,19 @@
 <?php
 
-namespace App\OpenApi\Paths\Admin\Market\Storage;
+namespace App\OpenApi\Paths\Admin\Market\CommonDiscount;
 
 use OpenApi\Attributes as OA;
 
-#[OA\Post(
-    path: "/api/admin/market/storage/add-to-storage",
-    description: "Add product to storage by its ID.",
-    summary: "Add Product To Storage",
-    security: [['sanctumAuth' => []]],
-    requestBody: new OA\RequestBody(
-        required: true,
-        content: new OA\JsonContent(
-            ref: "#/components/schemas/AddToStorageRequest"
-        )
-    ),
-    tags: ["Admin/Market/Storage"],
+#[OA\Get(
+    path: "/api/admin/market/common-discount/{id}",
+    description: "Show a common discount by its ID.",
+    summary: "Show common discount details",
+    security: [["sanctumAuth" => []]],
+    tags: ["Admin/Market/CommonDiscount"],
     parameters: [
         new OA\Parameter(
             name: "id",
-            description: "Product ID",
+            description: "Common Discount ID",
             in: "path",
             required: true,
             schema: new OA\Schema(
@@ -31,7 +25,7 @@ use OpenApi\Attributes as OA;
     responses: [
         new OA\Response(
             response: 200,
-            description: "Add product to storage successfully",
+            description: "Common discount details retrieved successfully",
             content: new OA\JsonContent(
                 properties: [
                     new OA\Property(
@@ -41,9 +35,10 @@ use OpenApi\Attributes as OA;
                     ),
                     new OA\Property(
                         property: "data",
-                        ref: "#/components/schemas/Product"
+                        ref: "#/components/schemas/CommonDiscount"
                     )
-                ]
+                ],
+                type: "object"
             )
         ),
         new OA\Response(
@@ -54,29 +49,22 @@ use OpenApi\Attributes as OA;
             )
         ),
         new OA\Response(
-            response: 422,
-            description: "Validation Error",
-            content: new OA\JsonContent(
-                ref: "#/components/schemas/ValidationError"
-            )
-        ),
-        new OA\Response(
-            response: 404,
-            description: "Product not found",
-            content: new OA\JsonContent(
-                ref: "#/components/schemas/ModelNotFoundError"
-            )
-        ),
-        new OA\Response(
             response: 403,
             description: "Forbidden",
             content: new OA\JsonContent(
                 ref: "#/components/schemas/ForbiddenError"
             )
         ),
+        new OA\Response(
+            response: 404,
+            description: "Common discount not found",
+            content: new OA\JsonContent(
+                ref: "#/components/schemas/ModelNotFoundError"
+            )
+        )
     ]
 )]
-class AddToStorage
+class Show
 {
 
 }

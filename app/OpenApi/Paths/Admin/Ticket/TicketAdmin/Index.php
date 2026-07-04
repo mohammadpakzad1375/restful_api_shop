@@ -6,7 +6,7 @@ use OpenApi\Attributes as OA;
 
 #[OA\Get(
     path: '/api/admin/ticket/admin',
-    description: 'Retrieve list of Ticket admins.',
+    description: 'Retrieve a paginated list of Ticket admins.',
     summary: 'List Ticket admins',
     security: [['sanctumAuth' => []]],
     tags: ['Admin/Ticket/TicketAdmin'],
@@ -54,6 +54,16 @@ use OpenApi\Attributes as OA;
             )
         ),
     ]
+)]
+#[OA\Parameter(
+    name: 'page',
+    description: 'Page number',
+    in: 'query',
+    required: false,
+    schema: new OA\Schema(
+        type: 'integer',
+        default: 1
+    )
 )]
 class Index
 {

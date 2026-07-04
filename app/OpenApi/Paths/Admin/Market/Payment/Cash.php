@@ -55,6 +55,16 @@ use OpenApi\Attributes as OA;
         ),
     ]
 )]
+#[OA\Parameter(
+    name: 'page',
+    description: 'Page number',
+    in: 'query',
+    required: false,
+    schema: new OA\Schema(
+        type: 'integer',
+        default: 1
+    )
+)]
 class Cash
 {
 

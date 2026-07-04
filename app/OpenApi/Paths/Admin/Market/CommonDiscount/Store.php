@@ -1,37 +1,24 @@
 <?php
 
-namespace App\OpenApi\Paths\Admin\Market\Storage;
+namespace App\OpenApi\Paths\Admin\Market\CommonDiscount;
 
 use OpenApi\Attributes as OA;
 
 #[OA\Post(
-    path: "/api/admin/market/storage/add-to-storage",
-    description: "Add product to storage by its ID.",
-    summary: "Add Product To Storage",
+    path: "/api/admin/market/common-discount",
+    summary: "Create Common Discount",
     security: [['sanctumAuth' => []]],
     requestBody: new OA\RequestBody(
         required: true,
         content: new OA\JsonContent(
-            ref: "#/components/schemas/AddToStorageRequest"
+            ref: "#/components/schemas/CommonDiscountStoreRequest"
         )
     ),
-    tags: ["Admin/Market/Storage"],
-    parameters: [
-        new OA\Parameter(
-            name: "id",
-            description: "Product ID",
-            in: "path",
-            required: true,
-            schema: new OA\Schema(
-                type: "integer",
-                example: 1
-            )
-        )
-    ],
+    tags: ["Admin/Market/CommonDiscount"],
     responses: [
         new OA\Response(
-            response: 200,
-            description: "Add product to storage successfully",
+            response: 201,
+            description: "Common discount created successfully",
             content: new OA\JsonContent(
                 properties: [
                     new OA\Property(
@@ -40,8 +27,13 @@ use OpenApi\Attributes as OA;
                         example: true
                     ),
                     new OA\Property(
+                        property: "message",
+                        type: "string",
+                        example: "CommonDiscount created successfully."
+                    ),
+                    new OA\Property(
                         property: "data",
-                        ref: "#/components/schemas/Product"
+                        ref: "#/components/schemas/CommonDiscount"
                     )
                 ]
             )
@@ -61,13 +53,6 @@ use OpenApi\Attributes as OA;
             )
         ),
         new OA\Response(
-            response: 404,
-            description: "Product not found",
-            content: new OA\JsonContent(
-                ref: "#/components/schemas/ModelNotFoundError"
-            )
-        ),
-        new OA\Response(
             response: 403,
             description: "Forbidden",
             content: new OA\JsonContent(
@@ -76,7 +61,7 @@ use OpenApi\Attributes as OA;
         ),
     ]
 )]
-class AddToStorage
+class Store
 {
 
 }

@@ -38,6 +38,7 @@ class CommonDiscountController extends Controller
         $result = $this->commonDiscountService->createCommonDiscount($request->validated());
 
         return ApiResponse::withResponseMessage('CommonDiscount created successfully.')
+            ->withResponseStatus(201)
             ->withData(CommonDiscountApiResource::make($result->data))
             ->build()
             ->response($result->success);
