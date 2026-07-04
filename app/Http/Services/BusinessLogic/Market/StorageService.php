@@ -25,7 +25,7 @@ class StorageService
                 'description' => $inputs['description'] ?? null,
             ]);
 
-            return $product->refresh();
+            return $product;
 
         });
     }
@@ -35,7 +35,7 @@ class StorageService
         return app(ServiceWrapper::class)(function () use ($inputs, $product) {
 
             $product->update($inputs);
-           return $product->refresh();
+           return $product;
 
         });
     }

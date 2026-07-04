@@ -22,9 +22,9 @@ class StorageUpdateApiRequest extends ApiFormRequest
     public function rules(): array
     {
         return [
-            'marketable_number' => ['numeric'],
-            'sold_number' => ['numeric'],
-            'frozen_number' => ['numeric']
+            'marketable_number' => ['integer'],
+            'sold_number' => ['integer'],
+            'frozen_number' => ['integer']
         ];
     }
 }
