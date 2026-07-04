@@ -23,7 +23,6 @@ class CopanService
         return app(ServiceWrapper::class)(function () use ($inputs){
 
             $copan = Copan::create($inputs);
-            $copan->refresh();
 
             CopanCreated::dispatch($copan);
 
@@ -46,7 +45,7 @@ class CopanService
         return app(ServiceWrapper::class)(function () use ($inputs, $copan) {
 
             $copan->update($inputs);
-            return $copan->refresh();
+            return $copan;
 
         });
     }

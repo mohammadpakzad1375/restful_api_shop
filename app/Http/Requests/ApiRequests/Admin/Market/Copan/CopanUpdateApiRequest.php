@@ -22,13 +22,13 @@ class CopanUpdateApiRequest extends ApiFormRequest
     public function rules(): array
     {
         return [
-            'amount' => [(request()->amount_type == 0 ? 'max:100' : 'min:1'),'numeric'],
-            'amount_type' => ['numeric','in:0,1'],
-            'discount_ceiling' => ['nullable','numeric'],
+            'amount' => [(request()->amount_type == 0 ? 'max:100' : 'min:1'),'integer'],
+            'amount_type' => ['integer','in:0,1'],
+            'discount_ceiling' => ['nullable','integer'],
             'user_id' => ['nullable','integer','exists:users,id'],
-            'start_date' => ['numeric'],
-            'end_date' => ['numeric'],
-            'status' => ['numeric','in:0,1']
+            'start_date' => ['integer'],
+            'end_date' => ['integer'],
+            'status' => ['integer','in:0,1']
         ];
     }
 }

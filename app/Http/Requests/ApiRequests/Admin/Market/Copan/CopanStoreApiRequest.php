@@ -22,13 +22,13 @@ class CopanStoreApiRequest extends ApiFormRequest
     public function rules(): array
     {
         return [
-            'amount' => [(request()->amount_type == 0 ? 'max:100' : 'min:1'),'required','numeric'],
-            'amount_type' => ['required','numeric','in:0,1'],
-            'discount_ceiling' => ['nullable','numeric'],
+            'amount' => [(request()->amount_type == 0 ? 'max:100' : 'min:1'),'required','integer'],
+            'amount_type' => ['required','integer','in:0,1'],
+            'discount_ceiling' => ['nullable','integer'],
             'user_id' => ['nullable','integer','exists:users,id'],
-            'start_date' => ['required','numeric'],
-            'end_date' => ['required','numeric'],
-            'status' => ['numeric','in:0,1']
+            'start_date' => ['required','integer'],
+            'end_date' => ['required','integer'],
+            'status' => ['integer','in:0,1']
         ];
     }
 }

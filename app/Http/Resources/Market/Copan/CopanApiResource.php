@@ -18,7 +18,7 @@ class CopanApiResource extends JsonResource
         return [
             'id' => $this->id,
             'code' => $this->code,
-            'amount_type' => $this->amountType,
+            'amount_type' => $this->amount_type,
             'discount_ceiling' => $this->discount_ceiling,
             'start_date' => $this->start_date?->format('Y-m-d H:i:s'),
             'end_date' => $this->end_date?->format('Y-m-d H:i:s'),
