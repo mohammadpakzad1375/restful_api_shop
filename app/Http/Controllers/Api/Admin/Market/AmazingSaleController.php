@@ -38,6 +38,7 @@ class AmazingSaleController extends Controller
         $result = $this->amazingSaleService->createAmazingSale($request->validated());
 
         return ApiResponse::withResponseMessage('AmazingSale created successfully.')
+            ->withResponseStatus(201)
             ->withData(AmazingSaleApiResource::make($result->data))
             ->build()
             ->response($result->success);

@@ -21,8 +21,7 @@ class AmazingSaleService
     {
         return app(ServiceWrapper::class)(function () use ($inputs){
 
-            $amazingSale = AmazingSale::create($inputs);
-            return $amazingSale->refresh();
+            return AmazingSale::create($inputs);
 
         });
     }
@@ -41,7 +40,7 @@ class AmazingSaleService
         return app(ServiceWrapper::class)(function () use ($inputs, $amazingSale) {
 
             $amazingSale->update($inputs);
-           return $amazingSale->refresh();
+           return $amazingSale;
 
         });
     }

@@ -22,9 +22,9 @@ class AmazingSaleUpdateApiRequest extends ApiFormRequest
     public function rules(): array
     {
         return [
-            'percentage' => ['numeric','min:1','max:100'],
-            'start_date' => ['numeric'],
-            'end_date' => ['numeric'],
+            'percentage' => ['integer','min:1','max:100'],
+            'start_date' => ['integer'],
+            'end_date' => ['integer'],
             'product_id' => ['integer','exists:products,id'],
         ];
     }
