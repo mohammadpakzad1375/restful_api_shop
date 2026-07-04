@@ -2,6 +2,10 @@
 
 namespace App\Providers;
 
+use App\Models\Content\Comment;
+use App\Models\Content\Post;
+use App\Models\Market\Product;
+use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -19,6 +23,19 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        Route::bind('comment', function ($value, $route) {
+
+            $query = Comment::whereKey($value);
+
+            if (str_contains($route->getName(), 'market.comment')) {
+                $query->where('commentable_type', Product::class);
+            }
+
+            if (str_contains($route->getName(), 'content.comment')) {
+                $query->where('commentable_type', Post::class);
+            }
+
+            return $query->firstOrFail();
+        });
     }
 }

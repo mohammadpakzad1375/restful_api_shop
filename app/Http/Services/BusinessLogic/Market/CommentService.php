@@ -13,9 +13,11 @@ class CommentService
     {
         return app(ServiceWrapper::class)(function (){
 
+            $comments = Comment::where('commentable_type', Product::class)->orderBy('created_at','desc')->paginate(10);
+
             Comment::where('commentable_type', Product::class)->where('seen', 0)->update(['seen' => 1]);
 
-            return Comment::where('commentable_type', Product::class)->orderBy('created_at','desc')->paginate(10);
+            return $comments ;
 
         });
     }

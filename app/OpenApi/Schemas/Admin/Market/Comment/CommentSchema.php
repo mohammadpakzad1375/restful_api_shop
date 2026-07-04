@@ -1,12 +1,12 @@
 <?php
 
-namespace App\OpenApi\Schemas\Admin\Content\Comment;
+namespace App\OpenApi\Schemas\Admin\Market\Comment;
 
 
 use OpenApi\Attributes as OA;
 
 #[OA\Schema(
-    schema: "CommentDetails",
+    schema: "ProductComment",
     properties: [
         new OA\Property(
             property: "id",
@@ -15,7 +15,7 @@ use OpenApi\Attributes as OA;
         new OA\Property(
             property: "body",
             type: "string",
-            example: "این یک کامنت آزمایشی است."
+            example: "این محصول کیفیت بسیار خوبی دارد. "
         ),
         new OA\Property(
             property: "seen",
@@ -37,29 +37,23 @@ use OpenApi\Attributes as OA;
         ),
         new OA\Property(
             property: "author",
-            ref: "#/components/schemas/User"
+            type: "integer",
+            example: 1
         ),
         new OA\Property(
-            property: "post",
-            ref: "#/components/schemas/PostComment"
+            property: "product",
+            type: "integer",
+            example: 1
         ),
         new OA\Property(
             property: "parent",
             example: null,
             nullable: true
-        ),
-        new OA\Property(
-            property: "answers",
-            type: "array",
-            items: new OA\Items(
-                type: "object"
-            ),
-            example: []
         )
     ],
     type: "object"
 )]
-class CommentDetailsSchema
+class CommentSchema
 {
 
 }

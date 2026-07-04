@@ -26,7 +26,7 @@ class CommentApiResource extends JsonResource
                 return $this->author;
 
             },$this->author_id),
-            'post' => $this->whenLoaded('commentable',function (){
+            'product' => $this->whenLoaded('commentable',function (){
 
                 return ProductApiResource::make($this->commentable);
 
