@@ -37,11 +37,10 @@ use OpenApi\Attributes as OA;
         ),
         new OA\Property(
             property: "ticket_admin",
-            ref: "#/components/schemas/Admin"
-        ),
-        new OA\Property(
-            property: "ticket_admin",
-            ref: "#/components/schemas/customer"
+            oneOf: [
+                new OA\Schema(ref: "#/components/schemas/Admin"),
+                new OA\Schema(ref: "#/components/schemas/Customer"),
+            ]
         ),
         new OA\Property(
             property: "category",

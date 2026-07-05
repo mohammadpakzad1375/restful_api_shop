@@ -14,7 +14,7 @@ use OpenApi\Attributes as OA;
             ref: "#/components/schemas/AdminLoginRequest"
         )
     ),
-    tags: ["Admin/Auth/Login"],
+    tags: ["Admin/Auth"],
     responses: [
         new OA\Response(
             response: 200,

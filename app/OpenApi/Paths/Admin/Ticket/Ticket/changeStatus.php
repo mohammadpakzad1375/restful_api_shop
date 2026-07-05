@@ -58,7 +58,7 @@ use OpenApi\Attributes as OA;
             response: 404,
             description: "Ticket not found",
             content: new OA\JsonContent(
-                ref: "#/components/schemas/NotFoundError"
+                ref: "#/components/schemas/ModelNotFoundError"
             )
         )
     ]

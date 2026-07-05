@@ -22,26 +22,25 @@ class RateLimitServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        RateLimiter::for('api', function (Request $request) {
+        $response = function (Request $request, array $headers) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Too many requests.',
+            ], 429, $headers);
+        };
+
+        RateLimiter::for('api', function (Request $request) use ($response) {
             return Limit::perMinute(20)
                 ->by($request->user()?->id ?: $request->ip())
-                ->response([$this, 'rateLimitResponse']);
+                ->response($response);
         });
 
-        RateLimiter::for('login', function (Request $request) {
+        RateLimiter::for('login', function (Request $request) use ($response) {
 
             $identifier = $request->input('email') ?? $request->input('mobile');
 
             return Limit::perMinute(5)->by($identifier.'|'.$request->ip())
-                ->response([$this, 'rateLimitResponse']);
+                ->response($response);
         });
-    }
-
-    private function rateLimitResponse(Request $request, array $headers): \Illuminate\Http\JsonResponse
-    {
-        return response()->json([
-            'success' => false,
-            'message' => 'Too many requests.',
-        ], 429, $headers);
     }
 }

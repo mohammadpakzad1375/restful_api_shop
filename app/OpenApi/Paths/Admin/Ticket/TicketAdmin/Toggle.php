@@ -24,52 +24,52 @@ use OpenApi\Attributes as OA;
     responses: [
         new OA\Response(
             response: 200,
-            description: "Ticket admin created successfully",
+            description: "Ticket admin toggled successfully",
             content: new OA\JsonContent(
-                properties: [
-                    new OA\Property(
-                        property: "success",
-                        type: "boolean",
-                        example: true
-                    ),
-                    new OA\Property(
-                        property: "message",
-                        type: "string",
-                        example: "TicketAdmin created successfully."
-                    ),
-                    new OA\Property(
-                        property: "data",
+                oneOf: [
+                    new OA\Schema(
                         properties: [
                             new OA\Property(
-                                property: "user_id",
-                                type: "integer",
-                                example: 1
+                                property: "success",
+                                type: "boolean",
+                                example: true
                             ),
                             new OA\Property(
-                                property: "id",
-                                type: "integer",
-                                example: 3
+                                property: "message",
+                                type: "string",
+                                example: "TicketAdmin created successfully."
                             ),
-                        ],
-                        type: "object"
-                    )
-                ]
-            )
-        ),
-        new OA\Response(
-            response: 200,
-            description: "Ticket admin deleted successfully",
-            content: new OA\JsonContent(
-                properties: [
-                    new OA\Property(
-                        property: "success",
-                        type: "boolean",
-                        example: true
+                            new OA\Property(
+                                property: "data",
+                                properties: [
+                                    new OA\Property(
+                                        property: "user_id",
+                                        type: "integer",
+                                        example: 1
+                                    ),
+                                    new OA\Property(
+                                        property: "id",
+                                        type: "integer",
+                                        example: 3
+                                    ),
+                                ],
+                                type: "object"
+                            )
+                        ]
                     ),
-                    new OA\Property(
-                        property: "message",
-                        type: "string",
-                        example: "TicketAdmin deleted successfully."
+                    new OA\Schema(
+                        properties: [
+                            new OA\Property(
+                                property: "success",
+                                type: "boolean",
+                                example: true
+                            ),
+                            new OA\Property(
+                                property: "message",
+                                type: "string",
+                                example: "TicketAdmin deleted successfully."
+                            )
+                        ]
                     )
                 ]
             )
@@ -92,7 +92,7 @@ use OpenApi\Attributes as OA;
             response: 404,
             description: "Admin not found",
             content: new OA\JsonContent(
-                ref: "#/components/schemas/NotFoundError"
+                ref: "#/components/schemas/ModelNotFoundError"
             )
         )
     ]

@@ -4,16 +4,21 @@ namespace App\OpenApi\Paths\Admin\Auth;
 
 use OpenApi\Attributes as OA;
 
-#[OA\Post(
-    path: "/api/admin/auth/logout",
-    description: "Logout the authenticated admin and revoke the current Sanctum access token.",
-    summary: "Admin Logout",
-    security: [["sanctumAuth" => []]],
+#[OA\Patch(
+    path: "/api/admin/auth/change-password",
+    description: "Change password an admin user.",
+    summary: "Change Admin Password",
+    requestBody: new OA\RequestBody(
+        required: true,
+        content: new OA\JsonContent(
+            ref: "#/components/schemas/AdminChangePasswordRequest"
+        )
+    ),
     tags: ["Admin/Auth"],
     responses: [
         new OA\Response(
             response: 200,
-            description: "Successfully logged in",
+            description: "Password changed successfully",
             content: new OA\JsonContent(
                 properties: [
                     new OA\Property(
@@ -24,7 +29,7 @@ use OpenApi\Attributes as OA;
                     new OA\Property(
                         property: "message",
                         type: "string",
-                        example: "Successfully logged out."
+                        example: "Password changed successfully."
                     )
                 ]
             )
@@ -35,10 +40,17 @@ use OpenApi\Attributes as OA;
             content: new OA\JsonContent(
                 ref: "#/components/schemas/UnauthenticatedError"
             )
+        ),
+        new OA\Response(
+            response: 422,
+            description: "Validation Error",
+            content: new OA\JsonContent(
+                ref: "#/components/schemas/ValidationError"
+            )
         )
     ]
 )]
-class Logout
+class ChangePassword
 {
 
 }
