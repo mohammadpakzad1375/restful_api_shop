@@ -37,15 +37,15 @@ use App\Http\Controllers\Api\Admin\User\RoleController;
 use Illuminate\Support\Facades\Route;
 
 
-Route::post('admin/auth/login', [AdminAuthController::class,'login']);
+Route::middleware('throttle:login')->post('admin/auth/login', [AdminAuthController::class,'login']);
 
-Route::prefix('admin')->middleware(['auth:sanctum', 'admin.token.activity'])->group(function (){
+Route::prefix('admin')->middleware(['auth:sanctum', 'admin.token.activity', 'throttle:api'])->group(function (){
 
     Route::prefix('auth')->group(function () {
 
-        Route::post('/logout', [AdminAuthController::class,'logout']);
+            Route::post('/logout', [AdminAuthController::class,'logout']);
 
-    });
+        });
 
     Route::prefix('market')->group(function () {
 

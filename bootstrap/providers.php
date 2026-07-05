@@ -3,5 +3,6 @@
 return [
     App\Providers\AppServiceProvider::class,
     App\Providers\ImageServiceProvider::class,
+    App\Providers\RateLimitServiceProvider::class,
     App\Providers\RestfulApiServiceProvider::class,
 ];

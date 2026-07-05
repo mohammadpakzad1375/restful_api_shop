@@ -23,6 +23,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+
+        // for determine comment is for post or product
         Route::bind('comment', function ($value, $route) {
 
             $query = Comment::whereKey($value);
