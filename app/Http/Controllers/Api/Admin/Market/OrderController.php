@@ -24,13 +24,11 @@ class OrderController extends Controller
      */
     public function all()
     {
-        return new OrderPaymentStatusMail(Order::find(1));
+        $result = $this->orderService->showAllOrders();
 
-//        $result = $this->orderService->showAllOrders();
-//
-//        return ApiResponse::withData(OrderApiResourceCollection::make($result->data))
-//            ->build()
-//            ->response($result->success);
+        return ApiResponse::withData(OrderApiResourceCollection::make($result->data))
+            ->build()
+            ->response($result->success);
     }
 
     public function newOrder()
