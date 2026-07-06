@@ -1,7 +1,6 @@
 <?php
 
 use App\Http\Controllers\Api\Admin\Auth\AdminAuthController;
-use App\Http\Controllers\Api\Admin\Auth\AdminPasswordController;
 use App\Http\Controllers\Api\Admin\Content\CategoryController as ContentCategoryController;
 use App\Http\Controllers\Api\Admin\Content\CommentController as ContentCommentController;
 use App\Http\Controllers\Api\Admin\Content\FAQController;
@@ -46,7 +45,7 @@ Route::prefix('admin')->middleware(['auth:sanctum', 'admin.token.activity', 'thr
 
             Route::post('/logout', [AdminAuthController::class,'logout']);
 
-            Route::patch('/change-password', [AdminPasswordController::class, 'changePassword']);
+            Route::patch('/change-password', [AdminAuthController::class, 'changePassword']);
 
         });
 

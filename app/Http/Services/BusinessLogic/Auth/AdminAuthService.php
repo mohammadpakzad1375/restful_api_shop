@@ -43,4 +43,19 @@ class AdminAuthService
 
         });
     }
+
+    public function changePassword(User $admin, $inputs): ServiceResult
+    {
+        return app(ServiceWrapper::class)(function () use($admin, $inputs) {
+
+            $admin->update([
+                'password' => Hash::make($inputs['password'])
+            ]);
+
+            $admin->tokens()->delete();
+
+            return 'Password changed successfully.';
+
+        });
+    }
 }

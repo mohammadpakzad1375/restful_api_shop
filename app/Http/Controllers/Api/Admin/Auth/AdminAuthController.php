@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\Admin\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ApiRequests\Admin\Auth\ChangePasswordRequest;
 use App\Http\Requests\ApiRequests\Admin\Auth\LoginApiRequest;
 use App\Http\Resources\User\Admin\AdminApiResource;
 use App\Http\Services\BusinessLogic\Auth\AdminAuthService;
@@ -39,6 +40,15 @@ class AdminAuthController extends Controller
     public function logout(Request $request)
     {
         $result = $this->adminAuthService->logout($request->user());
+
+        return ApiResponse::withResponseMessage($result->data)
+            ->build()
+            ->response($result->success);
+    }
+
+    public function changePassword(ChangePasswordRequest $request)
+    {
+        $result = $this->adminAuthService->changePassword($request->user(), $request->validated());
 
         return ApiResponse::withResponseMessage($result->data)
             ->build()
