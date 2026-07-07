@@ -3,6 +3,7 @@
 namespace App\Models\User;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Models\Auth\RefreshToken;
 use App\Models\Market\Copan;
 use App\Models\Ticket\TicketAdmin;
 use Database\Factories\UserFactory;
@@ -18,6 +19,16 @@ class User extends Authenticatable implements JWTSubject
 {
     /** @use HasFactory<UserFactory> */
     use HasFactory, Notifiable, HasApiTokens, SoftDeletes;
+
+    public function getJWTIdentifier()
+    {
+        return $this->getKey();
+    }
+
+    public function getJWTCustomClaims(): array
+    {
+        return [];
+    }
 
     /**
      * The attributes that are mass assignable.
@@ -116,13 +127,8 @@ class User extends Authenticatable implements JWTSubject
         return $this->hasMany(Copan::class, 'user_id');
     }
 
-    public function getJWTIdentifier()
+    public function refreshTokens(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
-        return $this->getKey();
-    }
-
-    public function getJWTCustomClaims(): array
-    {
-        return [];
+        return $this->hasMany(RefreshToken::class);
     }
 }
