@@ -13,13 +13,11 @@ class RefreshToken extends Model
         'token',
         'ip_address',
         'user_agent',
-        'last_used_at',
         'expires_at',
         'revoked_at',
     ];
 
     protected $casts = [
-        'last_used_at' => 'datetime',
         'expires_at' => 'datetime',
         'revoked_at' => 'datetime',
     ];

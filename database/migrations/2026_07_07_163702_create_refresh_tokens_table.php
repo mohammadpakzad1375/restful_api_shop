@@ -14,10 +14,9 @@ return new class extends Migration
         Schema::create('refresh_tokens', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained('users')->onUpdate('cascade')->onDelete('cascade');
-            $table->string('token', 255);
+            $table->string('token', 64)->index('token');
             $table->ipAddress('ip_address')->nullable();
             $table->text('user_agent')->nullable();
-            $table->timestamp('last_used_at')->nullable();
             $table->timestamp('expires_at')->useCurrent()->index('expires_at');
             $table->timestamp('revoked_at')->nullable()->index('revoked_at');
             $table->timestamps();
