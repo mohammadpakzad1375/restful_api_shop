@@ -7,6 +7,7 @@ use App\Http\Requests\ApiRequests\Customer\Auth\RefreshApiRequest;
 use App\Http\Requests\ApiRequests\Customer\Auth\SendOtpApiRequest;
 use App\Http\Requests\ApiRequests\Customer\Auth\VerifyOtpApiRequest;
 use App\Http\Services\BusinessLogic\Auth\CustomerAuthService;
+use App\Http\Services\RestfulApi\Facades\ApiResponse;
 use Illuminate\Http\Request;
 
 class CustomerAuthController extends Controller
@@ -17,7 +18,11 @@ class CustomerAuthController extends Controller
 
     public function sendOtp(SendOtpApiRequest $request)
     {
+        $result = $this->customerAuthService->sendOtp($request->validated());
 
+        return ApiResponse::withResponseMessage('OTP sent successfully.')
+            ->build()
+            ->response($result->success);
     }
 
     public function verifyOtp(VerifyOtpApiRequest $request)
