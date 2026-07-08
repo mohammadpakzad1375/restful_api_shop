@@ -34,6 +34,7 @@ use App\Http\Controllers\Api\Admin\User\AdminUserController;
 use App\Http\Controllers\Api\Admin\User\CustomerController;
 use App\Http\Controllers\Api\Admin\User\PermissionController;
 use App\Http\Controllers\Api\Admin\User\RoleController;
+use App\Http\Controllers\Api\Customer\Auth\CustomerAuthController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -236,5 +237,23 @@ Route::prefix('admin')->middleware(['auth:sanctum', 'admin.token.activity', 'thr
     });
 
     Route::apiResource('setting', SettingController::class)->except(['store', 'show', 'destroy'])->names('admin.setting');
+
+});
+
+Route::prefix('customer/auth')->group(function () {
+
+    Route::post('send-otp', [CustomerAuthController::class, 'sendOtp']);
+
+    Route::post('verify-otp', [CustomerAuthController::class, 'verifyOtp']);
+
+    Route::post('refresh', [CustomerAuthController::class, 'refresh']);
+
+    Route::middleware('auth:customer')->group(function () {
+
+        Route::post('logout', [CustomerAuthController::class, 'logout']);
+
+        Route::post('logout-all-devices', [CustomerAuthController::class, 'logoutAllDevices']);
+
+    });
 
 });
