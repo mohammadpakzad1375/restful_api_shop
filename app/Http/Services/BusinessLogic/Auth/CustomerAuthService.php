@@ -116,7 +116,11 @@ class CustomerAuthService
     {
         return app(ServiceWrapper::class)(function () {
 
+            $user = auth('customer')->user();
 
+            $this->refreshTokenService->revokeAll($user);
+
+            auth('customer')->logout();
 
         });
     }

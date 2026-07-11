@@ -78,6 +78,10 @@ class CustomerAuthController extends Controller
 
     public function logoutAllDevices(Request $request)
     {
+        $result = $this->customerAuthService->logoutAllDevices();
 
+        return ApiResponse::withResponseMessage('Successfully logged out in all devices.')
+            ->build()
+            ->response($result->success);
     }
 }
