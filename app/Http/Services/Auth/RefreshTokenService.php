@@ -50,9 +50,22 @@ class RefreshTokenService
     }
 
    //Rotation
-    public function rotate(RefreshToken $refreshToken): array
+    public function rotate(string $plainToken): string|array
     {
-        return DB::transaction(function () use ($refreshToken) {
+        return DB::transaction(function () use ($plainToken) {
+
+            $refreshToken = RefreshToken::where('token', $this->hashToken($plainToken))
+                ->lockForUpdate()
+                ->first();
+
+            if (!$refreshToken)
+                return 'Invalid refresh token.';
+
+            if ($refreshToken->isExpired())
+                return 'Refresh token expired.';
+
+            if ($refreshToken->isRevoked())
+                return 'Refresh token revoked.';
 
             $this->revoke($refreshToken);
 

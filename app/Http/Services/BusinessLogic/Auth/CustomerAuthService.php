@@ -65,11 +65,32 @@ class CustomerAuthService
         });
     }
 
+    //Refresh Access Token
     public function refresh($inputs): ServiceResult
     {
         return app(ServiceWrapper::class)(function () use($inputs) {
 
+            $rotateResult = $this->refreshTokenService
+                ->rotate($inputs['refresh_token']);
 
+            if (is_string($rotateResult))
+                return [
+                    'success' => false,
+                    'message' => $rotateResult
+                ];
+
+            $accessToken = JWTAuth::fromUser($rotateResult['model']->user);
+
+            return [
+                'success' => true,
+                'message' => 'Token refreshed successfully.',
+                'data' => [
+                    'access_token' => $accessToken,
+                    'refresh_token' => $rotateResult['plain_text_token'],
+                    'token_type' => 'Bearer',
+                    'expires_in' => auth('customer')->factory()->getTTL() * 60,
+                ]
+            ];
 
         });
     }
