@@ -39,8 +39,6 @@ class AdminAuthService
 
             $admin->currentAccessToken()->delete();
 
-            return 'Successfully logged out.';
-
         });
     }
 
@@ -53,8 +51,6 @@ class AdminAuthService
             ]);
 
             $admin->tokens()->delete();
-
-            return 'Password changed successfully.';
 
         });
     }

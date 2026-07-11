@@ -69,7 +69,11 @@ class CustomerAuthController extends Controller
 
     public function logout(RefreshApiRequest $request)
     {
+        $result = $this->customerAuthService->logout($request->validated());
 
+        return ApiResponse::withResponseMessage('Successfully logged out.')
+            ->build()
+            ->response($result->success);
     }
 
     public function logoutAllDevices(Request $request)

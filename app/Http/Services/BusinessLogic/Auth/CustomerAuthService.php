@@ -25,7 +25,7 @@ class CustomerAuthService
     {
         return app(ServiceWrapper::class)(function () use($inputs) {
 
-            return $this->otpService->send($inputs['email']);
+            $this->otpService->send($inputs['email']);
 
         });
     }
@@ -99,7 +99,15 @@ class CustomerAuthService
     {
         return app(ServiceWrapper::class)(function () use($inputs) {
 
+            $refreshToken = $this->refreshTokenService->findValid($inputs['refresh_token']);
 
+            if ($refreshToken)
+            {
+                $this->refreshTokenService->revokeForUser($refreshToken);
+
+                //Revoke access token
+                auth('customer')->logout();
+            }
 
         });
     }

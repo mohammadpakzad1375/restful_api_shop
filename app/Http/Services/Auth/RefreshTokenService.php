@@ -80,12 +80,16 @@ class RefreshTokenService
     //Revoke a single refresh token
     public function revoke(RefreshToken $refreshToken): void
     {
-        if ($refreshToken->revoked_at !== null)
-            return;
-
         $refreshToken->update([
             'revoked_at' => now(),
         ]);
+    }
+
+    //Revoke logged in user
+    public function revokeForUser(RefreshToken $refreshToken): void
+    {
+        if ($refreshToken->user_id === auth('customer')->id())
+            $this->revoke($refreshToken);
     }
 
     //Revoke all refresh tokens for using in logout all devices
