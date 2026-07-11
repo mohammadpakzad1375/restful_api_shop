@@ -39,7 +39,7 @@ class OtpService
             ]
         );
 
-        SendOtp::dispatch($plainOtp, $email);;
+        SendOtp::dispatch($plainOtp, $email);
     }
 
     //Verify OTP
@@ -55,7 +55,7 @@ class OtpService
             ];
         }
 
-        if (!$otp->isExpired()) {
+        if ($otp->isExpired()) {
 
             return [
                 'success' => false,
@@ -63,7 +63,7 @@ class OtpService
             ];
         }
 
-        if (!$otp->isUsed()) {
+        if ($otp->isUsed()) {
 
             return [
                 'success' => false,

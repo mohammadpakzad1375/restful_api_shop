@@ -25,9 +25,22 @@ class CustomerAuthController extends Controller
             ->response($result->success);
     }
 
-    public function verifyOtp(VerifyOtpApiRequest $request)
+    public function verifyOtp(VerifyOtpApiRequest $request, \App\Http\Services\RestfulApi\ApiResponse\ApiResponse $apiResponse)
     {
+        $result = $this->customerAuthService->verifyOtp($request->validated());
 
+        if (!$result->data['success']) {
+
+            $apiResponse->setSuccess($result->data['success']);
+            $apiResponse->setResponseStatus(400);
+
+        } else {
+            $apiResponse->setData($result->data['data']);
+        }
+
+        $apiResponse->setResponseMessage($result->data['message']);
+
+        return $apiResponse->response($result->success);
     }
 
     public function refresh(RefreshApiRequest $request)
