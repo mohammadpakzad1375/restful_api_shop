@@ -25,20 +25,7 @@ class CustomerAuthService
     {
         return app(ServiceWrapper::class)(function () use($inputs) {
 
-            $otp = $this->otpService->generateOtpCode();
-
-            OtpCode::updateOrCreate(
-                [
-                    'email' => $inputs['email'],
-                ],
-                [
-                    'code' => $this->otpService->hashOtpCode($otp),
-                    'expires_at' => now()->addMinutes(2),
-                    'used_at' => null,
-                ]
-            );
-
-            SendOtp::dispatch($otp, $inputs['email']);
+            $this->otpService->send($inputs['email']);
 
         });
     }
