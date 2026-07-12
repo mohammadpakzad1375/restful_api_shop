@@ -39,7 +39,7 @@ class AdminAuthController extends Controller
 
     public function logout(Request $request)
     {
-        $result = $this->adminAuthService->logout($request->user());
+        $result = $this->adminAuthService->logout($request->user('sanctum'));
 
         return ApiResponse::withResponseMessage('Successfully logged out.')
             ->build()
@@ -48,7 +48,7 @@ class AdminAuthController extends Controller
 
     public function changePassword(ChangePasswordRequest $request)
     {
-        $result = $this->adminAuthService->changePassword($request->user(), $request->validated());
+        $result = $this->adminAuthService->changePassword($request->user('sanctum'), $request->validated());
 
         return ApiResponse::withResponseMessage('Password changed successfully.')
             ->build()

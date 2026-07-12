@@ -40,7 +40,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('throttle:login')->post('admin/auth/login', [AdminAuthController::class,'login']);
 
-Route::prefix('admin')->middleware(['auth:sanctum', 'admin.token.activity', 'throttle:api'])->group(function (){
+Route::prefix('admin')->middleware(['auth:sanctum', 'admin.token.activity', 'throttle:admin-api'])->group(function (){
 
     Route::prefix('auth')->group(function () {
 
@@ -242,13 +242,19 @@ Route::prefix('admin')->middleware(['auth:sanctum', 'admin.token.activity', 'thr
 
 Route::prefix('customer/auth')->group(function () {
 
-    Route::post('send-otp', [CustomerAuthController::class, 'sendOtp']);
+    Route::post('send-otp', [CustomerAuthController::class, 'sendOtp'])
+        ->middleware('throttle:send-otp');
 
-    Route::post('verify-otp', [CustomerAuthController::class, 'verifyOtp']);
+    Route::post('verify-otp', [CustomerAuthController::class, 'verifyOtp'])
+        ->middleware('throttle:verify-otp');
 
-    Route::post('refresh', [CustomerAuthController::class, 'refresh']);
+    Route::post('refresh', [CustomerAuthController::class, 'refresh'])
+        ->middleware('throttle:refresh-token');
 
-    Route::middleware('auth:customer')->group(function () {
+    Route::middleware([
+        'auth:customer',
+        'throttle:customer-auth',
+    ])->group(function () {
 
         Route::post('logout', [CustomerAuthController::class, 'logout']);
 

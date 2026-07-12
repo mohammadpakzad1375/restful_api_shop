@@ -17,7 +17,7 @@ class CheckAdminTokenActivity
      */
     public function handle(Request $request, Closure $next): Response
     {
-        $user = $request->user();
+        $user = $request->user('sanctum');
 
         if ($user) {
 

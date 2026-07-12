@@ -15,7 +15,7 @@ class NotificationService
     {
         return app(ServiceWrapper::class)(function (){
 
-            $notifications = Auth::user()->notifications()->limit(15)->get();
+            $notifications = Auth::guard('sanctum')->user()->notifications()->limit(15)->get();
 
             Auth::user()->unreadNotifications->markAsRead();
 
@@ -28,7 +28,7 @@ class NotificationService
     {
         return app(ServiceWrapper::class)(function (){
 
-            return Auth::user()->readNotifications()->limit(15)->get();
+            return Auth::guard('sanctum')->user()->readNotifications()->limit(15)->get();
         });
     }
 
@@ -36,9 +36,9 @@ class NotificationService
     {
         return app(ServiceWrapper::class)(function (){
 
-            $unreadNotifications = Auth::user()->unreadNotifications()->limit(15)->get();
+            $unreadNotifications = Auth::guard('sanctum')->user()->unreadNotifications()->limit(15)->get();
 
-            Auth::user()->unreadNotifications->markAsRead();
+            Auth::guard('sanctum')->user()->unreadNotifications->markAsRead();
 
             return $unreadNotifications;
 
@@ -49,7 +49,7 @@ class NotificationService
     {
         return app(ServiceWrapper::class)(function (){
 
-            Auth::user()->notifications()->delete();
+            Auth::guard('sanctum')->user()->notifications()->delete();
 
         });
     }

@@ -29,9 +29,11 @@ class RateLimitServiceProvider extends ServiceProvider
             ], 429, $headers);
         };
 
-        RateLimiter::for('api', function (Request $request) use ($response) {
+        // Admin Limiters
+
+        RateLimiter::for('admin-api', function (Request $request) use ($response) {
             return Limit::perMinute(20)
-                ->by($request->user()?->id ?: $request->ip())
+                ->by($request->user('sanctum')?->id ?: $request->ip())
                 ->response($response);
         });
 
@@ -41,6 +43,42 @@ class RateLimitServiceProvider extends ServiceProvider
 
             return Limit::perMinute(5)->by($identifier.'|'.$request->ip())
                 ->response($response);
+        });
+
+
+        // Customer Limiters
+
+        RateLimiter::for('send-otp', function (Request $request) use ($response) {
+
+            return Limit::perMinutes(10, 5)
+                ->by($request->ip() . '|' . $request->input('email'))
+                ->response($response);
+
+        });
+
+        RateLimiter::for('verify-otp', function (Request $request) use ($response) {
+
+            return [
+                Limit::perMinute(10)->by($request->ip())->response($response),
+                Limit::perMinute(5)->by($request->input('email'))->response($response),
+            ];
+
+        });
+
+        RateLimiter::for('refresh-token', function (Request $request) use ($response) {
+
+            return Limit::perMinute(30)
+                ->by($request->user('customer')?->id ?: $request->ip())
+                ->response($response);
+
+        });
+
+        RateLimiter::for('customer-auth', function (Request $request) use ($response) {
+
+            return Limit::perMinute(10)
+                ->by(optional($request->user('customer'))->id ?: $request->ip())
+                ->response($response);
+
         });
     }
 }
