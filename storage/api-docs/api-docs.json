@@ -8,7 +8,7 @@
         "/api/admin/auth/change-password": {
             "patch": {
                 "tags": [
-                    "Admin/Auth/ChangePassword"
+                    "Admin/Auth"
                 ],
                 "summary": "Change Admin Password",
                 "description": "Change password an admin user.",
@@ -70,7 +70,7 @@
         "/api/admin/auth/login": {
             "post": {
                 "tags": [
-                    "Admin/Auth/Login"
+                    "Admin/Auth"
                 ],
                 "summary": "Admin Login",
                 "description": "Authenticate an admin user and return a Sanctum access token.",
@@ -149,7 +149,7 @@
         "/api/admin/auth/logout": {
             "post": {
                 "tags": [
-                    "Admin/Auth/Login"
+                    "Admin/Auth"
                 ],
                 "summary": "Admin Logout",
                 "description": "Logout the authenticated admin and revoke the current Sanctum access token.",
@@ -10854,6 +10854,444 @@
                     }
                 ]
             }
+        },
+        "/api/customer/auth/logout": {
+            "post": {
+                "tags": [
+                    "Customer/Auth"
+                ],
+                "summary": "Customer Logout",
+                "description": "Logout the authenticated customer user and revoke the current access token and refresh token.",
+                "operationId": "0eb5293d57a08fede9156b692f77b39c",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "refresh_token"
+                                ],
+                                "properties": {
+                                    "refresh_token": {
+                                        "type": "string",
+                                        "example": "77a559be00fe3a4a40afd2de555071e5c0c5ba03f869e43932f43388b566dddb",
+                                        "maxLength": 64,
+                                        "minLength": 64
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successfully logged in",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Successfully logged out."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UnauthenticatedError"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "jwtAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/customer/auth/refresh": {
+            "post": {
+                "tags": [
+                    "Customer/Auth"
+                ],
+                "summary": "Rotate Refresh Token",
+                "description": "Rotate refresh token and retrieve new refresh token and new access token.",
+                "operationId": "46f87eda6adab96a87a01eeaadbf6bf1",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "refresh_token"
+                                ],
+                                "properties": {
+                                    "refresh_token": {
+                                        "type": "string",
+                                        "example": "77a559be00fe3a4a40afd2de555071e5c0c5ba03f869e43932f43388b566dddb",
+                                        "maxLength": 64,
+                                        "minLength": 64
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Token refreshed successfully.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Token refreshed successfully."
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "access_token": {
+                                                    "type": "string",
+                                                    "example": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vMTI3LjAuMC4xOjgwMDAvYXBpL2N1c3RvbWVyL2F1dGgvdmVyaWZ5LW90cCIsImlhdCI6MTc4Mzg1NjI4NiwiZXhwIjoxNzgzODU3MTg2LCJuYmYiOjE3ODM4NTYyODYsImp0aSI6Ik1neFFQN3hBdWpUM0QzUm0iLCJzdWIiOiIyIiwicHJ2IjoiYjkxMjc5OTc4ZjExYWE3YmM1NjcwNDg3ZmZmMDFlMjI4MjUzZmU0OCJ9.x8-Nl9bjZbDmBZmpoX8WGmBK1wlPYVUByQrlYNL6tPc"
+                                                },
+                                                "refresh_token": {
+                                                    "type": "string",
+                                                    "example": "77a559be00fe3a4a40afd2de555071e5c0c5ba03f869e43932f43388b566dddb",
+                                                    "maxLength": 64,
+                                                    "minLength": 64
+                                                },
+                                                "token_type": {
+                                                    "type": "string",
+                                                    "enum": [
+                                                        "Bearer"
+                                                    ]
+                                                },
+                                                "expires_in": {
+                                                    "type": "integer",
+                                                    "enum": [
+                                                        900
+                                                    ]
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Invalid credentials",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "oneOf": [
+                                        {
+                                            "properties": {
+                                                "success": {
+                                                    "type": "boolean",
+                                                    "example": false
+                                                },
+                                                "message": {
+                                                    "type": "string",
+                                                    "enum": [
+                                                        "Invalid refresh token."
+                                                    ]
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        {
+                                            "properties": {
+                                                "success": {
+                                                    "type": "boolean",
+                                                    "example": false
+                                                },
+                                                "message": {
+                                                    "type": "string",
+                                                    "enum": [
+                                                        "Refresh token expired."
+                                                    ]
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        {
+                                            "properties": {
+                                                "success": {
+                                                    "type": "boolean",
+                                                    "example": false
+                                                },
+                                                "message": {
+                                                    "type": "string",
+                                                    "enum": [
+                                                        "Refresh token revoked."
+                                                    ]
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/customer/auth/send-otp": {
+            "post": {
+                "tags": [
+                    "Customer/Auth"
+                ],
+                "summary": "Send Otp Code",
+                "description": "Send otp code for customer user.",
+                "operationId": "d51f5abce2c014924d33ecf9223f6e35",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "email"
+                                ],
+                                "properties": {
+                                    "email": {
+                                        "type": "string",
+                                        "format": "email",
+                                        "example": "mohammad@example.com"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OTP sent successfully.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "OTP sent successfully."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/customer/auth/verify-otp": {
+            "post": {
+                "tags": [
+                    "Customer/Auth"
+                ],
+                "summary": "Verify Otp",
+                "description": "Verify otp code for customer user.",
+                "operationId": "3ba82f151c4758b03fe9c8fe011c8702",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "email",
+                                    "otp"
+                                ],
+                                "properties": {
+                                    "email": {
+                                        "type": "string",
+                                        "format": "email",
+                                        "example": "mohammad@example.com"
+                                    },
+                                    "otp": {
+                                        "type": "integer",
+                                        "example": 123456,
+                                        "maximum": 999999,
+                                        "minimum": 111111
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "User verified successfully.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "User verified successfully."
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "access_token": {
+                                                    "type": "string",
+                                                    "example": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vMTI3LjAuMC4xOjgwMDAvYXBpL2N1c3RvbWVyL2F1dGgvdmVyaWZ5LW90cCIsImlhdCI6MTc4Mzg1NjI4NiwiZXhwIjoxNzgzODU3MTg2LCJuYmYiOjE3ODM4NTYyODYsImp0aSI6Ik1neFFQN3hBdWpUM0QzUm0iLCJzdWIiOiIyIiwicHJ2IjoiYjkxMjc5OTc4ZjExYWE3YmM1NjcwNDg3ZmZmMDFlMjI4MjUzZmU0OCJ9.x8-Nl9bjZbDmBZmpoX8WGmBK1wlPYVUByQrlYNL6tPc"
+                                                },
+                                                "refresh_token": {
+                                                    "type": "string",
+                                                    "example": "77a559be00fe3a4a40afd2de555071e5c0c5ba03f869e43932f43388b566dddb",
+                                                    "maxLength": 64,
+                                                    "minLength": 64
+                                                },
+                                                "token_type": {
+                                                    "type": "string",
+                                                    "enum": [
+                                                        "Bearer"
+                                                    ]
+                                                },
+                                                "expires_in": {
+                                                    "type": "integer",
+                                                    "enum": [
+                                                        900
+                                                    ]
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Invalid credentials",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "oneOf": [
+                                        {
+                                            "properties": {
+                                                "success": {
+                                                    "type": "boolean",
+                                                    "example": false
+                                                },
+                                                "message": {
+                                                    "type": "string",
+                                                    "enum": [
+                                                        "Invalid OTP."
+                                                    ]
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        {
+                                            "properties": {
+                                                "success": {
+                                                    "type": "boolean",
+                                                    "example": false
+                                                },
+                                                "message": {
+                                                    "type": "string",
+                                                    "enum": [
+                                                        "OTP expired."
+                                                    ]
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        {
+                                            "properties": {
+                                                "success": {
+                                                    "type": "boolean",
+                                                    "example": false
+                                                },
+                                                "message": {
+                                                    "type": "string",
+                                                    "enum": [
+                                                        "OTP already used."
+                                                    ]
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ForbiddenError"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
     },
     "components": {
@@ -13965,12 +14403,8 @@
     },
     "tags": [
         {
-            "name": "Admin/Auth/ChangePassword",
-            "description": "Admin/Auth/ChangePassword"
-        },
-        {
-            "name": "Admin/Auth/Login",
-            "description": "Admin/Auth/Login"
+            "name": "Admin/Auth",
+            "description": "Admin/Auth"
         },
         {
             "name": "Admin/Content/Comment",
@@ -14087,6 +14521,10 @@
         {
             "name": "Admin/User/Customer",
             "description": "Admin/User/Customer"
+        },
+        {
+            "name": "Customer/Auth",
+            "description": "Customer/Auth"
         }
     ]
 }

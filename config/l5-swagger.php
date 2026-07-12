@@ -235,6 +235,12 @@ return [
                     'type' => 'http',
                     'scheme' => 'bearer',
                 ],
+                'jwtAuth' => [
+                    'type' => 'http',
+                    'scheme' => 'bearer',
+                    'bearerFormat' => 'JWT',
+                    'description' => 'JWT Access Token. Format: Bearer {access_token}',
+                ],
             ],
             'security' => [
                 /*
