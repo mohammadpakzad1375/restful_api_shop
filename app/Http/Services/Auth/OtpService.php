@@ -52,7 +52,7 @@ class OtpService
             return [
                 'success' => false,
                 'message' => 'Invalid OTP.',
-                'status' => 400
+                'status' => 401
             ];
         }
 
@@ -61,7 +61,7 @@ class OtpService
             return [
                 'success' => false,
                 'message' => 'OTP expired.',
-                'status' => 400
+                'status' => 401
             ];
         }
 
@@ -70,7 +70,7 @@ class OtpService
             return [
                 'success' => false,
                 'message' => 'OTP already used.',
-                'status' => 400
+                'status' => 401
             ];
         }
 
@@ -79,7 +79,7 @@ class OtpService
             return [
                 'success' => false,
                 'message' => 'Invalid OTP.',
-                'status' => 400
+                'status' => 401
             ];
         }
 
@@ -88,7 +88,7 @@ class OtpService
         return [
             'success' => true,
             'message' => 'OTP verified.',
-            'status' => 400
+            'status' => 200
         ];
     }
 }
