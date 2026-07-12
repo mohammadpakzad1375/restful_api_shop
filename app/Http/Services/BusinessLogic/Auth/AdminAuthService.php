@@ -16,7 +16,7 @@ class AdminAuthService
 
             $admin = User::where('email', $inputs['email'])->first();
 
-            if (! $admin or !$admin->isAdmin() or ! Hash::check($inputs['password'], $admin->password)) {
+            if (!$admin or !$admin->isAdmin() or !Hash::check($inputs['password'], $admin->password)) {
 
                 return 'Invalid credentials';
             }

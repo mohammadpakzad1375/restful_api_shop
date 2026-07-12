@@ -39,9 +39,24 @@ class CustomerAuthService
             if (!$verifyResult['success'])
                 return $verifyResult;
 
-            $user = User::firstOrCreate([
-                'email' => $inputs['email'],
-            ]);
+            $user = User::where('email', $inputs['email'])->first();
+
+            if ($user)
+            {
+                if ($user->isAdmin())
+                {
+                    return [
+                        'success' => false,
+                        'message' => 'This action is unauthorized.',
+                        'status' => 403
+                    ];
+                }
+            } else {
+
+                $user = User::create([
+                    'email' => $inputs['email'],
+                ]);
+            }
 
             $accessToken = JWTAuth::fromUser($user);
 
@@ -54,6 +69,7 @@ class CustomerAuthService
             return [
                 'success' => true,
                 'message' => 'User verified successfully.',
+                'status' => 200,
                 'data' => [
                     'access_token' => $accessToken,
                     'refresh_token' => $refreshToken['plain_text_token'],

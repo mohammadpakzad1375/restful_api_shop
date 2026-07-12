@@ -38,13 +38,13 @@ class CustomerAuthController extends Controller
         if (!$result->data['success']) {
 
             $this->apiResponse->setSuccess($result->data['success']);
-            $this->apiResponse->setResponseStatus(400);
 
         } else {
             $this->apiResponse->setData($result->data['data']);
         }
 
         $this->apiResponse->setResponseMessage($result->data['message']);
+        $this->apiResponse->setResponseStatus($result->data['status']);
 
         return $this->apiResponse->response($result->success);
     }

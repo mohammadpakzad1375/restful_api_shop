@@ -14,7 +14,7 @@ class OtpService
     //Generate 6 digit OTP
     public function generateOtpCode(): string
     {
-        return (string) random_int(111111, 999999);
+        return (string)random_int(111111, 999999);
     }
 
     //Hash OTP
@@ -51,7 +51,8 @@ class OtpService
 
             return [
                 'success' => false,
-                'message' => 'Invalid OTP.'
+                'message' => 'Invalid OTP.',
+                'status' => 400
             ];
         }
 
@@ -59,7 +60,8 @@ class OtpService
 
             return [
                 'success' => false,
-                'message' => 'OTP expired.'
+                'message' => 'OTP expired.',
+                'status' => 400
             ];
         }
 
@@ -67,7 +69,8 @@ class OtpService
 
             return [
                 'success' => false,
-                'message' => 'OTP already used.'
+                'message' => 'OTP already used.',
+                'status' => 400
             ];
         }
 
@@ -75,7 +78,8 @@ class OtpService
 
             return [
                 'success' => false,
-                'message' => 'Invalid OTP.'
+                'message' => 'Invalid OTP.',
+                'status' => 400
             ];
         }
 
@@ -83,7 +87,8 @@ class OtpService
 
         return [
             'success' => true,
-            'message' => 'OTP verified.'
+            'message' => 'OTP verified.',
+            'status' => 400
         ];
     }
 }

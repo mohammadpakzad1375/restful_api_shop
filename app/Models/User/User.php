@@ -20,16 +20,6 @@ class User extends Authenticatable implements JWTSubject
     /** @use HasFactory<UserFactory> */
     use HasFactory, Notifiable, HasApiTokens, SoftDeletes;
 
-    public function getJWTIdentifier()
-    {
-        return $this->getKey();
-    }
-
-    public function getJWTCustomClaims(): array
-    {
-        return [];
-    }
-
     /**
      * The attributes that are mass assignable.
      *
@@ -92,6 +82,9 @@ class User extends Authenticatable implements JWTSubject
         );
     }
 
+    public const TYPE_CUSTOMER = 0;
+    public const TYPE_ADMIN = 1;
+
     public function scopeAdmin($query)
     {
         return $query->where('user_type', 1);
@@ -99,7 +92,7 @@ class User extends Authenticatable implements JWTSubject
 
     public function isAdmin(): bool
     {
-        return $this->user_type == 1;
+        return $this->user_type === self::TYPE_ADMIN;
     }
 
     public function scopeCustomer($query)
@@ -109,7 +102,17 @@ class User extends Authenticatable implements JWTSubject
 
     public function isCustomer(): bool
     {
-        return $this->user_type == 0;
+        return $this->user_type == self::TYPE_CUSTOMER;
+    }
+
+    public function getJWTIdentifier()
+    {
+        return $this->getKey();
+    }
+
+    public function getJWTCustomClaims(): array
+    {
+        return [];
     }
 
     public function ticketAdmin(): \Illuminate\Database\Eloquent\Relations\HasOne
