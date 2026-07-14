@@ -14,6 +14,7 @@ class Product extends Model
         'name',
         'introduction',
         'image',
+        'view',
         'weight',
         'length',
         'width',

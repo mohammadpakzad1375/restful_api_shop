@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\DB;
 
 class RefreshTokenService
 {
-    //Refresh token EXP
+    //Refresh token EXP (in days)
     private const REFRESH_TOKEN_TTL = 30;
 
     //Generate refresh token

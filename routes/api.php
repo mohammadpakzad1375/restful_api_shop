@@ -37,7 +37,13 @@ use App\Http\Controllers\Api\Admin\User\RoleController;
 use App\Http\Controllers\Api\Customer\Auth\CustomerAuthController;
 use Illuminate\Support\Facades\Route;
 
-
+/**
+ * Admin
+ *
+ *
+ *
+ *
+ */
 
 Route::prefix('admin/auth')->controller(AdminAuthController::class)->group(function (){
 
@@ -245,6 +251,14 @@ Route::prefix('admin')->middleware(['auth:sanctum', 'admin.token.activity', 'thr
 
 });
 
+/**
+ * Customer
+ *
+ *
+ *
+ *
+ */
+
 Route::prefix('customer/auth')->group(function () {
 
     Route::post('send-otp', [CustomerAuthController::class, 'sendOtp'])
@@ -268,3 +282,4 @@ Route::prefix('customer/auth')->group(function () {
     });
 
 });
+

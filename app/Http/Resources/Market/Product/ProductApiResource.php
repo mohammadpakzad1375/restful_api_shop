@@ -21,6 +21,7 @@ class ProductApiResource extends JsonResource
             'name' => $this->name,
             'introduction' => $this->introduction,
             'image' => $this->image,
+            'view' => $this->view,
             'weight' => $this->weight,
             'length' => $this->length,
             'width' => $this->width,
