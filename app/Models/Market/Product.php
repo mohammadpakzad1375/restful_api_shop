@@ -38,6 +38,11 @@ class Product extends Model
         'published_at' => 'datetime'
     ];
 
+    public function scopeMarketable($query)
+    {
+        return $query->where('marketable', 1);
+    }
+
     public function category(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(ProductCategory::class, 'category_id');

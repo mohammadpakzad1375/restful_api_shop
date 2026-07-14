@@ -62,4 +62,13 @@ class ProductService
 
         });
     }
+
+    public function mostViewProducts()
+    {
+        return app(ServiceWrapper::class)(function () {
+
+            return Product::marketable()->orderdBy('view', 'desc')->limit(10)->get();
+
+        });
+    }
 }
