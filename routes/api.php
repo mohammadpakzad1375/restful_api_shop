@@ -283,3 +283,5 @@ Route::prefix('customer/auth')->group(function () {
 
 });
 
+Route::get('/', [\App\Http\Controllers\Api\Customer\HomeController::class, 'home'])->name('customer.home');
+
