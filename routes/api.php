@@ -38,17 +38,22 @@ use App\Http\Controllers\Api\Customer\Auth\CustomerAuthController;
 use Illuminate\Support\Facades\Route;
 
 
-Route::middleware('throttle:login')->post('admin/auth/login', [AdminAuthController::class,'login']);
+
+Route::prefix('admin/auth')->controller(AdminAuthController::class)->group(function (){
+
+    Route::middleware('throttle:login')->post('admin/auth/login','login');
+
+    Route::middleware('throttle:admin-auth')->group(function (){
+
+        Route::post('/logout','logout');
+
+        Route::patch('/change-password','changePassword');
+
+    });
+
+});
 
 Route::prefix('admin')->middleware(['auth:sanctum', 'admin.token.activity', 'throttle:admin-api'])->group(function (){
-
-    Route::prefix('auth')->group(function () {
-
-            Route::post('/logout', [AdminAuthController::class,'logout']);
-
-            Route::patch('/change-password', [AdminAuthController::class, 'changePassword']);
-
-        });
 
     Route::prefix('market')->group(function () {
 

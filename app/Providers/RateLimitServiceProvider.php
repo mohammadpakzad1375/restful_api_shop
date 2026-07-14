@@ -37,6 +37,12 @@ class RateLimitServiceProvider extends ServiceProvider
                 ->response($response);
         });
 
+        RateLimiter::for('admin-auth', function (Request $request) use ($response) {
+            return Limit::perMinute(10)
+                ->by($request->user('sanctum')?->id ?: $request->ip())
+                ->response($response);
+        });
+
         RateLimiter::for('login', function (Request $request) use ($response) {
 
             $identifier = $request->input('email') ?? $request->input('mobile');
