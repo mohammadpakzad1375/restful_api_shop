@@ -63,7 +63,7 @@ class ProductService
         });
     }
 
-    public function mostViewProducts()
+    public function getMostViewProducts()
     {
         return app(ServiceWrapper::class)(function () {
 

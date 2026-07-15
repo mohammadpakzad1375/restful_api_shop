@@ -24,6 +24,18 @@ class AmazingSale extends Model
         'end_date' => 'datetime'
     ];
 
+    public function scopeActive($query)
+    {
+        return $query
+            ->whereNowOrPast('start_date')
+            ->whereNowOrFuture('end_date');
+    }
+
+    public function isActive(): bool
+    {
+        return $this->start_date->isPast() && $this->end_date->isFuture();
+    }
+
     public function product(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(Product::class, 'product_id');

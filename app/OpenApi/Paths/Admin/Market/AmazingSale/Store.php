@@ -56,7 +56,26 @@ use OpenApi\Attributes as OA;
             response: 403,
             description: "Forbidden",
             content: new OA\JsonContent(
-                ref: "#/components/schemas/ForbiddenError"
+                oneOf: [
+                    new OA\Schema(
+                        ref: "#/components/schemas/ForbiddenError"
+                    ),
+                    new OA\Schema(
+                        properties: [
+                            new OA\Property(
+                                property: 'success',
+                                type: 'boolean',
+                                example: false
+                            ),
+                            new OA\Property(
+                                property: "message",
+                                type: "string",
+                                example: "This action is unauthorized, exists another active amazing sale for this product."
+                            )
+                        ],
+                        type: "object"
+                    )
+                ]
             )
         ),
     ]

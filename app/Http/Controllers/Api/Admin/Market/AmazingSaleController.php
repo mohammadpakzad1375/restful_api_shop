@@ -37,11 +37,22 @@ class AmazingSaleController extends Controller
     {
         $result = $this->amazingSaleService->createAmazingSale($request->validated());
 
-        return ApiResponse::withResponseMessage('AmazingSale created successfully.')
-            ->withResponseStatus(201)
-            ->withData(AmazingSaleApiResource::make($result->data))
-            ->build()
-            ->response($result->success);
+        if (is_string($result->data)) {
+
+            return ApiResponse::withSuccess(false)
+                ->withResponseMessage($result->data)
+                ->withResponseStatus(403)
+                ->build()
+                ->response($result->success);
+
+        } else {
+
+            return ApiResponse::withResponseMessage('AmazingSale created successfully.')
+                ->withResponseStatus(201)
+                ->withData(AmazingSaleApiResource::make($result->data))
+                ->build()
+                ->response($result->success);
+        }
     }
 
     /**
@@ -63,10 +74,21 @@ class AmazingSaleController extends Controller
     {
         $result = $this->amazingSaleService->updateAmazingSale($request->validated(), $amazingSale);
 
-        return ApiResponse::withResponseMessage('AmazingSale updated successfully.')
-            ->withData(AmazingSaleApiResource::make($result->data))
-            ->build()
-            ->response($result->success);
+        if (is_string($result->data)) {
+
+            return ApiResponse::withSuccess(false)
+                ->withResponseMessage($result->data)
+                ->withResponseStatus(403)
+                ->build()
+                ->response($result->success);
+
+        } else {
+
+            return ApiResponse::withResponseMessage('AmazingSale updated successfully.')
+                ->withData(AmazingSaleApiResource::make($result->data))
+                ->build()
+                ->response($result->success);
+        }
     }
 
     /**
