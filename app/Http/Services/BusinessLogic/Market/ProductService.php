@@ -71,4 +71,22 @@ class ProductService
 
         });
     }
+
+    public function getNewestProducts()
+    {
+        return app(ServiceWrapper::class)(function () {
+
+            return Product::marketable()->orderdBy('created_at', 'desc')->limit(10)->get();
+
+        });
+    }
+
+    public function getBestSellingProducts()
+    {
+        return app(ServiceWrapper::class)(function () {
+
+            return Product::marketable()->orderdBy('sold_number', 'desc')->limit(10)->get();
+
+        });
+    }
 }
