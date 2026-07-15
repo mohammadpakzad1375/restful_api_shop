@@ -67,7 +67,7 @@ class ProductService
     {
         return app(ServiceWrapper::class)(function () {
 
-            return Product::marketable()->orderdBy('view', 'desc')->limit(10)->get();
+            return Product::marketable()->orderBy('view', 'desc')->limit(10)->get();
 
         });
     }
@@ -76,7 +76,7 @@ class ProductService
     {
         return app(ServiceWrapper::class)(function () {
 
-            return Product::marketable()->orderdBy('created_at', 'desc')->limit(10)->get();
+            return Product::marketable()->orderBy('created_at', 'desc')->limit(10)->get();
 
         });
     }
@@ -85,7 +85,7 @@ class ProductService
     {
         return app(ServiceWrapper::class)(function () {
 
-            return Product::marketable()->orderdBy('sold_number', 'desc')->limit(10)->get();
+            return Product::marketable()->orderBy('sold_number', 'desc')->limit(10)->get();
 
         });
     }

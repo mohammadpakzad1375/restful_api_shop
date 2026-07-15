@@ -75,7 +75,7 @@ class AmazingSaleService
                 ->join('amazing_sales', 'products.id', '=', 'amazing_sales.product_id')
                 ->whereNowOrPast('amazing_sales.start_date')
                 ->whereNowOrFuture('amazing_sales.end_date')
-                ->with(['amazingSale'])
+                ->with(['amazingSales'])
                 ->orderByDesc('amazing_sales.percentage')
                 ->limit(10)
                 ->get();
