@@ -1,0 +1,73 @@
+<?php
+
+namespace App\OpenApi\Schemas\Ticket\Ticket;
+
+use OpenApi\Attributes as OA;
+
+#[OA\Schema(
+    schema: "TicketDetails",
+    properties: [
+        new OA\Property(
+            property: "id",
+            type: "integer",
+            example: 1),
+        new OA\Property(
+            property: "subject",
+            type: "string",
+            example: "عدم امکان ورود به حساب کاربری"
+        ),
+        new OA\Property(
+            property: "description",
+            type: "string",
+            example: "سلام، از صبح امروز هنگام ورود به حساب کاربری با پیام «نام کاربری یا رمز عبور اشتباه است» مواجه می‌شوم، در حالی که اطلاعات را به‌درستی وارد می‌کنم. همچنین امکان بازیابی رمز عبور نیز برای من کار نمی‌کند. لطفاً این مشکل را بررسی و در صورت امکان راهنمایی کنید."
+        ),
+        new OA\Property(
+            property: "seen",
+            type: "integer",
+            example: 0
+        ),
+        new OA\Property(
+            property: "status",
+            type: "string",
+            example: "open"
+        ),
+        new OA\Property(
+            property: "ticket_admin_id",
+            type: "integer",
+            example: 1
+        ),
+        new OA\Property(
+            property: "ticket_admin",
+            oneOf: [
+                new OA\Schema(ref: "#/components/schemas/Admin"),
+                new OA\Schema(ref: "#/components/schemas/Customer"),
+            ]
+        ),
+        new OA\Property(
+            property: "category",
+            ref: "#/components/schemas/TicketCategory"
+        ),
+        new OA\Property(
+            property: "priority",
+            ref: "#/components/schemas/TicketPriority"
+        ),
+        new OA\Property(
+            property: "parent",
+            example: null,
+            nullable: true
+        ),
+        new OA\Property(
+            property: "answers",
+            type: "array",
+            items: new OA\Items(
+                type: "object"
+            ),
+            example: []
+        )
+    ],
+    type: "object"
+)]
+class TicketDetailsSchema
+{
+
+}

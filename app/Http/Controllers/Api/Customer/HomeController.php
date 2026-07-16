@@ -23,7 +23,8 @@ class HomeController extends Controller
             ->map(fn ($products) => ProductApiResource::collection($products))
             ->all();
 
-        return ApiResponse::withData($data)
+        return ApiResponse::withResponseMessage('Home data retrieved successfully.')
+            ->withData($data)
             ->build()
             ->response($result->success);
     }
