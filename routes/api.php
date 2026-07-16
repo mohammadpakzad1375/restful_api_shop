@@ -21,6 +21,7 @@ use App\Http\Controllers\Api\Admin\Market\OrderController;
 use App\Http\Controllers\Api\Admin\Market\PaymentController;
 use App\Http\Controllers\Api\Admin\Market\ProductColorController;
 use App\Http\Controllers\Api\Admin\Market\ProductController;
+use App\Http\Controllers\Api\Customer\Market\ProductController as CustomerProductController;
 use App\Http\Controllers\Api\Admin\Market\StorageController;
 use App\Http\Controllers\Api\Admin\Notify\EmailController;
 use App\Http\Controllers\Api\Admin\Notify\NotificationController;
@@ -285,3 +286,10 @@ Route::prefix('customer/auth')->group(function () {
 
 Route::get('/', [\App\Http\Controllers\Api\Customer\HomeController::class, 'home'])->name('customer.home');
 
+Route::controller(CustomerProductController::class)->group(function (){
+
+   Route::get('/product/{product}', 'product')->name('customer.market.product.product');
+
+   Route::post('/product/add-comment/{product}', 'addComment')->name('customer.market.product.addComment');
+
+});
