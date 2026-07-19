@@ -17,7 +17,7 @@ class NotificationService
 
             $notifications = Auth::guard('sanctum')->user()->notifications()->limit(15)->get();
 
-            Auth::user()->unreadNotifications->markAsRead();
+            Auth::guard('sanctum')->user()->unreadNotifications->markAsRead();
 
             return $notifications;
 

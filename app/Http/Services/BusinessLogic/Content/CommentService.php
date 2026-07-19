@@ -47,14 +47,4 @@ class CommentService
 
         });
     }
-
-    public function toggleCommentStatus(Comment $comment): ServiceResult
-    {
-        return app(ServiceWrapper::class)(function () use ($comment){
-
-            $comment->toggleStatus();
-            return $comment->refresh()->status;
-
-        });
-    }
 }

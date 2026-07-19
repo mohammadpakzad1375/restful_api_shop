@@ -74,7 +74,7 @@ class ProductApiResource extends JsonResource
                 });
 
             })->values(),
-            'comments' => $this->whenLoaded('comments',function (){
+            'comments' => $this->whenLoaded('approvedComments',function (){
 
                 return CommentApiResourceCollection::make($this->comments);
 

@@ -21,7 +21,7 @@ class PostService
 
     public function createPost($inputs): ServiceResult
     {
-        $inputs['author_id'] = Auth::id();
+        $inputs['author_id'] = Auth::guard('sanctum')->id();
         return app(ServiceWrapper::class)(function () use ($inputs){
 
             $inputs['image'] = ImageService::save($inputs['image'], 'post');

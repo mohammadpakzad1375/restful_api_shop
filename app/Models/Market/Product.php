@@ -78,6 +78,12 @@ class Product extends Model
         return $this->morphMany(Comment::class, 'commentable');
     }
 
+    public function approvedComments(): \Illuminate\Database\Eloquent\Relations\MorphMany
+    {
+        return $this->morphMany(Comment::class, 'commentable')
+            ->approved();
+    }
+
     public function amazingSales(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(AmazingSale::class);

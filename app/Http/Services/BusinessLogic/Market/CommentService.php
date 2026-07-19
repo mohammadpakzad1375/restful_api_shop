@@ -6,6 +6,7 @@ use App\Http\Services\BusinessLogic\Tools\ServiceResult;
 use App\Http\Services\BusinessLogic\Tools\ServiceWrapper;
 use App\Models\Content\Comment;
 use App\Models\Market\Product;
+use Illuminate\Support\Facades\Auth;
 
 class CommentService
 {
@@ -19,6 +20,18 @@ class CommentService
 
             return $comments ;
 
+        });
+    }
+
+    public function createComment($inputs, Product $product): ServiceResult
+    {
+        return app(ServiceWrapper::class)(function () use ($inputs, $product){
+
+            $inputs['author_id'] = Auth::guard('customer')->id();
+            $inputs['commentable_id'] = $product->id;
+            $inputs['commentable_type'] = Product::class;
+
+            return Comment::create($inputs);
         });
     }
 
@@ -46,16 +59,6 @@ class CommentService
 
             $comment->toggleApproved();
             return $comment->refresh()->approved;
-
-        });
-    }
-
-    public function toggleCommentStatus(Comment $comment): ServiceResult
-    {
-        return app(ServiceWrapper::class)(function () use ($comment){
-
-            $comment->toggleStatus();
-            return $comment->refresh()->status;
 
         });
     }

@@ -29,12 +29,7 @@ use OpenApi\Attributes as OA;
             example: 1,
             enum: [0, 1]
         ),
-        new OA\Property(
-            property: "status",
-            type: "integer",
-            example: 1,
-            enum: [0, 1]
-        ),
+
         new OA\Property(
             property: "author",
             ref: "#/components/schemas/User"

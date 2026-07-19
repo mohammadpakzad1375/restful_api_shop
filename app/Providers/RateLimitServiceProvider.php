@@ -86,5 +86,10 @@ class RateLimitServiceProvider extends ServiceProvider
                 ->response($response);
 
         });
+
+        RateLimiter::for('store-comment', function (Request $request) {
+            return Limit::perMinute(2)
+                ->by($request->user()->id);
+        });
     }
 }

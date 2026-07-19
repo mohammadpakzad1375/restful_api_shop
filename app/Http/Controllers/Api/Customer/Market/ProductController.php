@@ -3,17 +3,24 @@
 namespace App\Http\Controllers\Api\Customer\Market;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ApiRequests\Customer\Market\Comment\CommentStoreApiRequest;
 use App\Http\Resources\Market\Product\ProductApiResource;
+use App\Http\Services\BusinessLogic\Market\CommentService;
 use App\Http\Services\BusinessLogic\Market\ProductService;
 use App\Http\Services\RestfulApi\Facades\ApiResponse;
 use App\Models\Market\Product;
-use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
-    public function __construct(private ProductService $productService)
+    private ProductService $productService;
+    private CommentService $commentService;
+
+    public function __construct(ProductService $productService, CommentService $commentService)
     {
+        $this->productService = $productService;
+        $this->commentService = $commentService;
     }
+
 
     public function product(Product $product)
     {
@@ -32,8 +39,12 @@ class ProductController extends Controller
             ->response($result->success);
     }
 
-    public function addComment(Request $request)
+    public function addComment(CommentStoreApiRequest $request, Product $product)
     {
+        $result = $this->commentService->createComment($request->validated(), $product);
 
+        return ApiResponse::withResponseMessage('Product comment created successfully.')
+            ->build()
+            ->response($result->success);
     }
 }

@@ -1,19 +1,39 @@
 <?php
 
-namespace App\OpenApi\Paths\Admin\Content\Comment;
+namespace App\OpenApi\Paths\Customer\Market\Product;
 
 use OpenApi\Attributes as OA;
-
 #[OA\Patch(
-    path: "/api/admin/content/comment/status/{id}",
-    description: "Toggle status a comment by its ID.",
-    summary: "Toggle status a comment",
-    security: [["sanctumAuth" => []]],
-    tags: ["Admin/Content/Comment"],
+    path: "/api/product/add-comment/{id}",
+    description: "Create a comment for a product by its ID.",
+    summary: "Create a product comment",
+    security: [["jwtAuth" => []]],
+    requestBody: new OA\RequestBody(
+        required: true,
+        content: new OA\JsonContent(
+            required: [
+                'body'
+            ],
+            properties:[
+                new OA\Property(
+                    property: "body",
+                    type: "string",
+                    example: "خیلی عالی است.",
+                ),
+                new OA\Property(
+                    property: "parent_id",
+                    type: "integer",
+                    example: "1",
+                    nullable: true
+                )
+            ]
+        )
+    ),
+    tags: ["Customer/Market/Product"],
     parameters: [
         new OA\Parameter(
             name: "id",
-            description: "Comment ID",
+            description: "Product ID",
             in: "path",
             required: true,
             schema: new OA\Schema(
@@ -25,7 +45,7 @@ use OpenApi\Attributes as OA;
     responses: [
         new OA\Response(
             response: 200,
-            description: "Comment status change successfully",
+            description: "Product comment created successfully.",
             content: new OA\JsonContent(
                 properties: [
                     new OA\Property(
@@ -36,7 +56,7 @@ use OpenApi\Attributes as OA;
                     new OA\Property(
                         property: "message",
                         type: "string",
-                        example: "Comment status change successfully. status = 0"
+                        example: "Product comment created successfully."
                     )
                 ]
             )
@@ -57,21 +77,14 @@ use OpenApi\Attributes as OA;
         ),
         new OA\Response(
             response: 404,
-            description: "Comment not found",
+            description: "Product not found",
             content: new OA\JsonContent(
                 ref: "#/components/schemas/ModelNotFoundError"
             )
-        ),
-        new OA\Response(
-            response: 403,
-            description: "Forbidden",
-            content: new OA\JsonContent(
-                ref: "#/components/schemas/ForbiddenError"
-            )
-        ),
+        )
     ]
 )]
-class Status
+class AddComment
 {
 
 }

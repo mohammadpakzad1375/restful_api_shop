@@ -30,12 +30,6 @@ use OpenApi\Attributes as OA;
             enum: [0, 1]
         ),
         new OA\Property(
-            property: "status",
-            type: "integer",
-            example: 1,
-            enum: [0, 1]
-        ),
-        new OA\Property(
             property: "author",
             type: "integer",
             example: 1

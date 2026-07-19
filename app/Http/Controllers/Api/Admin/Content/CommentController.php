@@ -59,13 +59,4 @@ class CommentController extends Controller
             ->build()
             ->response($result->success);
     }
-
-    public function status(Comment $comment)
-    {
-        $result = $this->commentService->toggleCommentStatus($comment);
-
-        return ApiResponse::withResponseMessage("Comment status change successfully. status = {$result->data}")
-            ->build()
-            ->response($result->success);
-    }
 }

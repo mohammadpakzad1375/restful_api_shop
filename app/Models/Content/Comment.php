@@ -22,7 +22,7 @@ class Comment extends Model
         'status'
     ];
 
-    protected $hidden = ['created_at','updated_at','deleted_at'];
+    protected $hidden = [ 'status','created_at','updated_at','deleted_at'];
 
     public function scopeSeen($query)
     {
@@ -34,10 +34,9 @@ class Comment extends Model
         return $query->where('seen', 0);
     }
 
-    public function toggleStatus()
+    public function scopeApproved($query)
     {
-        $this->status = !$this->status;
-        $this->save();
+        return $query->where('approved', 1);
     }
 
     public function toggleApproved()
@@ -64,5 +63,11 @@ class Comment extends Model
     public function answers(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(self::class, 'parent_id');
+    }
+
+    public function approvedAnswers(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(self::class, 'parent_id')
+            ->approved();
     }
 }

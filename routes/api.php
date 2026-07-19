@@ -74,7 +74,6 @@ Route::prefix('admin')->middleware(['auth:sanctum', 'admin.token.activity', 'thr
             Route::get('/{comment}', 'show')->name('admin.market.comment.show');
             Route::delete('/{comment}', 'destroy')->name('admin.market.comment.destroy');
             Route::patch('/approved/{comment}', 'approved')->name('admin.market.comment.approved');
-            Route::patch('/status/{comment}', 'status')->name('admin.market.comment.status');
 
         });
 
@@ -175,7 +174,6 @@ Route::prefix('admin')->middleware(['auth:sanctum', 'admin.token.activity', 'thr
             Route::get('/{comment}', 'show')->name('admin.content.comment.show');
             Route::delete('/{comment}', 'destroy')->name('admin.content.comment.destroy');
             Route::patch('/approved/{comment}', 'approved')->name('admin.content.comment.approved');
-            Route::patch('/status/{comment}', 'status')->name('admin.content.comment.status');
 
         });
 
@@ -290,6 +288,9 @@ Route::controller(CustomerProductController::class)->group(function (){
 
    Route::get('/product/{product}', 'product')->name('customer.market.product.product');
 
-   Route::post('/product/add-comment/{product}', 'addComment')->name('customer.market.product.addComment');
+   Route::middleware([
+       'auth:customer',
+       'throttle:store-comment',
+   ])->post('/product/add-comment/{product}', 'addComment')->name('customer.market.product.addComment');
 
 });

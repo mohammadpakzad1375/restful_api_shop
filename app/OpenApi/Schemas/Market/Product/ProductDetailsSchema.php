@@ -223,7 +223,7 @@ use OpenApi\Attributes as OA;
         ),
         new OA\Property(
             property: "activeAmazingSales",
-            ref: "#/components/schemas/AmazingSale"
+            ref: "#/components/schemas/ProductCommentDetails"
         ),
     ],
     type: "object"

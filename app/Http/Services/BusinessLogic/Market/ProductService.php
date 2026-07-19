@@ -38,9 +38,8 @@ class ProductService
                 'brand',
                 'colors',
                 'gallery',
-                'attributeValue',
                 'attributeValue.attribute',
-                'comments',
+                'approvedComments.approvedAnswers',
                 'amazingSales',
             ]);
 
