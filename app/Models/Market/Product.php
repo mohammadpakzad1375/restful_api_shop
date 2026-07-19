@@ -43,6 +43,11 @@ class Product extends Model
         return $query->where('marketable', 1);
     }
 
+    public function isMarketable(): bool
+    {
+        return  $this->marketable === 1;
+    }
+
     public function category(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(ProductCategory::class, 'category_id');

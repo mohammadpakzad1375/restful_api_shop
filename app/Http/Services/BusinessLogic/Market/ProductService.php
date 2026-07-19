@@ -33,7 +33,16 @@ class ProductService
     {
         return app(ServiceWrapper::class)(function () use ($product){
 
-            return  $product->load(['category', 'brand']);
+            return  $product->load([
+                'category',
+                'brand',
+                'colors',
+                'gallery',
+                'attributeValue',
+                'attributeValue.attribute',
+                'comments',
+                'amazingSales',
+            ]);
 
         });
     }
@@ -86,6 +95,21 @@ class ProductService
         return app(ServiceWrapper::class)(function () {
 
             return Product::marketable()->orderBy('sold_number', 'desc')->limit(10)->get();
+
+        });
+    }
+
+    public function getRelatedProducts(Product $product)
+    {
+        return app(ServiceWrapper::class)(function () use ($product){
+
+            return $product
+                ->category()
+                ->products()
+                ->marketable()
+                ->whereKeyNot($product->id)
+                ->limit(10)
+                ->get();
 
         });
     }

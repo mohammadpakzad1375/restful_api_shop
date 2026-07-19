@@ -2,7 +2,9 @@
 
 namespace App\Http\Resources\Market\Product;
 
+use App\Http\Resources\Market\AmazingSale\AmazingSaleApiResource;
 use App\Http\Resources\Market\Brand\BrandApiResource;
+use App\Http\Resources\Market\Comment\CommentApiResourceCollection;
 use App\Http\Resources\Market\ProductCategory\ProductCategoryApiResource;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
@@ -44,6 +46,49 @@ class ProductApiResource extends JsonResource
                 return BrandApiResource::make($this->brand);
 
             },$this->brand_id),
+            'colors' => $this->whenLoaded('colors',function (){
+
+                return $this->colors;
+
+            }),
+            'gallery' => $this->whenLoaded('gallery',function (){
+
+                return $this->gallery;
+
+            }),
+            'attributeValue' => $this->whenLoaded('attributeValue',function (){
+
+                return $this->attributeValue
+                    ->groupBy('category_attribute_id')
+                    ->map(function ($items){
+                    return [
+                        'category_attribute' => $items->first()->attribute,
+                        'values' => $items->map(function ($item){
+                            return [
+                                'value' => $item->value,
+                                'price_increase' => $item->price_increase,
+                                'type' => $item->type,
+                            ];
+                        })
+                    ];
+                });
+
+            })->values(),
+            'comments' => $this->whenLoaded('comments',function (){
+
+                return CommentApiResourceCollection::make($this->comments);
+
+            }),
+            'activeAmazingSales' => $this->whenLoaded('amazingSales',function (){
+
+                if ($this->amazingSales()->active()->exists())
+                {
+                    $activeAmazingSale = $this->amazingSales()->active()->first();
+
+                    return AmazingSaleApiResource::make($activeAmazingSale);
+                }
+
+            }),
         ];
     }
 }

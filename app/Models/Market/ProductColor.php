@@ -17,7 +17,7 @@ class ProductColor extends Model
         'status',
     ];
 
-    protected $hidden = ['created_at','updated_at','deleted_at'];
+    protected $hidden = ['status','created_at','updated_at','deleted_at'];
 
     public function product(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {

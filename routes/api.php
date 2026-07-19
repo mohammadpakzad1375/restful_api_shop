@@ -48,7 +48,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::prefix('admin/auth')->controller(AdminAuthController::class)->group(function (){
 
-    Route::middleware('throttle:login')->post('admin/auth/login','login');
+    Route::middleware('throttle:login')->post('/login','login');
 
     Route::middleware('throttle:admin-auth')->group(function (){
 

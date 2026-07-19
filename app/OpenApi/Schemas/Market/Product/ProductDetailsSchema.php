@@ -102,7 +102,129 @@ use OpenApi\Attributes as OA;
         new OA\Property(
             property: "brand",
             ref: "#/components/schemas/Brand"
-        )
+        ),
+        new OA\Property(
+            property: "colors",
+            type: "array",
+            items: new OA\Items(
+                properties: [
+                    new OA\Property(
+                        property: "id",
+                        type: "integer"
+                    ),
+                    new OA\Property(
+                        property: "color_name",
+                        type: "string"
+                    ),
+                    new OA\Property(
+                        property: "color_code",
+                        type: "string"
+                    ),
+                    new OA\Property(
+                        property: "product_id",
+                        type: "integer"
+                    ),
+                    new OA\Property(
+                        property: "price_increase",
+                        type: "string"
+                    ),
+                    new OA\Property(
+                        property: "sold_number",
+                        type: "integer"
+                    ),
+                    new OA\Property(
+                        property: "frozen_number",
+                        type: "integer"
+                    ),
+                    new OA\Property(
+                        property: "marketable_number",
+                        type: "integer"
+                    )
+                ],
+                type: "object"
+            ),
+        ),
+        new OA\Property(
+            property: "gallery",
+            type: "array",
+            items: new OA\Items(
+                properties: [
+                    new OA\Property(
+                        property: "id",
+                        type: "integer"
+                    ),
+                    new OA\Property(
+                        property: "image",
+                        type: "string"
+                    ),
+                    new OA\Property(
+                        property: "product_id",
+                        type: "integer"
+                    )
+                ],
+                type: "object"
+            )
+        ),
+        new OA\Property(
+            property: "attributeValue",
+            type: "array",
+            items: new OA\Items(
+                properties: [
+                    new OA\Property(
+                        property: "category_attribute",
+                        properties: [
+                            new OA\Property(
+                                property: "id",
+                                type: "integer"
+                            ),
+                            new OA\Property(
+                                property: "name",
+                                type: "string"
+                            ),
+                            new OA\Property(
+                                property: "unit",
+                                type: "string"
+                            ),
+                            new OA\Property(
+                                property: "category_id",
+                                type: "integer"
+                            )
+                        ],
+                        type: "object"
+                    ),
+                    new OA\Property(
+                        property: "values",
+                        type: "array",
+                        items: new OA\Items(
+                            properties: [
+                                new OA\Property(
+                                    property: "value",
+                                    type: "string"
+                                ),
+                                new OA\Property(
+                                    property: "price_increase",
+                                    type: "string"
+                                ),
+                                new OA\Property(
+                                    property: "type",
+                                    nullable: true
+                                )
+                            ],
+                            type: "object"
+                        )
+                    )
+                ],
+                type: "object"
+            )
+        ),
+        new OA\Property(
+            property: "comments",
+            ref: "#/components/schemas/ProductComment"
+        ),
+        new OA\Property(
+            property: "activeAmazingSales",
+            ref: "#/components/schemas/AmazingSale"
+        ),
     ],
     type: "object"
 )]
