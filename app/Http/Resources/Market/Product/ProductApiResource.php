@@ -71,9 +71,9 @@ class ProductApiResource extends JsonResource
                             ];
                         })
                     ];
-                });
+                })->values();
 
-            })->values(),
+            }),
             'comments' => $this->whenLoaded('approvedComments',function (){
 
                 return CommentApiResourceCollection::make($this->comments);
