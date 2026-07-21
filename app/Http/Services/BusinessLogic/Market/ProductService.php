@@ -103,12 +103,30 @@ class ProductService
         return app(ServiceWrapper::class)(function () use ($product){
 
             return $product
-                ->category()
+                ->category
                 ->products()
                 ->marketable()
                 ->whereKeyNot($product->id)
                 ->limit(10)
                 ->get();
+
+        });
+    }
+
+        public function getProductWithRelated(Product $product)
+    {
+        return app(ServiceWrapper::class)(function () use ($product){
+
+            $productResult = $this->showProduct($product);
+            $relatedProductsResult = $this->getRelatedProducts($product);
+
+            return [
+                'success' => $productResult->success && $relatedProductsResult->success,
+                'data' => [
+                    'product' => $productResult->data,
+                    'relatedProducts' => $relatedProductsResult->data
+                ]
+            ];
 
         });
     }

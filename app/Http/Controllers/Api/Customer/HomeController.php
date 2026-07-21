@@ -24,21 +24,16 @@ class HomeController extends Controller
     {
         $result = $this->homeService->home();
 
-        if ($result->data['success'] && $result->success){
-
-            $data = collect($result->data['data'])
-                ->map(fn ($products) => ProductApiResource::collection($products))
-                ->all();
-
-            $this->apiResponse->setResponseMessage('Home data retrieved successfully.');
-            $this->apiResponse->setData($data);
-
-            return $this->apiResponse->response(true);
-
-        } else {
-
+        if (!$result->data['success'] || !$result->success)
             return $this->apiResponse->response(false);
-        }
 
+        $data = collect($result->data['data'])
+            ->map(fn ($products) => ProductApiResource::collection($products))
+            ->all();
+
+        $this->apiResponse->setResponseMessage('Home data retrieved successfully.');
+        $this->apiResponse->setData($data);
+
+        return $this->apiResponse->response(true);
     }
 }

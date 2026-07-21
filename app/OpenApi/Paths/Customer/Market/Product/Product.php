@@ -33,9 +33,14 @@ use OpenApi\Attributes as OA;
                         example: true
                     ),
                     new OA\Property(
-                        property: "data",
+                        property: "product",
                         ref: "#/components/schemas/ProductDetails"
-                    )
+                    ),
+                    new OA\Property(
+                        property: "relatedProducts",
+                        type: "array",
+                        items: new OA\Items(ref: "#/components/schemas/Product")
+                    ),
                 ],
                 type: "object"
             )
